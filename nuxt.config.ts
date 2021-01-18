@@ -128,7 +128,7 @@ const config: Configuration = {
   privateRuntimeConfig: {},
   pwa: {
     icon: {
-      fileName: 'logo.png',
+      fileName: 'images/bancannapp.png',
     },
   },
   srcDir: 'src',
