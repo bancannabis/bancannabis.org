@@ -15,6 +15,10 @@
         @change.prevent="onClick"
         @focus="focus = true"
         @blur="focus = false"
+        v-on="{
+          ...$listeners,
+          click: onClick,
+        }"
       />
       <div :class="$style.container" @click.prevent="onClick">
         <div :class="$style.handle" :aria-checked="isChecked ? 'true' : 'false'" role="checkbox" />
@@ -28,6 +32,7 @@
 import { computed, defineComponent, ref } from '@vue/composition-api';
 import { ValidationProvider } from 'vee-validate';
 import { getDomRef } from '@/composables/get-dom-ref';
+import { IItem } from '@/interfaces/IItem';
 
 export default defineComponent({
   name: 'VueToggle',
@@ -40,9 +45,10 @@ export default defineComponent({
   props: {
     id: { type: String, required: true },
     name: { type: String, required: true },
-    label: { type: String, required: true },
+    label: { type: String, required: false },
     required: { type: Boolean, default: false },
     validation: { type: [String, Object], default: null },
+    value: { type: [String, Number, Boolean, Object], default: null },
     disabled: { type: Boolean, default: false },
     checked: { type: Boolean, default: false },
   },
@@ -50,10 +56,11 @@ export default defineComponent({
     const input = getDomRef(null);
     const focus = ref(false);
     const isChecked = computed(() => props.checked);
+
     const onClick = () => {
       input.value.focus();
       focus.value = true;
-
+      
       if (!props.disabled) {
         emit('click', !props.checked);
       }
@@ -103,7 +110,7 @@ export default defineComponent({
   border-radius: $toggle-handle-border-radius;
   width: $toggle-handle-size;
   height: $toggle-handle-size;
-  background: $toggle-handle-bg;
+  background: #9f10ca;
   box-shadow: $toggle-handle-shadow;
   position: absolute;
   top: -($toggle-handle-size * 0.25);
@@ -114,7 +121,7 @@ export default defineComponent({
 .checked {
   .handle {
     transform: translateX($toggle-width - $toggle-handle-size);
-    background: $toggle-handle-checked-bg;
+    background: #121619;
   }
 }
 

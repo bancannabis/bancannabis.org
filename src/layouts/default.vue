@@ -5,7 +5,15 @@
     <vue-nav-bar>
       <template v-if="user" slot="middle"> Hello, {{ user.name }}! </template>
 
-      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true"> Login </vue-button>
+      <vue-button
+        slot="right"
+        :class="$style.button"
+        style="background:#efe58a;"
+        color="purple"
+        @click="redirectToSale()"
+      >
+        {{ $t('auth.LoginForm.bca') }}
+      </vue-button>
 
       <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button>
     </vue-nav-bar>
@@ -15,22 +23,16 @@
     <vue-footer />
 
     <vue-sidebar>
-      <vue-sidebar-group title="Themes">
-        <vue-sidebar-group-item>
-          <vue-select id="theme" label="Theme" name="theme" :items="themes" :value="theme" @input="onThemeChange" />
-        </vue-sidebar-group-item>
-      </vue-sidebar-group>
 
       <vue-sidebar-group title="Languages">
         <vue-sidebar-group-item>
-          <vue-select
+             <vue-select
             id="lang"
-            label="Languages"
             name="lang"
             :items="languages"
             :value="$i18n.locale"
             @input="onLocaleSwitch"
-          />
+         />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
@@ -40,67 +42,52 @@
           Home
         </vue-sidebar-group-item>
 
-        <vue-sidebar-group-item :to="{ name: 'example-counter' }">
-          <vue-icon-hashtag />
-          VueX Example
-        </vue-sidebar-group-item>
-
-        <vue-sidebar-group-item :to="{ name: 'example-form' }">
-          <vue-icon-hashtag />
-          Form Example
-        </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group title="Documentation">
-        <vue-sidebar-group-item>
-          <a href="https://vuesion.github.io/docs/en/">
-            <vue-icon-book />
-            Documentation
-          </a>
-        </vue-sidebar-group-item>
-
-        <vue-sidebar-group-item>
-          <a href="/storybook/?path=/story/design-system-design-system--intro">
-            <vue-icon-book />
-            Design System
-          </a>
-        </vue-sidebar-group-item>
-
-        <vue-sidebar-group-item>
-          <a href="/storybook/?path=/story/atoms-badge--badge-variants">
+         <vue-sidebar-group-item>
+          <a href="docs/white_paper_bancannabis_esp.pdf" target="_blank" rel="noopener noreferrer" download>
             <vue-icon-puzzle-piece />
-            Components
+            White Paper Bancannabis Español
+          </a>
+        </vue-sidebar-group-item>
+        <vue-sidebar-group-item>
+          <a href="docs/white_paper_bancannabis_eng.pdf" target="_blank" rel="noopener noreferrer" download>
+            <vue-icon-puzzle-piece />
+            White Paper Bancannabis English
           </a>
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group title="Community">
         <vue-sidebar-group-item>
-          <a href="https://github.com/vuesion/vuesion" target="_blank" rel="noopener">
-            <vue-icon-github />
-            Github
-          </a>
-        </vue-sidebar-group-item>
+            <a href="https://github.com/bancannabis" target="_blank" rel="noopener noreferrer">
+              <vue-icon-github />
+              Github
+            </a>
+          </vue-sidebar-group-item>
 
-        <vue-sidebar-group-item>
-          <a href="https://discord.gg/59x5cg2" target="_blank" rel="noopener"> Discord </a>
-        </vue-sidebar-group-item>
+          <vue-sidebar-group-item>
+            <a href="https://twitter.com/bancannabis" target="_blank" rel="noopener noreferrer">
+              <vue-icon-twitter-square />
+              Twitter
+            </a>
+          </vue-sidebar-group-item>
 
+          <vue-sidebar-group-item>
+            <a href="https://discord.gg/9rDVgJkT" target="_blank" rel="noopener noreferrer">
+              <vue-icon-discord />
+              Discord
+            </a>
+          </vue-sidebar-group-item>
+      </vue-sidebar-group>
+   
+      <vue-sidebar-group title="Theme">
         <vue-sidebar-group-item>
-          <a href="https://slack-vuesion.herokuapp.com/" target="_blank" rel="noopener"> Slack </a>
-        </vue-sidebar-group-item>
-
-        <vue-sidebar-group-item>
-          <a href="https://chat.vuejs.org/" target="_blank" rel="noopener"> VueLand </a>
-        </vue-sidebar-group-item>
-
-        <vue-sidebar-group-item>
-          <a href="https://twitter.com/vuesion1" target="_blank" rel="noopener">
-            <vue-icon-twitter-square />
-            Twitter
-          </a>
+          <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> {{ theme }}
         </vue-sidebar-group-item>
       </vue-sidebar-group>
+
     </vue-sidebar>
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
@@ -124,10 +111,12 @@ import VueIconCode from '@/components/atoms/icons/VueIconCode/VueIconCode.vue';
 import VueIconBook from '@/components/atoms/icons/VueIconBook/VueIconBook.vue';
 import VueIconHashtag from '@/components/atoms/icons/VueIconHashtag/VueIconHashtag.vue';
 import VueIconGithub from '@/components/atoms/icons/VueIconGithub/VueIconGithub.vue';
+import VueIconDiscord from '@/components/atoms/icons/VueIconDiscord/VueIconDiscord.vue';
 import VueIconTwitterSquare from '@/components/atoms/icons/VueIconTwitterSquare/VueIconTwitterSquare.vue';
 import VueSelect from '@/components/atoms/VueSelect/VueSelect.vue';
 import VueIconPuzzlePiece from '@/components/atoms/icons/VueIconPuzzlePiece/VueIconPuzzlePiece.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
+import VueToggle from '@/components/atoms/VueToggle/VueToggle.vue';
 import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
@@ -138,11 +127,13 @@ export default defineComponent({
     LoginForm,
     VueModal,
     VueButton,
+    VueToggle,
     VueIconPuzzlePiece,
     VueSelect,
     VueIconTwitterSquare,
     VueIconGithub,
     VueIconHashtag,
+    VueIconDiscord,
     VueIconBook,
     VueIconCode,
     VueSidebarGroupItem,
@@ -152,15 +143,24 @@ export default defineComponent({
     VueFooter,
     VueNotificationStack,
   },
+  data() {
+    return { checked: false }
+  },
+  methods: {
+    redirectToSale() {
+      window.open('https://e-groweed.com/grower/', '_blank');
+    },
+  },
   setup() {
     const { store, redirect, app } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
     const languages = computed(() => [
       { label: 'English', value: 'en' },
-      { label: 'Deutsch', value: 'de' },
+      { label: 'Español', value: 'es' },
+/*       { label: 'Deutsch', value: 'de' },
       { label: 'Português', value: 'pt' },
-      { label: '中文', value: 'zh-cn' },
+      { label: '中文', value: 'zh-cn' }, */
     ]);
     const themes = computed(() => [
       { label: 'Light Theme', value: 'light' },
@@ -175,7 +175,12 @@ export default defineComponent({
     const onLocaleSwitch = (selectedLocale: string) => {
       switchLocaleTo(selectedLocale);
     };
-    const onThemeChange = async (selectedTheme: string) => {
+    const onThemeChange = async (selectedTheme: any) => {
+      if( selectedTheme == false){
+       selectedTheme = 'light' 
+      }else{
+        selectedTheme = 'dark' 
+      }
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
     };
@@ -241,6 +246,15 @@ export default defineComponent({
 
 .content {
   flex: 1;
+}
+
+.button {
+  color: #520978 !important;
+  &:hover {
+    background: #9182dd !important;
+    color: #efe58a !important;
+    border-color: #520978 !important;
+  }
 }
 
 .logo {

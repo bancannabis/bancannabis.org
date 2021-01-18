@@ -64,7 +64,7 @@ const config: Configuration = {
   css: [],
   head: {
     title: process.env.npm_package_name || '',
-    link: [{ rel: 'stylesheet', href: 'https://fonts.googleapis.com/css?family=Inter:200,400,600&display=swap' }],
+    link: [{ rel: 'icon', type: 'image/x-icon', href: '/favicon.ico' }],
   },
   i18n: {
     strategy: 'no_prefix',
@@ -73,6 +73,10 @@ const config: Configuration = {
       {
         code: 'en',
         file: 'en.json',
+      },
+      {
+        code: 'es',
+        file: 'es.json',
       },
       {
         code: 'de',

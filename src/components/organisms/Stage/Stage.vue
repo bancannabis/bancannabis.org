@@ -1,47 +1,47 @@
 <template>
   <div ref="stage" :class="$style.stage">
-    <canvas ref="canvas" :class="$style.canvas" />
+    <div :class="$style.canvas" ref="canvas" id="particles-js"></div>
 
     <vue-grid :class="$style.content" with-vertical-space text-align="center">
       <vue-grid-row>
         <vue-grid-column>
-          <img src="logo.png" alt="vuesion" />
+          <img src="images/bancannapp.png" alt="vuesion" />
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-headline level="1"> vuesion </vue-headline>
+          <vue-headline level="1"> BANCANNABIS.ORG </vue-headline>
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <div :class="$style.subTitle">
+          <div :class="$style.subTittle">
             {{
               $t(
-                'App.core.description' /* The most complete boilerplate for production-ready PWAs. With focus on performance, development speed, and best practices */,
+                'App.core.description'
               )
             }}
-          </div>
+            <div class="console-container">
+                <span id="text"></span>|
+                <div class="console-underscore hidden" id="console"></div>
+            </div>
+          </div> 
+          
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <a
-            :class="$style.github"
-            href="https://github.com/vuesion/vuesion"
-            target="_blank"
-            rel="noopener"
-            aria-label="vuesion github repository"
-          >
-            <vue-icon-github />
-          </a>
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
+    <script src="js/particles.js"></script>
+    <script src="js/code.js"></script>
   </div>
+  
 </template>
 
 <script lang="ts">
@@ -63,8 +63,8 @@ export default {
   },
   mounted() {
     this.handleResize();
+       /* CircleAnimation(this.$refs.canvas); */
 
-    CircleAnimation(this.$refs.canvas);
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize);
@@ -96,7 +96,8 @@ export default {
   overflow: hidden;
   position: relative;
   text-shadow: 0 0 5px rgba(15, 15, 15, 0.4);
-  padding-top: $nav-bar-height;
+  padding-top: $space-84;
+  align-content: center;
 
   img {
     max-width: $space-128;
@@ -143,6 +144,63 @@ export default {
 @include mediaMin(tabletLandscape) {
   .stage {
     min-height: 60vh;
+  }
+}
+
+.subTittle {
+  font-weight: 800;
+
+  .console-container {
+    font-family: Khula;
+    font-size: 4em;
+    text-align: center;
+    height: 600px;
+    width: 600px;
+    display: block;
+    position: absolute;
+    color: white;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    margin-bottom: 10px;
+  }
+  .console-underscore {
+    display: inline-block;
+    position: absolute;
+    top: -0.14em;
+    left: 10px;
+  }
+}
+
+.canvas {
+  width: 100%;
+  position: absolute;
+  background-color: transparent;
+  left: 0;
+  top: 0;
+  z-index: -1;
+
+  @include mediaMin(tabletPortrait) {
+    min-height: 50vh;
+  }
+}
+
+.github {
+  font-size: $font-size-h1;
+  display: inline-block;
+  color: #64b15e;
+  border-radius: 50%;
+
+  &:hover {
+    color: #54057b;
+    box-shadow: black;
+  }
+
+  i {
+    height: $font-size-h1;
+    width: $font-size-h1;
   }
 }
 </style>

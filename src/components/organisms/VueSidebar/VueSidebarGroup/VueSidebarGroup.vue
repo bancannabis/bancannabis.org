@@ -12,7 +12,7 @@ export default {
   name: 'VueSidebarGroup',
   props: {
     title: {
-      required: true,
+      required: false,
       type: String,
     },
   },
