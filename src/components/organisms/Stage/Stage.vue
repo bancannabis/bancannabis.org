@@ -55,7 +55,33 @@ import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 export default {
   components: { VueHeadline, VueIconGithub, VueGridColumn, VueGridRow, VueGrid },
   data() {
-    return {};
+    return {
+          isParticlesJSLoaded: false,
+        }
+  },
+  head() {
+        return {
+          title: 'Payment Page - My awesome project',
+          script: [
+            {
+              hid: 'particlesJS',
+              src: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js',
+              defer: true,
+              // Changed after load
+              callback: () => { this.isParticlesJSLoaded = true } 
+            },
+            {
+              hid: 'particles',
+              src: 'js/particles.js',
+              defer: true,
+            },
+            {
+              hid: 'code',
+              src: 'js/code.js',
+              defer: true,
+            }
+          ]
+        }
   },
   computed: {},
   beforeMount() {

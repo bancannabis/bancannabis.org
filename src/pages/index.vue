@@ -39,7 +39,6 @@
         </vue-grid-row>
       </vue-grid>
     </home-section>
-
   </div>
 </template>
 
