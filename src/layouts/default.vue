@@ -84,7 +84,7 @@
    
       <vue-sidebar-group>
         <vue-sidebar-group-item :class="$style.theme">
-           🌕 <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> 🌒
+            &nbsp; 🌗 <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> 
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
