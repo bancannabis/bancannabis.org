@@ -65,7 +65,7 @@ export default {
   },
   head() {
     return {
-      title: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+      title: 'BANCANNABIS.ORG | The Open Community in Cannabis Ecosystem',
       meta: [
         {
           name: 'description',

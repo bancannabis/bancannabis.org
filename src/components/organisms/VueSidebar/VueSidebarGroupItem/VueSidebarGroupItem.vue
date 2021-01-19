@@ -38,7 +38,8 @@ export default {
 
     &:hover {
       color: $sidebar-group-item-hover-color;
-      background: $sidebar-group-item-hover-bg;
+      background:  #9182dd;
+      border-radius: 10px;
     }
 
     i {

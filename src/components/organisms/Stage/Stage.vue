@@ -61,7 +61,7 @@ export default {
   },
   head() {
         return {
-          title: 'Payment Page - My awesome project',
+          title: 'BANCANNABIS.ORG',
           script: [
             {
               hid: 'particlesJS',

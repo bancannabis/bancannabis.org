@@ -82,9 +82,9 @@
           </vue-sidebar-group-item>
       </vue-sidebar-group>
    
-      <vue-sidebar-group title="Theme">
-        <vue-sidebar-group-item>
-          <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> {{ theme }}
+      <vue-sidebar-group>
+        <vue-sidebar-group-item :class="$style.theme">
+           🌕 <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> 🌒
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
@@ -242,6 +242,10 @@ export default defineComponent({
   min-height: 100vh;
   display: flex;
   flex-direction: column;
+}
+.theme{
+  top: 2vh;
+  position: relative;
 }
 
 .content {
