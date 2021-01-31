@@ -9,7 +9,7 @@
         slot="right"
         :class="$style.button"
         style="background:#efe58a;"
-        color="purple"
+        color="primary"
         @click="redirectToSale()"
       >
         {{ $t('auth.LoginForm.bca') }}
@@ -23,16 +23,9 @@
     <vue-footer />
 
     <vue-sidebar>
-
       <vue-sidebar-group title="Languages">
         <vue-sidebar-group-item>
-             <vue-select
-            id="lang"
-            name="lang"
-            :items="languages"
-            :value="$i18n.locale"
-            @input="onLocaleSwitch"
-         />
+          <vue-select id="lang" name="lang" :items="languages" :value="$i18n.locale" @input="onLocaleSwitch" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
@@ -41,11 +34,10 @@
           <vue-icon-code />
           Home
         </vue-sidebar-group-item>
-
       </vue-sidebar-group>
 
       <vue-sidebar-group title="Documentation">
-         <vue-sidebar-group-item>
+        <vue-sidebar-group-item>
           <a href="docs/white_paper_bancannabis_esp.pdf" target="_blank" rel="noopener noreferrer" download>
             <vue-icon-puzzle-piece />
             White Paper Bancannabis Español
@@ -61,33 +53,32 @@
 
       <vue-sidebar-group title="Community">
         <vue-sidebar-group-item>
-            <a href="https://github.com/bancannabis" target="_blank" rel="noopener noreferrer">
-              <vue-icon-github />
-              Github
-            </a>
-          </vue-sidebar-group-item>
+          <a href="https://github.com/bancannabis" target="_blank" rel="noopener noreferrer">
+            <vue-icon-github />
+            Github
+          </a>
+        </vue-sidebar-group-item>
 
-          <vue-sidebar-group-item>
-            <a href="https://twitter.com/bancannabis" target="_blank" rel="noopener noreferrer">
-              <vue-icon-twitter-square />
-              Twitter
-            </a>
-          </vue-sidebar-group-item>
+        <vue-sidebar-group-item>
+          <a href="https://twitter.com/bancannabis" target="_blank" rel="noopener noreferrer">
+            <vue-icon-twitter-square />
+            Twitter
+          </a>
+        </vue-sidebar-group-item>
 
-          <vue-sidebar-group-item>
-            <a href="https://discord.gg/9rDVgJkT" target="_blank" rel="noopener noreferrer">
-              <vue-icon-discord />
-              Discord
-            </a>
-          </vue-sidebar-group-item>
-      </vue-sidebar-group>
-   
-      <vue-sidebar-group>
-        <vue-sidebar-group-item :class="$style.theme">
-            &nbsp; 🌗 <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange"/> 
+        <vue-sidebar-group-item>
+          <a href="https://discord.gg/Sm4CmV6C2K" target="_blank" rel="noopener noreferrer">
+            <vue-icon-discord />
+            Discord
+          </a>
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
+      <vue-sidebar-group>
+        <vue-sidebar-group-item :class="$style.theme">
+          &nbsp; <vue-toggle name="toggle" id="toggle" v-model="checked" @click="onThemeChange" /> 🌗
+        </vue-sidebar-group-item>
+      </vue-sidebar-group>
     </vue-sidebar>
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
@@ -144,7 +135,7 @@ export default defineComponent({
     VueNotificationStack,
   },
   data() {
-    return { checked: false }
+    return { checked: false };
   },
   methods: {
     redirectToSale() {
@@ -158,7 +149,7 @@ export default defineComponent({
     const languages = computed(() => [
       { label: 'English', value: 'en' },
       { label: 'Español', value: 'es' },
-/*       { label: 'Deutsch', value: 'de' },
+      /*       { label: 'Deutsch', value: 'de' },
       { label: 'Português', value: 'pt' },
       { label: '中文', value: 'zh-cn' }, */
     ]);
@@ -176,10 +167,10 @@ export default defineComponent({
       switchLocaleTo(selectedLocale);
     };
     const onThemeChange = async (selectedTheme: any) => {
-      if( selectedTheme == false){
-       selectedTheme = 'light' 
-      }else{
-        selectedTheme = 'dark' 
+      if (selectedTheme == false) {
+        selectedTheme = 'light';
+      } else {
+        selectedTheme = 'dark';
       }
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
@@ -243,7 +234,7 @@ export default defineComponent({
   display: flex;
   flex-direction: column;
 }
-.theme{
+.theme {
   top: 2vh;
   position: relative;
 }
