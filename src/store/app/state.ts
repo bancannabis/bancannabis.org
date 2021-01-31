@@ -4,7 +4,7 @@ export interface IAppState {
 
 export const AppDefaultState = (): IAppState => {
   return {
-    theme: 'light',
+    theme: 'dark',
   };
 };
 
