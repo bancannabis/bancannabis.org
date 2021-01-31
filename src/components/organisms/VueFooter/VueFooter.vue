@@ -6,12 +6,10 @@
           <small>&copy; Copyright {{ year }} Bancannabis.org</small>
         </vue-grid-column>
 
-        <vue-grid-column>
-         
-        </vue-grid-column>
+        <vue-grid-column> </vue-grid-column>
 
         <vue-grid-column>
-           <small>
+          <small>
             <a href="https://www.linkedin.com/company/bancannabis" target="_blank" rel="noopener noreferrer">
               <img src="images/banca.png" alt="bancannabis.co" /> By bancannabis Team
             </a>
@@ -77,13 +75,12 @@ export default {
   }
 
   a {
-    color: #291e59;
+    color: #9cbe34;
     font-weight: $footer-link-font-weight;
 
     &:hover {
-      color: #9cbe34;
+      color: #291e59;
     }
   }
-
 }
 </style>

@@ -84,7 +84,6 @@
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
       <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
     </vue-modal>
-  
   </div>
 </template>
 
@@ -170,9 +169,9 @@ export default defineComponent({
     };
     const onThemeChange = async (selectedTheme: any) => {
       if (selectedTheme == false) {
-        selectedTheme = 'light';
-      } else {
         selectedTheme = 'dark';
+      } else {
+        selectedTheme = 'light';
       }
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;

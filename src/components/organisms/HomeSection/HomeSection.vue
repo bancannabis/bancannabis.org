@@ -1,11 +1,13 @@
 <template>
-  <div :class="[$style.homeSection, alternative ? $style.alternative : null]" >
+  <div :class="[$style.homeSection, alternative ? $style.alternative : null]">
     <vue-grid space="none">
       <vue-grid-row :class="[flip ? $style.flip : null]">
-        <vue-grid-column tablet-portrait="50%" >
+        <vue-grid-column tablet-portrait="50%">
           <div :class="$style.container" class="container">
-              <vue-image :src="image" :native="false" :class="$style.image" />
-              <div :class="$style.centered" class="centered"><a :class="$style.playbtn" class="play-btn" @click="onClickImage()" ></a></div>
+            <vue-image :src="image" :native="false" :class="$style.image" />
+            <div :class="$style.centered" class="centered">
+              <a :class="$style.playbtn" class="play-btn" @click="onClickImage()"></a>
+            </div>
           </div>
         </vue-grid-column>
         <vue-grid-column tablet-portrait="50%">
@@ -13,16 +15,15 @@
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
-    
-    <div  id ="myModal" :class="$style.modal" class="modal">
+
+    <div id="myModal" :class="$style.modal" class="modal">
       <div :class="$style.modalcontent">
         <span :class="$style.close" class="close" @click="onClickSpan()">&times;</span>
-            <video :class="$style.centeredVideo" width="600" height="600" controls autoplay>
-            <source src="video/join.mp4" type=video/mp4>
+        <video :class="$style.centeredVideo" width="600" height="600" controls autoplay>
+          <source src="video/join.mp4" type=video/mp4>
         </video>
       </div>
     </div>
-
   </div>
 </template>
 
@@ -45,41 +46,39 @@ export default {
 
   methods: {
     onClickImage() {
-      this.showVideoModal = false
-      var modal = document.getElementById("myModal");
-      modal.style.display = "block";
+      this.showVideoModal = false;
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'block';
     },
     onClickSpan() {
-      var modal = document.getElementById("myModal");
-      modal.style.display = "none";
-    }
+      var modal = document.getElementById('myModal');
+      modal.style.display = 'none';
+    },
   },
-  setup(){  
+  setup() {
     const showVideoModal = ref(false);
     return {
-        showVideoModal,
-      };  
-  }
+      showVideoModal,
+    };
+  },
 };
 </script>
 
 <style lang="scss" module>
 @import '~@/assets/design-system';
 
-
 /* modal */
 .modal {
-  position: fixed; 
-  z-index: 1; 
+  position: fixed;
+  z-index: 1;
   padding-top: 100px;
   left: 0;
   top: 0;
-  width: 100%; 
-  height: 100%; 
+  width: 100%;
+  height: 100%;
   overflow: auto;
   display: none;
-  background-color: rgba(0,0,0,0.4);
-
+  background-color: rgba(0, 0, 0, 0.4);
 }
 .centeredVideo {
   position: absolute;
@@ -90,13 +89,13 @@ export default {
 }
 
 .modalcontent {
-  background-color:  transparent;
+  background-color: transparent;
   margin: auto;
   padding: 20px;
   width: 80%;
 }
 .close {
-  color: #670eaf;
+  color: rgb(18, 207, 34);
   float: right;
   font-size: 60px;
   font-weight: bold;
@@ -104,7 +103,7 @@ export default {
 
 .close:hover,
 .close:focus {
-  color: rgb(18, 207, 34);
+  color: #663aab;
   text-decoration: none;
   cursor: pointer;
 }
@@ -125,7 +124,7 @@ export default {
 .playbtn {
   width: 100px;
   height: 100px;
-  background: radial-gradient( rgba(134, 17, 180, 0.8) 60%, rgb(86, 15, 167) 62%);
+  background: radial-gradient(rgba(134, 17, 180, 0.8) 60%, rgb(86, 15, 167) 62%);
   border-radius: 50%;
   position: relative;
   display: block;
@@ -135,7 +134,7 @@ export default {
 
 /* triangle */
 .playbtn::after {
-  content: "";
+  content: '';
   position: absolute;
   left: 50%;
   top: 50%;
@@ -154,7 +153,7 @@ export default {
 
 /* pulse wave */
 .playbtn:before {
-  content: "";
+  content: '';
   position: absolute;
   width: 150%;
   height: 150%;
@@ -170,7 +169,7 @@ export default {
   animation-timing-function: steps;
   opacity: 1;
   border-radius: 50%;
-  border: 5px solid rgba(255, 255, 255, .75);
+  border: 5px solid rgba(255, 255, 255, 0.75);
   top: -30%;
   left: -30%;
   background: rgba(198, 16, 0, 0);
@@ -188,7 +187,6 @@ export default {
     transform: scale(1);
     opacity: 0;
     box-shadow: none;
-
   }
 }
 
@@ -204,7 +202,6 @@ export default {
     transform: scale(1);
     opacity: 0;
     box-shadow: none;
-
   }
 }
 
@@ -228,7 +225,4 @@ export default {
     min-height: 512px;
   }
 }
-
-
-
 </style>

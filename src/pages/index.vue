@@ -2,10 +2,7 @@
   <div>
     <stage />
 
-    <home-section
-      image="images/welcome3.png"
-      flip
-    >
+    <home-section image="images/welcome.png" flip>
       <vue-grid with-vertical-space>
         <vue-grid-row>
           <vue-grid-column>
@@ -24,8 +21,10 @@
           <vue-grid-column>
             <vue-headline level="3">{{ $t('components.home.headline-2') }}</vue-headline>
             <p>
-            {{ $t('components.home.p-2') }}
-            <a href="https://e-groweed.com/" target="_blank" rel="noopener noreferrer"> {{ $t('about.bca.p7') }}</a>.
+              {{ $t('components.home.p-2') }}
+              <a :class="$style.a" href="https://e-groweed.com/" target="_blank" rel="noopener noreferrer">
+                {{ $t('about.bca.p7') }}</a
+              >.
             </p>
           </vue-grid-column>
         </vue-grid-row>
@@ -39,11 +38,7 @@
         </vue-grid-row>
       </vue-grid>
     </home-section>
-
-
-
   </div>
-  
 </template>
 
 <script lang="ts">
@@ -75,8 +70,7 @@ export default {
       meta: [
         {
           name: 'description',
-          content:
-            'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+          content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
         {
           name: 'robots',
@@ -93,13 +87,11 @@ export default {
         { name: 'og:locale', content: 'en' },
         {
           name: 'og:title',
-          content:
-            'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+          content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
         {
           name: 'og:description',
-          content:
-            'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+          content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
         { name: 'og:image:url', content: 'favicon.ico' },
 
@@ -108,18 +100,27 @@ export default {
         { name: 'twitter:creator', content: '@bancannabis' },
         {
           name: 'twitter:title',
-          content:
-            'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+          content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
         { name: 'twitter:url', content: 'https://twitter.com/bancannabis' },
         { name: 'twitter:image', content: 'https://bancannabis.org/logo.png' },
         {
           name: 'twitter:description',
-          content:
-            'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+          content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
       ],
     };
   },
 };
 </script>
+<style lang="scss" module>
+@import '~@/assets/design-system';
+.a {
+  color: #9cbe34;
+  font-weight: $footer-link-font-weight;
+
+  &:hover {
+    color: #291e59;
+  }
+}
+</style>
