@@ -84,6 +84,7 @@
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
       <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
     </vue-modal>
+  
   </div>
 </template>
 
@@ -158,6 +159,7 @@ export default defineComponent({
       { label: 'Dark Theme', value: 'dark' },
     ]);
     const showLoginModal = ref(false);
+    const showVideoModal = ref(false);
     const loginRequestStatus = ref(RequestStatus.INIT);
     const locale = computed(() => store.getters['app/locale']);
     const theme = computed(() => store.getters['app/theme']);
@@ -193,7 +195,6 @@ export default defineComponent({
       await app.$auth.logout();
       redirect('/');
     };
-
     watch(
       [theme, locale],
       () => {
@@ -209,6 +210,7 @@ export default defineComponent({
       languages,
       themes,
       showLoginModal,
+      showVideoModal,
       loginRequestStatus,
       locale,
       theme,

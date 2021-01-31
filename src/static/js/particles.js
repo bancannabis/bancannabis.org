@@ -104,4 +104,3 @@ const particlesJSON = {
 };
 
 particlesJS('particles-js', particlesJSON);
-console.log("here")

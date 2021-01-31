@@ -23,7 +23,7 @@ const config: Configuration = {
         defer: true,
         // Changed after load
         callback: () => { this.isLoaded = true } 
-      }
+      },
     ]
   },
   auth: {
