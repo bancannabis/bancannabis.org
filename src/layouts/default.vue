@@ -34,6 +34,11 @@
           <vue-icon-code />
           Home
         </vue-sidebar-group-item>
+        <vue-sidebar-group-item to="">
+           <a href="https://blog.bancannabis.org" rel="noopener noreferrer">
+             <vue-icon-code /> Blog
+          </a>
+        </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group title="Documentation">
@@ -140,6 +145,9 @@ export default defineComponent({
   methods: {
     redirectToSale() {
       window.open('https://e-groweed.com/grower/', '_blank');
+    },
+    redirectToBlog() {
+      window.open('https://blog.bancannabis.org', '_blank');
     },
   },
   setup() {
