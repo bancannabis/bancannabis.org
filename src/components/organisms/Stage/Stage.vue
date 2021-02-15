@@ -5,7 +5,7 @@
     <vue-grid :class="$style.content" with-vertical-space text-align="center">
       <vue-grid-row>
         <vue-grid-column>
-          <img src="images/bancannapp.png" alt="vuesion" />
+          <img src="images/bancannabis.png" alt="vuesion" />
         </vue-grid-column>
       </vue-grid-row>
 
@@ -18,30 +18,23 @@
       <vue-grid-row>
         <vue-grid-column>
           <div :class="$style.subTittle">
-            {{
-              $t(
-                'App.core.description'
-              )
-            }}
+            {{ $t('App.core.description') }}
             <div class="console-container">
-                <span id="text"></span>|
-                <div class="console-underscore hidden" id="console"></div>
+              <span id="text"></span>|
+              <div class="console-underscore hidden" id="console"></div>
             </div>
-          </div> 
-          
+          </div>
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
-        <vue-grid-column>
-        </vue-grid-column>
+        <vue-grid-column> </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
     <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script src="js/particles.js"></script>
     <script src="js/code.js"></script>
   </div>
-  
 </template>
 
 <script lang="ts">
@@ -56,32 +49,34 @@ export default {
   components: { VueHeadline, VueIconGithub, VueGridColumn, VueGridRow, VueGrid },
   data() {
     return {
-          isParticlesJSLoaded: false,
-        }
+      isParticlesJSLoaded: false,
+    };
   },
   head() {
-        return {
-          title: 'BANCANNABIS.ORG',
-          script: [
-            {
-              hid: 'particlesJS',
-              src: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js',
-              defer: true,
-              // Changed after load
-              callback: () => { this.isParticlesJSLoaded = true } 
-            },
-            {
-              hid: 'particles',
-              src: 'js/particles.js',
-              defer: true,
-            },
-            {
-              hid: 'code',
-              src: 'js/code.js',
-              defer: true,
-            }
-          ]
-        }
+    return {
+      title: 'BANCANNABIS.ORG',
+      script: [
+        {
+          hid: 'particlesJS',
+          src: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js',
+          defer: true,
+          // Changed after load
+          callback: () => {
+            this.isParticlesJSLoaded = true;
+          },
+        },
+        {
+          hid: 'particles',
+          src: 'js/particles.js',
+          defer: true,
+        },
+        {
+          hid: 'code',
+          src: 'js/code.js',
+          defer: true,
+        },
+      ],
+    };
   },
   computed: {},
   beforeMount() {
@@ -89,8 +84,7 @@ export default {
   },
   mounted() {
     this.handleResize();
-       /* CircleAnimation(this.$refs.canvas); */
-
+    /* CircleAnimation(this.$refs.canvas); */
   },
   beforeDestroy() {
     window.removeEventListener('resize', this.handleResize);
