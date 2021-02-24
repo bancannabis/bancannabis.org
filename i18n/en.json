@@ -1,7 +1,7 @@
 {
   "App.core.description": "The Decentralized Open Community in Cannabis ecosystem",
   "auth.LoginForm.cta": "Login",
-  "auth.LoginForm.bca": "GET BCA",
+  "auth.LoginForm.bca": "BCA TOKEN",
   "auth.LoginForm.password.error": "The password has to have at least 6 characters",
   "auth.LoginForm.title": "Login",
   "auth.LoginForm.username.error": "The username can not be empty",
