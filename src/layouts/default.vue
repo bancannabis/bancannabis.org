@@ -35,9 +35,7 @@
           Home
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="">
-           <a href="https://blog.bancannabis.org" rel="noopener noreferrer">
-             <vue-icon-code /> Blog
-          </a>
+          <a href="https://blog.bancannabis.org" target="_blank" rel="noopener noreferrer"> <vue-icon-code /> Blog </a>
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
@@ -246,7 +244,6 @@ export default defineComponent({
 @import '~@/assets/design-system';
 @import '~@/assets/reset';
 @import '~@/assets/typo';
-
 .app {
   min-height: 100vh;
   display: flex;
@@ -263,13 +260,14 @@ export default defineComponent({
 
 .button {
   color: #520978 !important;
+  background-image: url('~@/static/images/banca.png');
+  background-repeat: repeat;
   &:hover {
     background: #9182dd !important;
     color: #efe58a !important;
     border-color: #520978 !important;
   }
 }
-
 .logo {
   position: relative;
   top: $space-4;

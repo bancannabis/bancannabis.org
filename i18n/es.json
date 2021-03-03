@@ -12,7 +12,7 @@
   "about.bca.p4": "Con el token tendrás beneficios en los projectos de Bancannabis además estarás apoyando al desarrollo de la comunidad",
   "about.bca.h2": "¿Dónde puedo obtener BCA?",
   "about.bca.p5": "En este momento estamos intercambiando BCA por Ethereum en la preventa de la plataforma e-groweed.com",
-  "about.bca.p6": "más info",
+  "about.bca.p6": "más info aquí",
   "about.bca.p7": "aquí",
   "about.bca": "Acerca de BCA",
   "about.egroweed": "Acerca de Egroweed",
@@ -41,10 +41,10 @@
   "components.truncate.showMore": "Show more",
   "components.home.tittle": "¿Qué es Bancannabis?",
   "components.home.headline-1": "Comunidad",
-  "components.home.p-1": "Bancannabis es la comunidad digital del cannabis, buscamos la integración de todos los partícipes del ciclo productivo del cannabis a través de soluciones innovadoras y descentralizadas. Bancannabis el la iniciativa para regularizar, concientizar y promover el uso y explotación del Cannabis en todas sus formas.",
+  "components.home.p-1": "Bancannabis es la comunidad digital del cannabis, buscamos la integración de todos los partícipes del ciclo productivo del cannabis a través de soluciones innovadoras y descentralizadas. Bancannabis es una iniciativa que promueve la regularización y la concientización del uso y la explotación del Cannabis en todas sus formas.",
   "components.home.headline-2": "Ecosistema descentralizado",
-  "components.home.p-2": "Bancannabis está creando la cadena de suministro más avanzada en los mercados del cannabis a través de integraciones IOT y Blockchain. Brindando a cualquier persona en el mundo la oportunidad de ser parte de este mercado en crecimiento con nuestro primer proyecto e-groweed.com",
-  "components.home.headline-3": "Conciencia ecológica e innovadora",
+  "components.home.p-2": "Bancannabis está articulando la industria interna del cannabis en Colombia y para el mundo a través de blockchain, integraciones de IOT y profundamente comprometidos con la transformación social,  brindamos a cualquier persona en el mundo la oportunidad de ser parte de esta industria de rápido crecimiento con nuestro primer proyecto e-groweed.com, respaldado con verdadera decentralización bajo la red Ethereum y nuestro token estándar erc-20 BCA",
+  "components.home.headline-3": "Conciencia ambiental y enfoque innovador",
   "components.home.p-3": "Nuestra misión es crear la mayor comunidad de innovación y desarrollo del cannabis con enfoque sostenible y social.",
   "components.home.ticker-1": "Estamos en la preventa privada de nuestro Token "
 }
