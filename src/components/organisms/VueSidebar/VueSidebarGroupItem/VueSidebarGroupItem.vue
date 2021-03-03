@@ -5,7 +5,6 @@
         <slot />
       </nuxt-link>
     </div>
-
     <div v-else>
       <slot />
     </div>
