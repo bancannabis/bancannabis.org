@@ -77,6 +77,13 @@
             Discord
           </a>
         </vue-sidebar-group-item>
+
+        <vue-sidebar-group-item>
+          <a href="https://t.me/joinchat/ClwLJ0nDi3s4MTkx" target="_blank" rel="noopener noreferrer">
+            <vue-icon-mobile />
+            Telegram
+          </a>
+        </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group>
@@ -108,6 +115,7 @@ import VueIconBook from '@/components/atoms/icons/VueIconBook/VueIconBook.vue';
 import VueIconHashtag from '@/components/atoms/icons/VueIconHashtag/VueIconHashtag.vue';
 import VueIconGithub from '@/components/atoms/icons/VueIconGithub/VueIconGithub.vue';
 import VueIconDiscord from '@/components/atoms/icons/VueIconDiscord/VueIconDiscord.vue';
+import VueIconMobile from '@/components/atoms/icons/VueIconMobile/VueIconMobile.vue';
 import VueIconTwitterSquare from '@/components/atoms/icons/VueIconTwitterSquare/VueIconTwitterSquare.vue';
 import VueSelect from '@/components/atoms/VueSelect/VueSelect.vue';
 import VueIconPuzzlePiece from '@/components/atoms/icons/VueIconPuzzlePiece/VueIconPuzzlePiece.vue';
@@ -130,6 +138,7 @@ export default defineComponent({
     VueIconGithub,
     VueIconHashtag,
     VueIconDiscord,
+    VueIconMobile,
     VueIconBook,
     VueIconCode,
     VueSidebarGroupItem,

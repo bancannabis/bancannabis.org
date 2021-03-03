@@ -1,4 +1,5 @@
 <template>
+<div>
   <validation-observer v-slot="{ invalid }">
     <form :class="$style.loginForm" @submit.stop.prevent="onSubmit">
       <vue-grid>
@@ -53,6 +54,10 @@
       </vue-grid>
     </form>
   </validation-observer>
+  <nuxt-link to="/auth/token"> 
+      homes
+  </nuxt-link>
+</div>
 </template>
 
 <script lang="ts">
