@@ -1,0 +1,37 @@
+{
+  "compilerOptions": {
+    "target": "es2018",
+    "module": "esnext",
+    "moduleResolution": "node",
+    "lib": ["esnext", "esnext.asynciterable", "dom"],
+    "sourceMap": true,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "allowSyntheticDefaultImports": true,
+    "noImplicitAny": true,
+    "skipLibCheck": true,
+    "baseUrl": ".",
+    "paths": {
+      "@/*": ["src/*"]
+    },
+    "rootDirs": ["src"],
+    "types": [
+      "@nuxt/types",
+      "@nuxtjs/composition-api",
+      "@nuxtjs/axios",
+      "@nuxtjs/auth-next",
+      "@nuxtjs/pwa",
+      "node",
+      "animejs",
+      "express",
+      "jest",
+      "helmet",
+      "lodash",
+      "nuxt-i18n",
+      "testing-library__jest-dom"
+    ]
+  },
+  "include": ["./src/**/*", "./src/**/*.vue"],
+  "exclude": ["node_modules", ".nuxt"],
+  "files": ["src/vue-shim.d.ts", "src/custom-typings.d.ts", "src/vue.plugins.d.ts"]
+}
