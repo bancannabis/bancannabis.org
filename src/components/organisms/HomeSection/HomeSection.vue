@@ -19,7 +19,7 @@
     <div id="myModal" :class="$style.modal" class="modal">
       <div :class="$style.modalcontent">
         <span :class="$style.close" class="close" @click="onClickSpan()">&times;</span>
-        <video id="myVideo" :class="$style.centeredVideo" width="600" height="600" controls autoplay>
+        <video id="myVideo" :class="$style.centeredVideo" width="600" height="600" controls>
           <source :src="video" type="video/mp4" />
         </video>
       </div>
