@@ -16,7 +16,11 @@ describe('Stage.vue', () => {
       },
     });
 
+<<<<<<< HEAD
     expect(wrapper.find('h1').text()).toBe('BANCANNABIS.ORG');
+=======
+    expect(wrapper.find('h1').text()).toBe('vuesion');
+>>>>>>> ef143274c614938e57e735e394ca9a6dc6dab1fc
 
     (wrapper as any).vm.$refs.stage.getClientRects = () => {
       return {

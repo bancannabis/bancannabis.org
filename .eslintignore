@@ -1,0 +1,9 @@
+**/.vuesion/**
+**/coverage/**
+**/cypress/**
+**/dist/**
+**/i18n/**
+**/logs/**
+**/node_modules/**
+**/.nuxt/**
+**/static/**

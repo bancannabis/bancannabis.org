@@ -1,37 +1,6 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
-  /* head: {
-    script: [
-      {
-        hid: 'particlesJS',
-        src: 'https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js',
-        defer: true,
-        // Changed after load
-        callback: () => {
-          this.isLoaded = true;
-        },
-      },
-      {
-        hid: 'particles',
-        src: 'js/particles.js',
-        defer: true,
-        // Changed after load
-        callback: () => {
-          this.isLoaded = true;
-        },
-      },
-      {
-        hid: 'code',
-        src: 'js/code.js',
-        defer: true,
-        // Changed after load
-        callback: () => {
-          this.isLoaded = true;
-        },
-      },
-    ],
-  }, */
   auth: {
     cookie: {
       options: {

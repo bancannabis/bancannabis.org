@@ -1,0 +1,12 @@
+{
+  "currentVersion": "v4.0.0",
+  "generators": {
+    "blueprintDirectory": "./.vuesion/generators",
+    "outputDirectory": "./src",
+    "stateFile": "./src/interfaces/IState.ts"
+  },
+  "clean": ["./dist", "./.nuxt", "./coverage", "./storybook-static", "./nuxt.config.js"],
+  "prettier": {
+    "extensions": "ts,vue,js,json,scss,sass,css,yaml,yml"
+  }
+}
