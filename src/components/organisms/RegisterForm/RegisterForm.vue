@@ -109,7 +109,7 @@ export default {
   computed: {},
   methods: {
     onSubmit() {
-      this.$emit('submit', this.$data);
+      this.$emit('submit', this.$data, this.$strapi);
     },
   },
 };

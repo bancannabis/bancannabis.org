@@ -208,11 +208,13 @@ export default defineComponent({
 
       showLoginModal.value = false;
     };
-    const onRegisterSubmit = async (formData: any) => {
+    const onRegisterSubmit = async (formData: any,  $strapi: any) => {
       registerRequestStatus.value = RequestStatus.PENDING;
       try {
-        await app.$auth.loginWith('local', { data: formData });
-        const response = await this.$strapi.createEntry('user', { data: formData })
+
+        const response = await $strapi.register(formData.email.split('@')[0],formData.email,formData.password)
+
+        console.log(response)
         registerRequestStatus.value = RequestStatus.IDLE;
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
@@ -241,6 +243,7 @@ export default defineComponent({
       showLoginModal,
       showVideoModal,
       loginRequestStatus,
+      registerRequestStatus,
       locale,
       theme,
       footer,
