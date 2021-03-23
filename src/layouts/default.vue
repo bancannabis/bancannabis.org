@@ -14,7 +14,7 @@
       >
         {{ $t('auth.LoginForm.bca') }}
       </vue-button>
-
+      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true"> {{ $t('auth.LoginForm.title') }} </vue-button>
       <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button>
     </vue-nav-bar>
 
@@ -95,7 +95,14 @@
     </vue-sidebar>
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
-      <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
+      <vue-tab-group>
+        <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
+          <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
+        </vue-tab-item>
+        <vue-tab-item :title="$t('auth.RegisterForm.title')" >
+          <register-form :loading="registerRequestStatus === 'PENDING'" @submit="onRegisterSubmit" />
+        </vue-tab-item>
+      </vue-tab-group>
     </vue-modal>
   </div>
 </template>
@@ -106,6 +113,8 @@ import { defineComponent, computed, ref, useContext, useMeta, watch } from '@nux
 import { RequestStatus } from '@/enums/RequestStatus';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
+import VueTabGroup from '@/components/organisms/VueTabGroup/VueTabGroup.vue';
+import VueTabItem from '@/components/organisms/VueTabGroup/VueTabItem/VueTabItem.vue';
 import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
@@ -122,12 +131,14 @@ import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueToggle from '@/components/atoms/VueToggle/VueToggle.vue';
 import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
+import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue'
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 
 export default defineComponent({
   name: 'App',
   components: {
     LoginForm,
+    RegisterForm,
     VueModal,
     VueButton,
     VueToggle,
@@ -144,6 +155,8 @@ export default defineComponent({
     VueNavBar,
     VueFooterSuscribe,
     VueNotificationStack,
+    VueTabGroup,
+    VueTabItem,
   },
   setup() {
     const { store, redirect, app } = useContext();
@@ -163,6 +176,7 @@ export default defineComponent({
     const showLoginModal = ref(false);
     const showVideoModal = ref(false);
     const loginRequestStatus = ref(RequestStatus.INIT);
+    const registerRequestStatus = ref(RequestStatus.INIT);
     const locale = computed(() => store.getters['app/locale']);
     const theme = computed(() => store.getters['app/theme']);
     const footer = computed(() => store.getters['app/footer']);
@@ -194,6 +208,18 @@ export default defineComponent({
 
       showLoginModal.value = false;
     };
+    const onRegisterSubmit = async (formData: any) => {
+      registerRequestStatus.value = RequestStatus.PENDING;
+      try {
+        await app.$auth.loginWith('local', { data: formData });
+        const response = await this.$strapi.createEntry('user', { data: formData })
+        registerRequestStatus.value = RequestStatus.IDLE;
+      } catch (e) {
+        registerRequestStatus.value = RequestStatus.FAILED;
+        addNotification({ title: 'Error during register', text: 'Please try again!' });
+      }
+
+    };
     const onLogoutClick = async () => {
       await app.$auth.logout();
       redirect('/');
@@ -223,6 +249,7 @@ export default defineComponent({
       onLocaleSwitch,
       onThemeChange,
       onLoginSubmit,
+      onRegisterSubmit,
       onLogoutClick,
     };
   },

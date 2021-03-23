@@ -11,8 +11,8 @@
             <div class="text">
               <p>{{ $t('App.core.footer.suscribe') }}</p>
             </div>
-              <input id="useremail" type="email" v-model="email" :placeholder="$t('common.email.placeholder')" required>
-              <input id="submit"  type="submit" v-on:click='handleSubmit()' :value="$t('common.submit')">
+                <input id="useremail" type="email" v-model="email" :placeholder="$t('common.email.placeholder')" required>
+                <input id="submit"  type="submit" v-on:click='handleSubmit()' :value="$t('common.submit')">
           </div>
         </vue-grid-column>
 

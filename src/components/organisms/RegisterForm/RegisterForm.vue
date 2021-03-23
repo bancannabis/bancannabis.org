@@ -6,16 +6,48 @@
           <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
-                id="username"
-                v-model="username"
-                name="username"
+                id="name"
+                v-model="name"
+                name="name"
                 type="text"
                 autofocus
                 required
-                :label="$t('common.username' /* Username */)"
-                :placeholder="$t('common.username.placeholder' /* Enter any username */)"
+                :label="$t('common.name')"
+                :placeholder="$t('common.name.placeholder')"
                 validation="required"
-                :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
+              />
+            </vue-grid-column>
+          </vue-grid-row>
+
+          <vue-grid-row vertical-space="lg">
+            <vue-grid-column>
+              <vue-input
+                id="lastname"
+                v-model="lastname"
+                name="lastname"
+                type="text"
+                autofocus
+                required
+                :label="$t('common.lastname' /* Username */)"
+                :placeholder="$t('common.lastname.placeholder' /* Enter any username */)"
+                validation="required"
+              />
+            </vue-grid-column>
+          </vue-grid-row>
+
+          <vue-grid-row vertical-space="lg">
+            <vue-grid-column>
+              <vue-input
+                id="email"
+                v-model="email"
+                name="email"
+                type="email"
+                autofocus
+                required
+                :label="$t('common.email')"
+                :placeholder="$t('common.email.placeholder')"
+                validation="required"
+                :error-message="$t('auth.LoginForm.username.error')"
               />
             </vue-grid-column>
           </vue-grid-row>
@@ -28,11 +60,11 @@
                 name="password"
                 type="password"
                 required
-                :label="$t('common.password' /* Password */)"
-                :placeholder="$t('common.password.placeholder' /* Enter any password */)"
+                :label="$t('common.password')"
+                :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
                 :error-message="
-                  $t('auth.LoginForm.password.error' /* The password has to have at least 6 characters */)
+                  $t('auth.LoginForm.password.error')
                 "
               />
             </vue-grid-column>
@@ -41,7 +73,7 @@
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
-                {{ $t('auth.LoginForm.cta' /* Login */) }}
+                {{ $t('auth.RegisterForm.cta') }}
               </vue-button>
             </vue-grid-column>
           </vue-grid-row>
@@ -68,7 +100,9 @@ export default {
   },
   data(): any {
     return {
-      username: '',
+      name: '',
+      lastname: '',
+      email: '',
       password: '',
     };
   },
