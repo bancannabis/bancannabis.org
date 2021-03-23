@@ -1,6 +1,9 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
+  axios: {
+    baseURL: process.env.API_URL || 'http://localhost:1337'
+  },
   auth: {
     cookie: {
       options: {
@@ -115,7 +118,7 @@ const config: NuxtConfig = {
     color: '#cd235b',
     background: 'white',
   },
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/pwa', 'nuxt-i18n'],
+  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/pwa', 'nuxt-i18n','@stun3r/nuxt-strapi-sdk', '@nuxtjs/strapi'],
   plugins: [
     { src: '@/plugins/vee-validate/vee-validate' },
     { src: '@/plugins/vuex-persist/vuex-persist.client' },
@@ -123,7 +126,7 @@ const config: NuxtConfig = {
   ],
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.baseURL || 'http://localhost:3000',
+      baseURL: process.env.baseURL || 'http://localhost:1337',
     },
   },
   privateRuntimeConfig: {},

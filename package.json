@@ -48,10 +48,13 @@
   },
   "dependencies": {
     "@nuxt/typescript-runtime": "2.0.0",
+    "@nuxtjs/auth": "4.9.1",
     "@nuxtjs/auth-next": "5.0.0-1610115973.9fdaa66",
     "@nuxtjs/axios": "5.12.5",
     "@nuxtjs/composition-api": "0.18.0",
     "@nuxtjs/pwa": "3.3.4",
+    "@nuxtjs/strapi": "0.3.0",
+    "@stun3r/nuxt-strapi-sdk": "0.3.4",
     "@vuesion/utils": "4.0.0-alpha.18",
     "@vuesion/vuex-persist": "4.0.0-alpha.18",
     "animejs": "3.2.1",
@@ -62,6 +65,7 @@
     "marked": "1.2.7",
     "nuxt": "2.14.12",
     "nuxt-i18n": "6.17.0",
+    "strapi-sdk-javascript": "0.3.3",
     "vee-validate": "3.4.5"
   },
   "devDependencies": {

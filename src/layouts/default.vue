@@ -20,7 +20,7 @@
 
     <nuxt :class="$style.content" />
 
-    <vue-footer v-if="footer" />
+    <vue-footer-Suscribe v-if="footer"/>
 
     <vue-sidebar>
       <vue-sidebar-group title="Languages">
@@ -106,7 +106,7 @@ import { defineComponent, computed, ref, useContext, useMeta, watch } from '@nux
 import { RequestStatus } from '@/enums/RequestStatus';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
-import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
+import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
 import VueSidebarGroup from '@/components/organisms/VueSidebar/VueSidebarGroup/VueSidebarGroup.vue';
@@ -142,7 +142,7 @@ export default defineComponent({
     VueSidebarGroup,
     VueSidebar,
     VueNavBar,
-    VueFooter,
+    VueFooterSuscribe,
     VueNotificationStack,
   },
   setup() {

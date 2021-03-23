@@ -110,6 +110,7 @@ export default defineComponent({
   border: $notification-default-border;
 }
 
+
 .title {
   font-weight: 500;
   padding-right: $space-12;

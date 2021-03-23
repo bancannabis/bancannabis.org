@@ -21,6 +21,7 @@
       "@nuxtjs/axios",
       "@nuxtjs/auth-next",
       "@nuxtjs/pwa",
+      "@nuxtjs/strapi",
       "node",
       "animejs",
       "express",
