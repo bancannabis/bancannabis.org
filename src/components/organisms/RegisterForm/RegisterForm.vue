@@ -6,38 +6,6 @@
           <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
-                id="name"
-                v-model="name"
-                name="name"
-                type="text"
-                autofocus
-                required
-                :label="$t('common.name')"
-                :placeholder="$t('common.name.placeholder')"
-                validation="required"
-              />
-            </vue-grid-column>
-          </vue-grid-row>
-
-          <vue-grid-row vertical-space="lg">
-            <vue-grid-column>
-              <vue-input
-                id="lastname"
-                v-model="lastname"
-                name="lastname"
-                type="text"
-                autofocus
-                required
-                :label="$t('common.lastname' /* Username */)"
-                :placeholder="$t('common.lastname.placeholder' /* Enter any username */)"
-                validation="required"
-              />
-            </vue-grid-column>
-          </vue-grid-row>
-
-          <vue-grid-row vertical-space="lg">
-            <vue-grid-column>
-              <vue-input
                 id="email"
                 v-model="email"
                 name="email"
@@ -51,7 +19,6 @@
               />
             </vue-grid-column>
           </vue-grid-row>
-
           <vue-grid-row>
             <vue-grid-column>
               <vue-input
@@ -69,7 +36,24 @@
               />
             </vue-grid-column>
           </vue-grid-row>
-
+          <vue-grid-row>
+            <vue-grid-column>
+              <vue-input
+                id="password_repet"
+                v-model="password_repet"
+                name="password_repet"
+                type="password"
+                required
+                :label="$t('common.repeatpassword')"
+                :placeholder="$t('common.password.placeholder')"
+                validation="required|min:6"
+                :error-message="
+                  $t('auth.LoginForm.password.error')
+                "
+              />
+            </vue-grid-column>
+          </vue-grid-row>
+          <div></div>
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
@@ -100,16 +84,15 @@ export default {
   },
   data(): any {
     return {
-      name: '',
-      lastname: '',
       email: '',
       password: '',
+      password_repet: ''
     };
   },
   computed: {},
   methods: {
     onSubmit() {
-      this.$emit('submit', this.$data, this.$strapi);
+      this.$emit('submit', this.$data, this.$strapi, this.axios);
     },
   },
 };

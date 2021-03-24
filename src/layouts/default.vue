@@ -99,8 +99,12 @@
         <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
           <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
         </vue-tab-item>
-        <vue-tab-item :title="$t('auth.RegisterForm.title')" >
+        <vue-tab-item :title="$t('auth.RegisterForm.title')" v-if="registerRequestStatus != 'SUCCEED'" >
           <register-form :loading="registerRequestStatus === 'PENDING'" @submit="onRegisterSubmit" />
+        </vue-tab-item>
+        <vue-tab-item :title="$t('auth.RegisterForm.title')" v-if="registerRequestStatus === 'SUCCEED'" >
+          <h2>{{$t('auth.RegisterForm.success')}}</h2><br>
+          <p>{{$t('auth.RegisterForm.p1')}}</p>
         </vue-tab-item>
       </vue-tab-group>
     </vue-modal>
@@ -158,14 +162,20 @@ export default defineComponent({
     VueTabGroup,
     VueTabItem,
   },
+  data(){
+    return {
+      registered: false,
+      checked: false,
+    }
+  },
   setup() {
-    const { store, redirect, app } = useContext();
+    const { store, redirect, app, $axios } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
     const languages = computed(() => [
       { label: 'English', value: 'en' },
       { label: 'Español', value: 'es' },
-      /*       { label: 'Deutsch', value: 'de' },
+      /*{ label: 'Deutsch', value: 'de' },
       { label: 'Português', value: 'pt' },
       { label: '中文', value: 'zh-cn' }, */
     ]);
@@ -194,28 +204,38 @@ export default defineComponent({
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
     };
-    const onLoginSubmit = async (formData: any) => {
+    const onLoginSubmit = async (formData: any, $strapi: any) => {
       loginRequestStatus.value = RequestStatus.PENDING;
-
       try {
-        await app.$auth.loginWith('local', { data: formData });
+        //const response = await $strapi.login(formData.username.split('@')[0],formData.password)
+        registerRequestStatus.value = RequestStatus.IDLE;
+        /* const response = await $axios.post('http://localhost:1337/auth/local', {
+          identifier: formData.username.split('@')[0],
+          password: formData.password,
+        }); */
+        const response = await app.$auth.loginWith('local', { data: formData });
         redirect('/example/dashboard');
-        loginRequestStatus.value = RequestStatus.IDLE;
+        addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
+          redirect('/example/dashboard');
+/*         if(typeof response == 'object'){
+          addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
+          redirect('/');
+        } */
+        showLoginModal.value = false;
       } catch (e) {
         loginRequestStatus.value = RequestStatus.FAILED;
-        addNotification({ title: 'Error during login', text: 'Please try again!' });
+        addNotification({ title: 'Error during login!', text: 'Confirm your e-mail and try again.' });
       }
-
-      showLoginModal.value = false;
     };
     const onRegisterSubmit = async (formData: any,  $strapi: any) => {
       registerRequestStatus.value = RequestStatus.PENDING;
       try {
-
-        const response = await $strapi.register(formData.email.split('@')[0],formData.email,formData.password)
-
-        console.log(response)
+        const response = await $strapi.register(formData.email.split('@')[0],formData.email,formData.password) //username, email, password
         registerRequestStatus.value = RequestStatus.IDLE;
+        if(typeof response == 'object'){
+          addNotification({ title: 'Secussess!', text: 'Successfully Registered' });
+          registerRequestStatus.value = RequestStatus.SUCCEED;
+        }
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
         addNotification({ title: 'Error during register', text: 'Please try again!' });
@@ -236,7 +256,6 @@ export default defineComponent({
       },
       { immediate: true },
     );
-
     return {
       languages,
       themes,
@@ -255,9 +274,6 @@ export default defineComponent({
       onRegisterSubmit,
       onLogoutClick,
     };
-  },
-  data() {
-    return { checked: false };
   },
   head: {},
   methods: {

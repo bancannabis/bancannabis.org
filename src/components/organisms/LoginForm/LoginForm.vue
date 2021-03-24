@@ -6,14 +6,14 @@
           <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
-                id="username"
+                id="email"
                 v-model="username"
-                name="username"
-                type="text"
+                name="email"
+                type="email"
                 autofocus
                 required
-                :label="$t('common.username' /* Username */)"
-                :placeholder="$t('common.username.placeholder' /* Enter any username */)"
+                :label="$t('common.email' /* Username */)"
+                :placeholder="$t('common.email.placeholder' /* Enter any username */)"
                 validation="required"
                 :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
               />
@@ -75,7 +75,7 @@ export default {
   computed: {},
   methods: {
     onSubmit() {
-      this.$emit('submit', this.$data);
+      this.$emit('submit', this.$data, this.$strapi);
     },
   },
 };

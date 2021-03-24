@@ -1,9 +1,6 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
-  axios: {
-    baseURL: process.env.API_URL || 'http://localhost:1337'
-  },
   auth: {
     cookie: {
       options: {
@@ -126,7 +123,7 @@ const config: NuxtConfig = {
   ],
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.baseURL || 'http://localhost:1337',
+      baseURL: process.env.baseURL || 'http://localhost:3000',
     },
   },
   privateRuntimeConfig: {},
