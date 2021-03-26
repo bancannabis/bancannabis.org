@@ -2,7 +2,7 @@
   <div :class="$style.dashboard">
     <stage-egroweed />
     <vue-grid with-vertical-space>
-      <home-section image="images/welcome2.png" :video="'videos/egroweed_' + $i18n.locale + '.mp4'" flip>
+      <home-section image="images/welcome2.png" :video="'videos/egroweed_' + $i18n.locale + '.mp4'"  flip :class="$style.HomeSection">
         <vue-grid with-vertical-space>
           <vue-grid-row>
             <vue-grid-column>
@@ -72,6 +72,13 @@ export default {
 <style lang="scss" module>
 @import '~@/assets/design-system';
 
+.HomeSection {
+  p{
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
+
 .a {
   color: #9cbe34;
   font-weight: $footer-link-font-weight;
@@ -114,4 +121,5 @@ export default {
   background: #ddd;
   color: black;
 }
+
 </style>

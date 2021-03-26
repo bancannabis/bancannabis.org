@@ -1,7 +1,7 @@
 <template>
   <div>
     <stage />
-    <home-section image="images/welcome.png" video="videos/join.mp4" flip>
+    <home-section image="images/welcome.png" video="videos/join.mp4" flip :class="$style.HomeSection">
       <vue-grid with-vertical-space>
         <vue-grid-row>
           <vue-grid-column>
@@ -21,9 +21,9 @@
             <vue-headline level="3">{{ $t('components.home.headline-2') }}</vue-headline>
             <p>
               {{ $t('components.home.p-2') }}
-              <a :class="$style.a" href="https://e-groweed.com/" target="_blank" rel="noopener noreferrer">
-                {{ $t('about.bca.p6') }}</a
-              >.
+              <nuxt-link :to="{ path: localePath('/egroweed') }" :class="$style.a">
+                <span>{{ $t('about.bca.p6') }}.</span>
+              </nuxt-link>
             </p>
           </vue-grid-column>
         </vue-grid-row>
@@ -114,6 +114,13 @@ export default {
 </script>
 <style lang="scss" module>
 @import '~@/assets/design-system';
+
+.HomeSection {
+  p{
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
 .a {
   color: #9cbe34;
   font-weight: $footer-link-font-weight;
