@@ -204,23 +204,16 @@ export default defineComponent({
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
     };
-    const onLoginSubmit = async (formData: any, $strapi: any) => {
+    const onLoginSubmit = async (formData: any) => {
       loginRequestStatus.value = RequestStatus.PENDING;
       try {
-        //const response = await $strapi.login(formData.username.split('@')[0],formData.password)
         registerRequestStatus.value = RequestStatus.IDLE;
-        /* const response = await $axios.post('http://localhost:1337/auth/local', {
-          identifier: formData.username.split('@')[0],
-          password: formData.password,
-        }); */
         const response = await app.$auth.loginWith('local', { data: formData });
-        redirect('/example/dashboard');
-        addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
-          redirect('/example/dashboard');
-/*         if(typeof response == 'object'){
+        console.log(response)
+        if(typeof response == 'object'){
           addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
-          redirect('/');
-        } */
+          redirect('/dashboard');
+        }
         showLoginModal.value = false;
       } catch (e) {
         loginRequestStatus.value = RequestStatus.FAILED;
@@ -232,15 +225,16 @@ export default defineComponent({
       try {
         const response = await $strapi.register(formData.email.split('@')[0],formData.email,formData.password) //username, email, password
         registerRequestStatus.value = RequestStatus.IDLE;
-        if(typeof response == 'object'){
+        console.log(response)
+        console.log(response.status)
+        if(response.status == '200'){
           addNotification({ title: 'Secussess!', text: 'Successfully Registered' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
         }
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
-        addNotification({ title: 'Error during register', text: 'Please try again!' });
+        addNotification({ title: 'Error during register!', text: 'Email already registered or something went wrong, Please try again!' });
       }
-
     };
     const onLogoutClick = async () => {
       await app.$auth.logout();
