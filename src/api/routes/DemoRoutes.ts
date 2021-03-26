@@ -42,7 +42,7 @@ export const DemoRoutes = (app: express.Application) => {
         });
         console.log(response)
         if(response.status == '200'){
-          res.status(200).json({ access_token: 'accessToken2', refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
+          res.status(200).json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
         }
       } catch (e) {
         res.status(500).json({});
