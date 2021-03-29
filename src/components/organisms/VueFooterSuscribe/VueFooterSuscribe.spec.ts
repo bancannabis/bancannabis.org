@@ -1,11 +1,11 @@
 import { mount, createLocalVue } from '@vue/test-utils';
-import VueFooter from './VueFooter.vue';
+import VueFooterSuscribe from './VueFooterSuscribe.vue';
 
 const localVue = createLocalVue();
 
-describe('VueFooter.vue', () => {
+describe('VueFooterSuscribe.vue', () => {
   test('renders component', () => {
-    const wrapper = mount(VueFooter, { localVue });
+    const wrapper = mount(VueFooterSuscribe, { localVue });
 
     expect(wrapper.find('small').text()).toMatch('Copyright');
   });
