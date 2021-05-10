@@ -1,5 +1,5 @@
 import { storiesOf } from '@storybook/vue';
-import VueFooter from './VueFooter.vue';
+import VueFooter from './VueFooterSuscribe.vue';
 
 const story = storiesOf('Organisms|Footer', module) as any;
 

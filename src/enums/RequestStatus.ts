@@ -5,5 +5,5 @@ export enum RequestStatus {
   PENDING = 'PENDING',
   FAILED = 'FAILED',
   IDLE = 'IDLE',
-  SUCCEED = 'SUCCEED'
+  SUCCEED = 'SUCCEED',
 }

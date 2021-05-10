@@ -30,9 +30,7 @@
                 :label="$t('common.password')"
                 :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
-                :error-message="
-                  $t('auth.LoginForm.password.error')
-                "
+                :error-message="$t('auth.LoginForm.password.error')"
               />
             </vue-grid-column>
           </vue-grid-row>
@@ -47,9 +45,7 @@
                 :label="$t('common.repeatpassword')"
                 :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
-                :error-message="
-                  $t('auth.LoginForm.password.error')
-                "
+                :error-message="$t('auth.LoginForm.password.error')"
               />
             </vue-grid-column>
           </vue-grid-row>
@@ -69,7 +65,7 @@
 
 <script lang="ts">
 import { ValidationObserver } from 'vee-validate';
-import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+//import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
@@ -78,7 +74,7 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueHeadline },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
   props: {
     loading: { type: Boolean, default: false },
   },
@@ -86,7 +82,7 @@ export default {
     return {
       email: '',
       password: '',
-      password_repet: ''
+      password_repet: '',
     };
   },
   computed: {},

@@ -14,13 +14,15 @@
       >
         {{ $t('auth.LoginForm.bca') }}
       </vue-button>
-      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true"> {{ $t('auth.LoginForm.title') }} </vue-button>
+      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
+        {{ $t('auth.LoginForm.title') }}
+      </vue-button>
       <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button>
     </vue-nav-bar>
 
     <nuxt :class="$style.content" />
 
-    <vue-footer-Suscribe v-if="footer"/>
+    <vue-footer-Suscribe v-if="footer" />
 
     <vue-sidebar>
       <vue-sidebar-group title="Languages">
@@ -33,6 +35,10 @@
         <vue-sidebar-group-item to="/">
           <vue-icon-code />
           Home
+        </vue-sidebar-group-item>
+        <vue-sidebar-group-item v-if="loggedIn" to="/dashboard">
+          <vue-icon-code />
+          Dashboard
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/egroweed">
           <vue-icon-code />
@@ -99,12 +105,13 @@
         <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
           <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
         </vue-tab-item>
-        <vue-tab-item :title="$t('auth.RegisterForm.title')" v-if="registerRequestStatus != 'SUCCEED'" >
+        <vue-tab-item v-if="registerRequestStatus != 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
           <register-form :loading="registerRequestStatus === 'PENDING'" @submit="onRegisterSubmit" />
         </vue-tab-item>
-        <vue-tab-item :title="$t('auth.RegisterForm.title')" v-if="registerRequestStatus === 'SUCCEED'" >
-          <h2>{{$t('auth.RegisterForm.success')}}</h2><br>
-          <p>{{$t('auth.RegisterForm.p1')}}</p>
+        <vue-tab-item v-if="registerRequestStatus === 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
+          <h2>{{ $t('auth.RegisterForm.success') }}</h2>
+          <br />
+          <p>{{ $t('auth.RegisterForm.p1') }}</p>
         </vue-tab-item>
       </vue-tab-group>
     </vue-modal>
@@ -135,7 +142,7 @@ import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueToggle from '@/components/atoms/VueToggle/VueToggle.vue';
 import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
-import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue'
+import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 
 export default defineComponent({
@@ -162,20 +169,14 @@ export default defineComponent({
     VueTabGroup,
     VueTabItem,
   },
-  data(){
-    return {
-      registered: false,
-      checked: false,
-    }
-  },
   setup() {
-    const { store, redirect, app, $axios } = useContext();
+    const { store, redirect, app } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
     const languages = computed(() => [
       { label: 'English', value: 'en' },
       { label: 'Español', value: 'es' },
-      /*{ label: 'Deutsch', value: 'de' },
+      /* { label: 'Deutsch', value: 'de' },
       { label: 'Português', value: 'pt' },
       { label: '中文', value: 'zh-cn' }, */
     ]);
@@ -209,8 +210,8 @@ export default defineComponent({
       try {
         registerRequestStatus.value = RequestStatus.IDLE;
         const response = await app.$auth.loginWith('local', { data: formData });
-        console.log(response)
-        if(typeof response == 'object'){
+        console.log(response);
+        if (typeof response === 'object') {
           addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
           redirect('/dashboard');
         }
@@ -220,25 +221,30 @@ export default defineComponent({
         addNotification({ title: 'Error during login!', text: 'Confirm your e-mail and try again.' });
       }
     };
-    const onRegisterSubmit = async (formData: any,  $strapi: any) => {
+    const onRegisterSubmit = async (formData: any, $strapi: any) => {
       registerRequestStatus.value = RequestStatus.PENDING;
       try {
-        const response = await $strapi.register(formData.email.split('@')[0],formData.email,formData.password) //username, email, password
+        const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
         registerRequestStatus.value = RequestStatus.IDLE;
-        console.log(response)
-        console.log(response.status)
-        if(response.status == '200'){
+        console.log(response);
+        console.log(response.status);
+        if (response.status === '200') {
           addNotification({ title: 'Secussess!', text: 'Successfully Registered' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
         }
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
-        addNotification({ title: 'Error during register!', text: 'Email already registered or something went wrong, Please try again!' });
+        addNotification({
+          title: 'Error during register!',
+          text: 'Email already registered or something went wrong, Please try again!',
+        });
       }
     };
     const onLogoutClick = async () => {
       await app.$auth.logout();
       redirect('/');
+      loginRequestStatus.value = RequestStatus.INIT;
+      registerRequestStatus.value = RequestStatus.INIT;
     };
     watch(
       [theme, footer, locale],
@@ -267,6 +273,12 @@ export default defineComponent({
       onLoginSubmit,
       onRegisterSubmit,
       onLogoutClick,
+    };
+  },
+  data() {
+    return {
+      registered: false,
+      checked: false,
     };
   },
   head: {},

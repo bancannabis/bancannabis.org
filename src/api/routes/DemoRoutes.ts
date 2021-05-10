@@ -1,7 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import { getIntInRange } from '@vuesion/utils/dist/randomGenerator';
-import $axios from 'axios'
+import $axios from 'axios';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 const getErrorWithProbability = (probability: number) => getIntInRange(0, 100) <= probability;
@@ -34,40 +34,42 @@ export const DemoRoutes = (app: express.Application) => {
    * Auth-Demo
    */
   app.post('/auth/token', (_: express.Request, res: express.Response) => {
-    const login = async (formData: any, $axios:any) => {
+    const login = async (formData: any, $axios: any) => {
       try {
         const response = await $axios.post('http://localhost:1337/auth/local', {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
-        console.log(response)
-        if(response.status == '200'){
-          res.status(200).json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
+        console.log(response);
+        if (response.status === '200') {
+          res
+            .status(200)
+            .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
         }
       } catch (e) {
         res.status(500).json({});
       }
     };
-    login(_.body, $axios)
+    login(_.body, $axios);
   });
 
   app.post('/auth/local/register', (_: express.Request, res: express.Response) => {
-    const register = async (formData: any, $axios:any) => {
+    const register = async (formData: any, $axios: any) => {
       try {
         const response = await $axios.post('http://localhost:1337/auth/local/register', {
           username: formData.username,
-          email:formData.email,
+          email: formData.email,
           password: formData.password,
         });
-        console.log(response)
-        if(response.status == '200'){
+        console.log(response);
+        if (response.status === '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
       } catch (e) {
         res.status(500).json({});
       }
     };
-    register(_.body, $axios)
+    register(_.body, $axios);
   });
 
   app.post('/auth/refresh', (_: express.Request, res: express.Response) => {

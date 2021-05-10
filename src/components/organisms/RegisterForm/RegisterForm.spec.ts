@@ -23,13 +23,14 @@ describe('LoginForm.vue', () => {
     wrapper.setData({
       username: 'foo',
       password: '123456',
+      checked: false,
     });
 
     wrapper.find('form').trigger('submit');
     await wrapper.vm.$nextTick();
 
     const actual = wrapper.emitted('submit');
-    const expected = [[{ password: '123456', username: 'foo' }]];
+    const expected = [[{ password: '123456', username: 'foo', checked: false }]];
 
     expect(actual).toEqual(expected);
   });

@@ -16,6 +16,7 @@
                 :placeholder="$t('common.email.placeholder' /* Enter any username */)"
                 validation="required"
                 :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
+                :autocomplete="username"
               />
             </vue-grid-column>
           </vue-grid-row>
@@ -34,12 +35,15 @@
                 :error-message="
                   $t('auth.LoginForm.password.error' /* The password has to have at least 6 characters */)
                 "
+                :autocomplete="password"
               />
             </vue-grid-column>
           </vue-grid-row>
 
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
+              <vue-checkbox id="remember" label="Remember?" name="remember" :checked="checked" @click="onCheck()" />
+              &nbsp;
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
                 {{ $t('auth.LoginForm.cta' /* Login */) }}
               </vue-button>
@@ -53,8 +57,9 @@
 
 <script lang="ts">
 import { ValidationObserver } from 'vee-validate';
-import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+//import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
+import VueCheckbox from '@/components/atoms/VueCheckbox/VueCheckbox.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
@@ -62,7 +67,7 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueHeadline },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueCheckbox },
   props: {
     loading: { type: Boolean, default: false },
   },
@@ -70,12 +75,20 @@ export default {
     return {
       username: '',
       password: '',
+      checked: false,
     };
   },
   computed: {},
   methods: {
     onSubmit() {
       this.$emit('submit', this.$data, this.$strapi);
+    },
+    onCheck() {
+      this.checked = !this.checked;
+      if (this.checked === false) {
+        this.username = '';
+        this.password = '';
+      }
     },
   },
 };

@@ -82,20 +82,16 @@ export default defineComponent({
       for (let i = 0; i < 10; i++) {
         requests.push($axios.$get('/protected'));
       }
-
       try {
         pending.value = true;
-
-        const data = await Promise.all(requests);
-
-        console.info(data); // eslint-disable-line
+        // const data = await Promise.all(requests);
+        // console.info(data); // eslint-disable-line
       } catch (e) {
         console.error(e); // eslint-disable-line
       } finally {
         pending.value = false;
       }
     };
-
     return { pending, onClick };
   },
   head: {
