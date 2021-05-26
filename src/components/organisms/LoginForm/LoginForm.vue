@@ -2,7 +2,7 @@
   <div>
     <validation-observer v-slot="{ invalid }">
       <form :class="$style.loginForm" @submit.stop.prevent="onSubmit">
-        <vue-grid>
+        <vue-grid v-if="!forget">
           <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
@@ -42,10 +42,39 @@
 
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
-              <vue-checkbox id="remember" label="Remember?" name="remember" :checked="checked" @click="onCheck()" />
+              <!-- <vue-checkbox id="remember" label="Remember?" name="remember" :checked="checked" @click="onCheck()" /> -->
+              <a :class="$style.a" href="" target="_blank" rel="noopener noreferrer" @click.prevent="onClick()">
+                forgot pass?
+              </a>
               &nbsp;
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
                 {{ $t('auth.LoginForm.cta' /* Login */) }}
+              </vue-button>
+            </vue-grid-column>
+          </vue-grid-row>
+        </vue-grid>
+        <vue-grid v-if="forget">
+          <vue-grid-row vertical-space="lg">
+            <vue-grid-column>
+              <vue-input
+                id="email"
+                v-model="username"
+                name="email"
+                type="email"
+                autofocus
+                required
+                :label="$t('common.email' /* Username */)"
+                :placeholder="$t('common.email.placeholder' /* Enter any username */)"
+                validation="required"
+                :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
+                :autocomplete="username"
+              />
+            </vue-grid-column>
+          </vue-grid-row>
+          <vue-grid-row>
+            <vue-grid-column justify-content="flex-end">
+              <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
+                {{ $t('auth.LoginForm.ctaSend') }}
               </vue-button>
             </vue-grid-column>
           </vue-grid-row>
@@ -76,6 +105,7 @@ export default {
       username: '',
       password: '',
       checked: false,
+      forget: false,
     };
   },
   computed: {},
@@ -89,6 +119,10 @@ export default {
         this.username = '';
         this.password = '';
       }
+    },
+    onClick() {
+      this.forget = true;
+      this.password = '';
     },
   },
 };

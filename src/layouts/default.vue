@@ -4,8 +4,7 @@
 
     <vue-nav-bar>
       <template v-if="user" slot="middle"> Hello, {{ user.name }}! </template>
-
-      <vue-button
+      <!--  <vue-button
         slot="right"
         :class="$style.button"
         style="background:#efe58a;"
@@ -13,7 +12,7 @@
         @click="redirectToSale()"
       >
         {{ $t('auth.LoginForm.bca') }}
-      </vue-button>
+      </vue-button> -->
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
       </vue-button>
@@ -22,7 +21,8 @@
 
     <nuxt :class="$style.content" />
 
-    <vue-footer-Suscribe v-if="footer" />
+    <vue-footer-Suscribe v-if="!loggedIn" />
+    <vue-footer v-if="loggedIn" />
 
     <vue-sidebar>
       <vue-sidebar-group title="Languages">
@@ -101,7 +101,7 @@
     </vue-sidebar>
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
-      <vue-tab-group>
+      <vue-tab-group v-if="!code">
         <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
           <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
         </vue-tab-item>
@@ -114,6 +114,17 @@
           <p>{{ $t('auth.RegisterForm.p1') }}</p>
         </vue-tab-item>
       </vue-tab-group>
+      <vue-tab-group v-if="code">
+        <vue-tab-item title="Reset Password" v-if="resetRequestStatus != 'SUCCEED'">
+          <h2>Please enter your new password</h2>
+          <reset-form :loading="resetRequestStatus === 'PENDING'" @submit="onResetSubmit" />
+        </vue-tab-item>
+        <vue-tab-item v-if="resetRequestStatus === 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
+          <h2>{{ $t('auth.RegisterForm.success') }}</h2>
+          <br />
+          <p>{{ $t('auth.RegisterForm.p1') }}</p>
+        </vue-tab-item>
+      </vue-tab-group>
     </vue-modal>
   </div>
 </template>
@@ -121,11 +132,13 @@
 <script lang="ts">
 import '@/assets/global.scss';
 import { defineComponent, computed, ref, useContext, useMeta, watch } from '@nuxtjs/composition-api';
+import $axios from 'axios';
 import { RequestStatus } from '@/enums/RequestStatus';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
 import VueTabGroup from '@/components/organisms/VueTabGroup/VueTabGroup.vue';
 import VueTabItem from '@/components/organisms/VueTabGroup/VueTabItem/VueTabItem.vue';
+import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
 import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
@@ -143,13 +156,16 @@ import VueToggle from '@/components/atoms/VueToggle/VueToggle.vue';
 import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
 import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue';
+import ResetForm from '@/components/organisms/ResetForm/ResetForm.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
+import { HTTPResponse } from '@nuxtjs/auth-next';
 
 export default defineComponent({
   name: 'App',
   components: {
     LoginForm,
     RegisterForm,
+    ResetForm,
     VueModal,
     VueButton,
     VueToggle,
@@ -164,6 +180,7 @@ export default defineComponent({
     VueSidebarGroup,
     VueSidebar,
     VueNavBar,
+    VueFooter,
     VueFooterSuscribe,
     VueNotificationStack,
     VueTabGroup,
@@ -186,8 +203,10 @@ export default defineComponent({
     ]);
     const showLoginModal = ref(false);
     const showVideoModal = ref(false);
+    const code = ref(false);
     const loginRequestStatus = ref(RequestStatus.INIT);
     const registerRequestStatus = ref(RequestStatus.INIT);
+    const resetRequestStatus = ref(RequestStatus.INIT);
     const locale = computed(() => store.getters['app/locale']);
     const theme = computed(() => store.getters['app/theme']);
     const footer = computed(() => store.getters['app/footer']);
@@ -205,32 +224,69 @@ export default defineComponent({
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
     };
-    const onLoginSubmit = async (formData: any) => {
+    const onLoginSubmit = async (formData: any, $strapi: any): Promise<any> => {
       loginRequestStatus.value = RequestStatus.PENDING;
-      try {
-        registerRequestStatus.value = RequestStatus.IDLE;
-        const response = await app.$auth.loginWith('local', { data: formData });
-        console.log(response);
-        if (typeof response === 'object') {
-          addNotification({ title: 'Secussess!', text: 'Successfully Loged' });
-          redirect('/dashboard');
+      if (formData.username && formData.password) {
+        try {
+          registerRequestStatus.value = RequestStatus.IDLE;
+          const response = await app.$auth.loginWith('local', { data: formData });
+          if (response) {
+            addNotification({ title: 'Secussess!', text: 'Logedin' });
+            redirect('/dashboard');
+          }
+          showLoginModal.value = false;
+        } catch (e) {
+          loginRequestStatus.value = RequestStatus.FAILED;
+          addNotification({ title: 'Error during login!', text: e });
         }
-        showLoginModal.value = false;
-      } catch (e) {
-        loginRequestStatus.value = RequestStatus.FAILED;
-        addNotification({ title: 'Error during login!', text: 'Confirm your e-mail and try again.' });
+      } else {
+        // forgot password
+        try {
+          registerRequestStatus.value = RequestStatus.IDLE;
+          const response = await $strapi.forgotPassword(formData.username);
+          if (response) {
+            addNotification({ title: 'Secussess!', text: 'Mail sended' });
+            console.log(response);
+          }
+          showLoginModal.value = false;
+        } catch (e) {
+          loginRequestStatus.value = RequestStatus.FAILED;
+          addNotification({ title: 'Error during send mail!', text: e });
+        }
       }
     };
     const onRegisterSubmit = async (formData: any, $strapi: any) => {
-      registerRequestStatus.value = RequestStatus.PENDING;
+      resetRequestStatus.value = RequestStatus.PENDING;
       try {
         const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
+        resetRequestStatus.value = RequestStatus.IDLE;
+        console.log(response);
+        console.log(response.status);
+        if (response.status === '200') {
+          addNotification({ title: 'Secussess!', text: 'Registered' });
+          resetRequestStatus.value = RequestStatus.SUCCEED;
+        }
+      } catch (e) {
+        resetRequestStatus.value = RequestStatus.FAILED;
+        addNotification({
+          title: 'Error during register!',
+          text: 'Email already registered or something went wrong, Please try again!',
+        });
+      }
+    };
+    const onResetSubmit = async (formData: any, $strapi: any) => {
+      resetRequestStatus.value = RequestStatus.PENDING;
+      try {
+        //console.log(formData)
+        const response = await $strapi.resetPassword(formData.code, formData.password, formData.password_repet);
         registerRequestStatus.value = RequestStatus.IDLE;
         console.log(response);
         console.log(response.status);
         if (response.status === '200') {
-          addNotification({ title: 'Secussess!', text: 'Successfully Registered' });
+          addNotification({ title: 'Secussess!', text: 'Password Reseted' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
+          redirect('/');
+          code.value = false;
         }
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
@@ -238,6 +294,8 @@ export default defineComponent({
           title: 'Error during register!',
           text: 'Email already registered or something went wrong, Please try again!',
         });
+        redirect('/');
+        code.value = false;
       }
     };
     const onLogoutClick = async () => {
@@ -261,6 +319,7 @@ export default defineComponent({
       themes,
       showLoginModal,
       showVideoModal,
+      code,
       loginRequestStatus,
       registerRequestStatus,
       locale,
@@ -271,9 +330,16 @@ export default defineComponent({
       onLocaleSwitch,
       onThemeChange,
       onLoginSubmit,
+      onResetSubmit,
       onRegisterSubmit,
       onLogoutClick,
     };
+  },
+  mounted() {
+    if (this.$route.query.code) {
+      this.code = this.$route.query.code;
+      this.showLoginModal = true;
+    }
   },
   data() {
     return {

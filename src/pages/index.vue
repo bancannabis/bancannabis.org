@@ -22,8 +22,8 @@
             <p>
               {{ $t('components.home.p-2') }}
               <a :class="$style.a" href="https://e-groweed.com/" target="_blank" rel="noopener noreferrer">
-                {{ $t('about.bca.p6') }}</a
-              >.
+                {{ $t('about.bca.p6') }}.
+              </a>
             </p>
           </vue-grid-column>
         </vue-grid-row>
