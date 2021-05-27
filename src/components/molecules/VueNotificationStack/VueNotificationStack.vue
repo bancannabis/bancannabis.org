@@ -3,7 +3,7 @@
     <transition-group name="list" tag="div">
       <div v-for="n in orderedNotifications" :key="n.id" :class="[$style.notification, $style[n.type]]">
         <div :class="$style.title">
-          {{ n.title }}
+          <b>{{ n.title }}</b>
         </div>
         <div :class="$style.text">
           {{ n.text }}
@@ -60,6 +60,7 @@ export default defineComponent({
   top: $nav-bar-height;
   left: 0;
   right: 0;
+  min-width: 2em;
   z-index: $notifications-index;
   padding: $notifications-padding;
 
@@ -108,6 +109,19 @@ export default defineComponent({
 .default {
   background-color: $notification-default-bg;
   border: $notification-default-border;
+  border-radius: 5px;
+}
+
+.success {
+  background-color: #53c1b1;
+  border: $notification-default-border;
+  border-radius: 5px;
+}
+
+.error {
+  background-color: #a88699;
+  border: $notification-default-border;
+  border-radius: 5px;
 }
 
 .title {

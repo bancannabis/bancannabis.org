@@ -33,7 +33,15 @@ export const DemoRoutes = (app: express.Application) => {
   /**
    * Auth-Methods
    */
-  let user: { username: any; email: any }; // actual active user - bad practice , find how to fix it
+
+  let user: {
+    // actual active user - bad practice , find how to fix it
+    username: string;
+    name: string;
+    email: string;
+    _id: number;
+    avatar: any;
+  };
 
   app.post('/auth/token', (_: express.Request, res: express.Response) => {
     const login = async (formData: any, $axios: any) => {
@@ -42,7 +50,7 @@ export const DemoRoutes = (app: express.Application) => {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
-        //console.log(response);
+        console.log(response.data.user);
         if (response.status == '200') {
           user = response.data.user; //set user to global var
           res
@@ -128,10 +136,14 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
+    console.log(user.name);
     res.status(200).json({
       user: {
-        name: user.username,
+        username: user.username,
+        name: user.name,
         email: user.email,
+        id: user._id,
+        avatar: user.avatar,
       },
     });
   });

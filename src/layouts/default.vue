@@ -3,16 +3,7 @@
     <vue-notification-stack />
 
     <vue-nav-bar>
-      <template v-if="user" slot="middle"> Hello, {{ user.name }}! </template>
-      <!--  <vue-button
-        slot="right"
-        :class="$style.button"
-        style="background:#efe58a;"
-        color="primary"
-        @click="redirectToSale()"
-      >
-        {{ $t('auth.LoginForm.bca') }}
-      </vue-button> -->
+      <template v-if="user" slot="middle"><!--  Hello, {{ user.name }}! --> </template>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
       </vue-button>
@@ -119,6 +110,7 @@
           <p>{{ $t('auth.RegisterForm.p1') }}</p>
         </vue-tab-item>
       </vue-tab-group>
+
       <vue-tab-group v-if="code">
         <vue-tab-item title="Reset Password" v-if="resetRequestStatus != 'SUCCEED'">
           <h2>Please enter your new password</h2>
@@ -190,6 +182,12 @@ export default defineComponent({
     VueTabGroup,
     VueTabItem,
   },
+  data() {
+    return {
+      registered: false,
+      checked: false,
+    };
+  },
   setup() {
     const { store, redirect, app } = useContext();
     const { htmlAttrs } = useMeta();
@@ -236,7 +234,7 @@ export default defineComponent({
           registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await app.$auth.loginWith('local', { data: formData });
           if (response) {
-            addNotification({ title: 'Secussess!', text: 'Logedin' });
+            addNotification({ title: 'Success!', text: 'Logedin.', type: 'success' });
             redirect('/dashboard');
           }
           showLoginModal.value = false;
@@ -250,8 +248,8 @@ export default defineComponent({
           registerRequestStatus.value = RequestStatus.IDLE;
           const response = await $strapi.forgotPassword(formData.username);
           if (response) {
-            addNotification({ title: 'Secussess!', text: 'Mail sended' });
-            console.log(response);
+            addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
+            //console.log(response);
           }
           showLoginModal.value = false;
         } catch (e) {
@@ -265,10 +263,9 @@ export default defineComponent({
       try {
         const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
         resetRequestStatus.value = RequestStatus.IDLE;
-        console.log(response);
-        console.log(response.status);
+        //console.log(response);
         if (response.status === '200') {
-          addNotification({ title: 'Secussess!', text: 'Registered' });
+          addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           resetRequestStatus.value = RequestStatus.SUCCEED;
         }
       } catch (e) {
@@ -285,10 +282,9 @@ export default defineComponent({
         //console.log(formData)
         const response = await $strapi.resetPassword(formData.code, formData.password, formData.password_repet);
         registerRequestStatus.value = RequestStatus.IDLE;
-        console.log(response);
-        console.log(response.status);
+        //console.log(response);
         if (response.status === '200') {
-          addNotification({ title: 'Secussess!', text: 'Password Reseted' });
+          addNotification({ title: 'Success!', text: 'Password Reseted.', type: 'success' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
           redirect('/');
           code.value = false;
@@ -296,8 +292,9 @@ export default defineComponent({
       } catch (e) {
         registerRequestStatus.value = RequestStatus.FAILED;
         addNotification({
-          title: 'Error during register!',
+          title: 'Error!',
           text: 'Email already registered or something went wrong, Please try again!',
+          type: 'error',
         });
         redirect('/');
         code.value = false;
@@ -345,12 +342,6 @@ export default defineComponent({
       this.code = this.$route.query.code;
       this.showLoginModal = true;
     }
-  },
-  data() {
-    return {
-      registered: false,
-      checked: false,
-    };
   },
   head: {},
   methods: {

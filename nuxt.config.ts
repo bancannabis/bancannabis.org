@@ -1,6 +1,9 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
+  env: {
+    strapiURL: process.env.strapiURL || 'http://localhost:1337',
+  },
   auth: {
     cookie: {
       options: {

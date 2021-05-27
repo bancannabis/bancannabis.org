@@ -9,8 +9,35 @@
       <vue-grid-row>
         <vue-grid-column>
           <vue-card :class="$style.card">
-            <vue-image src="https://source.unsplash.com/600x300/?student" :native="false" :class="$style.profile_img" />
-            <h3>Ishmam Ahasan Samin</h3>
+            <vue-image
+              :src="strapiURL + user.avatar.url || 'https://ui-avatars.com/api/?name=' + user.name.slice(0, 1)"
+              :native="false"
+              :class="$style.profile_img"
+            />
+            <vue-grid-column :class="$style.column">
+              <vue-grid-row>
+                <vue-input
+                  label="Username"
+                  :placeholder="user.username"
+                  name="username"
+                  id="username"
+                  :disabled="true"
+                />
+                <vue-input
+                  id="name"
+                  v-model="name"
+                  name="name"
+                  type="string"
+                  label="Name"
+                  :placeholder="user.name"
+                  :disabled="disabled"
+                />
+                <vue-button :class="$style.button" :color="color" id="button" @click="onSubmit()">
+                  Update
+                </vue-button>
+              </vue-grid-row>
+              <br />
+            </vue-grid-column>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -20,8 +47,8 @@
 
 <script lang="ts">
 /* istanbul ignore file */
-
-import { defineComponent, ref, useContext } from '@nuxtjs/composition-api';
+import { defineComponent, ref, useContext, computed } from '@nuxtjs/composition-api';
+import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
@@ -30,6 +57,7 @@ import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
+import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -42,11 +70,60 @@ export default defineComponent({
     VueHeadline,
     VueCard,
     VueImage,
+    VueInput,
   },
   middleware: 'auth',
+  data(): any {
+    return {
+      name: '',
+      disabled: true,
+      color: 'danger',
+      strapiURL: process.env.strapiURL,
+    };
+  },
+  methods: {
+    onSubmit(): void {
+      if (this.color == 'danger') {
+        // console.log(this.user)
+        this.disabled = false;
+        this.color = 'success';
+        addNotification({ title: 'Success!', text: 'Can edit now.', type: 'success' });
+      }
+      if (this.color == 'success' && this.name != '') {
+        let data = {
+          name: this.name,
+          id: this.user.id,
+        };
+        const updateUser = async (Data: any) => {
+          try {
+            const response = await this.$axios.put(this.strapiURL + '/users/' + Data.id, {
+              name: Data.name,
+            });
+            console.log(response);
+            if (response.status === 200) {
+              addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
+              this.disabled = true;
+              this.color = 'danger';
+            }
+          } catch (e) {
+            addNotification({
+              title: 'Error!',
+              text: 'Please try again!',
+              type: 'error',
+            });
+          }
+        };
+        updateUser(data);
+      }
+    },
+  },
+  mounted() {
+    // console.log(this.strapiURL + this.user.avatar.url);
+  },
   setup() {
-    const { $axios } = useContext();
+    const { $axios, app } = useContext();
     const pending = ref(false);
+    const user = computed(() => app.$auth.user);
     const onClick = async () => {
       const requests: any[] = [];
 
@@ -63,10 +140,10 @@ export default defineComponent({
         pending.value = false;
       }
     };
-    return { pending, onClick };
+    return { pending, onClick, user };
   },
   head: {
-    title: 'vuesion - Dashboard',
+    title: 'Dashboard',
   },
 });
 </script>
@@ -87,5 +164,13 @@ export default defineComponent({
   margin: 10px auto;
   border: 10px solid #ccc;
   border-radius: 50%;
+}
+.column {
+  margin-left: auto;
+  margin-right: auto;
+  width: 15em;
+}
+.button {
+  width: 15em;
 }
 </style>
