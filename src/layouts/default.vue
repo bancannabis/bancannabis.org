@@ -25,20 +25,16 @@
     <vue-footer v-if="loggedIn" />
 
     <vue-sidebar>
-      <vue-sidebar-group title="Languages">
+      <vue-sidebar-group :title="$t('App.core.sidebar-t1')">
         <vue-sidebar-group-item>
           <vue-select id="lang" name="lang" :items="languages" :value="$i18n.locale" @input="onLocaleSwitch" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group title="Navigation">
+      <vue-sidebar-group :title="$t('App.core.sidebar-t2')">
         <vue-sidebar-group-item to="/">
           <vue-icon-code />
           Home
-        </vue-sidebar-group-item>
-        <vue-sidebar-group-item v-if="loggedIn" to="/dashboard">
-          <vue-icon-code />
-          Dashboard
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/egroweed">
           <vue-icon-code />
@@ -49,7 +45,14 @@
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group title="Documentation">
+      <vue-sidebar-group :title="$t('App.core.sidebar-t3')" v-if="loggedIn">
+        <vue-sidebar-group-item to="/dashboard">
+          <vue-icon-code />
+          Dashboard
+        </vue-sidebar-group-item>
+      </vue-sidebar-group>
+
+      <vue-sidebar-group :title="$t('App.core.sidebar-t4')">
         <vue-sidebar-group-item>
           <a
             :href="'docs/white_paper_bancannabis_' + $i18n.locale + '.pdf'"
@@ -63,7 +66,7 @@
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group title="Community">
+      <vue-sidebar-group :title="$t('App.core.sidebar-t5')">
         <vue-sidebar-group-item>
           <a href="https://github.com/bancannabis" target="_blank" rel="noopener noreferrer">
             <vue-icon-github />
@@ -77,7 +80,9 @@
             Twitter
           </a>
         </vue-sidebar-group-item>
+      </vue-sidebar-group>
 
+      <vue-sidebar-group :title="$t('App.core.sidebar-t6')" v-if="loggedIn">
         <vue-sidebar-group-item>
           <a href="https://discord.gg/Sm4CmV6C2K" target="_blank" rel="noopener noreferrer">
             <vue-icon-discord />
@@ -95,7 +100,7 @@
 
       <vue-sidebar-group>
         <vue-sidebar-group-item :class="$style.theme">
-          &nbsp; <vue-toggle id="toggle" v-model="checked" name="toggle" @click="onThemeChange" /> 🌗
+          &nbsp; <vue-toggle id="toggle" v-model="checked" name="toggle" @click="onThemeChange" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
     </vue-sidebar>
@@ -132,7 +137,6 @@
 <script lang="ts">
 import '@/assets/global.scss';
 import { defineComponent, computed, ref, useContext, useMeta, watch } from '@nuxtjs/composition-api';
-import $axios from 'axios';
 import { RequestStatus } from '@/enums/RequestStatus';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
@@ -212,6 +216,7 @@ export default defineComponent({
     const footer = computed(() => store.getters['app/footer']);
     const loggedIn = computed(() => app.$auth.loggedIn);
     const user = computed(() => app.$auth.user);
+
     const onLocaleSwitch = (selectedLocale: string) => {
       switchLocaleTo(selectedLocale);
     };
@@ -229,7 +234,7 @@ export default defineComponent({
       if (formData.username && formData.password) {
         try {
           registerRequestStatus.value = RequestStatus.IDLE;
-          const response = await app.$auth.loginWith('local', { data: formData });
+          const response: any = await app.$auth.loginWith('local', { data: formData });
           if (response) {
             addNotification({ title: 'Secussess!', text: 'Logedin' });
             redirect('/dashboard');

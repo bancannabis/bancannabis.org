@@ -31,8 +31,10 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   /**
-   * Auth-Demo
+   * Auth-Methods
    */
+  let user: { username: any; email: any }; // actual active user - bad practice , find how to fix it
+
   app.post('/auth/token', (_: express.Request, res: express.Response) => {
     const login = async (formData: any, $axios: any) => {
       try {
@@ -42,6 +44,7 @@ export const DemoRoutes = (app: express.Application) => {
         });
         //console.log(response);
         if (response.status == '200') {
+          user = response.data.user; //set user to global var
           res
             .status(200)
             .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
@@ -79,7 +82,7 @@ export const DemoRoutes = (app: express.Application) => {
         const response = await $axios.post('http://localhost:1337/auth/forgot-password', {
           email: formData.email,
         });
-        console.log(response);
+        //console.log(response);
         if (response.status == '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -100,7 +103,7 @@ export const DemoRoutes = (app: express.Application) => {
           password: formData.password,
           passwordConfirmation: formData.passwordConfirmation,
         });
-        console.log(response);
+        //console.log(response);
         if (response.status == '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -127,8 +130,8 @@ export const DemoRoutes = (app: express.Application) => {
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
     res.status(200).json({
       user: {
-        name: 'Johannes Werner',
-        email: 'johannes.werner@hey.com',
+        name: user.username,
+        email: user.email,
       },
     });
   });

@@ -1,6 +1,12 @@
 {
   "App.core.description": "La Comunidad Descentralizada del Cannabis",
   "App.core.description-egroweed": "El Crowdfunding Descentralizado del Cannabis.",
+  "App.core.sidebar-t1": "Lenguajes",
+  "App.core.sidebar-t2": "Navegación",
+  "App.core.sidebar-t3": "Áreas de miembros",
+  "App.core.sidebar-t4": "Documentación",
+  "App.core.sidebar-t5": "Actualizaciones",
+  "App.core.sidebar-t6": "Communidad",
   "auth.LoginForm.cta": "Ingresa",
   "auth.LoginForm.ctaSend": "Enviar Correo",
   "auth.RegisterForm.cta": "Registrar",

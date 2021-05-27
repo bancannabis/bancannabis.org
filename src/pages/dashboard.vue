@@ -6,45 +6,12 @@
           <vue-breadcrumb :items="[{ label: 'Home', href: '/' }, { label: 'Dashboard' }]" />
         </vue-grid-column>
       </vue-grid-row>
-
       <vue-grid-row>
         <vue-grid-column>
-          <vue-headline level="1"> Dashboard </vue-headline>
-        </vue-grid-column>
-      </vue-grid-row>
-
-      <vue-grid-row>
-        <vue-grid-column>
-          <p>This demo demonstrates the authentication and re-authentication flow.</p>
-          <strong>Make sure to open the console to see the whole flow.</strong>
-        </vue-grid-column>
-      </vue-grid-row>
-
-      <vue-grid-row>
-        <vue-grid-column>
-          Press this <vue-button @click="onClick">button</vue-button> and the following will happen:
-        </vue-grid-column>
-      </vue-grid-row>
-
-      <vue-grid-row>
-        <vue-grid-column>
-          <ul>
-            <li>We will try to fetch data 10 times from our example endpoint <code>/protected</code></li>
-            <li>
-              The endpoint will return error-code 401 for not authenticated (which is the same as sending an expired
-              accessToken)
-            </li>
-            <li>
-              The HttpService will handle the error and try to refresh the accessToken.
-              <ul>
-                <li>if an error occurs (random) during the refresh you will be logged out</li>
-                <li>
-                  if the refresh works your accessToken will change the value to <code>accessToken2</code> and the
-                  request will be repeated.
-                </li>
-              </ul>
-            </li>
-          </ul>
+          <vue-card :class="$style.card">
+            <vue-image src="https://source.unsplash.com/600x300/?student" :native="false" :class="$style.profile_img" />
+            <h3>Ishmam Ahasan Samin</h3>
+          </vue-card>
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
@@ -61,6 +28,8 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vue';
 import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
+import VueCard from '@/components/molecules/VueCard/VueCard.vue';
+import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -71,6 +40,8 @@ export default defineComponent({
     VueButton,
     VueGridRow,
     VueHeadline,
+    VueCard,
+    VueImage,
   },
   middleware: 'auth',
   setup() {
@@ -105,5 +76,16 @@ export default defineComponent({
 
 .dashboard {
   padding-top: $nav-bar-height;
+}
+.card {
+  border-radius: 10px;
+}
+.profile_img {
+  width: 150px;
+  height: 150px;
+  object-fit: cover;
+  margin: 10px auto;
+  border: 10px solid #ccc;
+  border-radius: 50%;
 }
 </style>
