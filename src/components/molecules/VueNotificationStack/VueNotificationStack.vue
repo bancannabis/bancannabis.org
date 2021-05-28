@@ -124,6 +124,12 @@ export default defineComponent({
   border-radius: 5px;
 }
 
+.warning {
+  background-color: #dfe226;
+  border: $notification-default-border;
+  border-radius: 5px;
+}
+
 .title {
   font-weight: 500;
   padding-right: $space-12;
