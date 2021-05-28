@@ -13,13 +13,19 @@
 
               <vue-grid-row>
                 <label for="image">
-                  <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="uploaded" />
-                  <vue-image
-                      :src="strapiURL + user.avatar.url || 'https://ui-avatars.com/api/?name=' + user.name.slice(0, 1)"
+                  <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="onSelectedImagen" />
+                  <vue-image v-if="user.avatar"
+                      :src="strapiURL + user.avatar.url"
                       :native="false"
                       :class="$style.profile_img"
                       id="profile_imagen"
                     /> 
+                    <vue-image v-if="user.avatar == null"
+                      :src="'https://ui-avatars.com/api/?name=' + user.name.slice(0, 1)"
+                      :native="false"
+                      :class="$style.profile_img"
+                      id="profile_imagen"
+                    />
                 </label>
               </vue-grid-row>
 
@@ -102,69 +108,36 @@ export default defineComponent({
     };
   },
   methods: {
-    uploaded(e: any): void {
+    onSelectedImagen(e: any): void {
       const image = e.target.files[0];
-      console.log(image)
       this.avatar = image
       this.upload = URL.createObjectURL(image)
-      console.log(this.upload)
       let imagen = document.getElementById("profile_imagen");
-      imagen.style.backgroundImage = "url(" + this.upload + ")"
-      console.log(imagen)
-
-      const uploadImagen = async (Data: any) => {
-            const data = new FormData();
-            data.append('files', Data);
-            console.log(data)
-          try {
-            const response = await this.$axios.post(this.strapiURL+ '/upload', data,  {
-              headers: { 'Content-Type': 'multipart/form-data' },
-            })
-            this.upload = response.data[0].url
-            if (response.status === 200) {
-              addNotification({ title: 'Success!', text: 'Upload.', type: 'success' });
-            }
-          } catch (e) {
-            addNotification({
-              title: 'Error!',
-              text: 'Please try again!',
-              type: 'error',
-            });
-          }
-        };
-      uploadImagen(image);
+      imagen.style.backgroundImage = "url(" + this.upload + ")"  
     },
     onUpdate(): void {
       if (this.color == 'danger') {
         this.disabled = false;
         this.color = 'success';
         this.cancel = true;
+        this.loading = false;
+        this.name= '';
         let imagen = document.getElementById("profile_imagen");
         imagen.style.backgroundImage = "url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.djrHhPrOVynppSdGJ2dtPgHaHa%26pid%3DApi&f=1)"
         addNotification({ title: 'Info!', text: 'Can edit now.', type: 'default' });
       }
-      if (this.color == 'success' && this.name != '') {
+      if (this.color == 'success' && (this.name != '' || this.upload) ) {
         this.loading = true
-        let data = {
-          name: this.name,
-          id: this.user.id,
-        };
-        const updateUser = async (Data: any) => {
+        const uploadImagen = async (Data: any) => {
+            const data = new FormData();
+            data.append('files', Data);
           try {
-            const response = await this.$axios.put(this.strapiURL + '/users/' + Data.id, {
-              name: Data.name,
+            const response = await this.$axios.post(this.strapiURL+ '/upload', data,  {
+              headers: { 'Content-Type': 'multipart/form-data' },
             })
-            //console.log(response);
+            //console.log(response.data[0])      
             if (response.status === 200) {
-              addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
-              this.disabled = true;
-              this.name = '';
-              this.color = 'danger';
-              this.user.name = Data.name
-              this.cancel = false;
-              this.loading = false;
-              let imagen = document.getElementById("profile_imagen");
-              imagen.style.backgroundImage = "url(" + this.strapiURL + this.user.avatar.url + ")"
+              return response.data[0]
             }
           } catch (e) {
             addNotification({
@@ -174,16 +147,91 @@ export default defineComponent({
             });
           }
         };
-        updateUser(data);
+        const updateUser = async (Data: any) => {
+          try {
+            const response = await this.$axios.put(this.strapiURL + '/users/' + this.user.id, Data)
+            //console.log(response);
+            if (response.status === 200) {
+              return 'updated'
+            }
+          } catch (e) {
+            addNotification({
+              title: 'Error!',
+              text: 'Please try again!',
+              type: 'error',
+            });
+          }
+        };
+        if(this.avatar && !this.name){ 
+          uploadImagen(this.avatar).then((avatar) => {
+            console.log(avatar)
+            let data = {
+              avatar: avatar
+            };
+            updateUser(data).then((res) => {
+              addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
+              this.disabled = true;
+              this.color = 'danger';
+              this.cancel = false;
+              this.loading = false;
+              this.upload= ''
+              let imagen = document.getElementById("profile_imagen");
+              imagen.style.backgroundImage = "url(" + this.strapiURL + this.avatar + ")"
+            }) 
+          });
+        }   
+        if(!this.avatar && this.name){ 
+          let data = {
+            id: this.user.id,
+            name: this.name
+          };
+          updateUser(data).then((res) => {
+            addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
+            this.disabled = true;
+            this.color = 'danger';
+            this.user.name = this.name
+            this.cancel = false;
+            this.loading = false;
+            this.updateAvatarPic()
+          }) 
+        }  
+        if(this.avatar && this.name){ 
+          uploadImagen(this.avatar).then((avatar) => {
+            console.log(avatar)
+            let data = {
+              name: this.name,
+              avatar: avatar
+            };
+            updateUser(data).then((res) => {
+              addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
+              this.disabled = true;
+              this.color = 'danger';
+              this.user.name = this.name
+              this.cancel = false;
+              this.loading = false;
+              this.updateAvatarPic()
+            })  
+          });
+        }  
       }
     },
     onCancel(): void {
       this.disabled = true;
       this.color = 'danger';
-      this.cancel = false;
-      let imagen = document.getElementById("profile_imagen");
-      imagen.style.backgroundImage = "url(" + this.strapiURL + this.user.avatar.url + ")"
+      this.cancel = false; 
+      this.loading = false;
+      this.updateAvatarPic()
       addNotification({ title: 'Warning!', text: 'Nothing update.', type: 'warning' });
+    },
+    updateAvatarPic(){
+      if(this.user.avatar){
+        let imagen = document.getElementById("profile_imagen");
+        imagen.style.backgroundImage = "url(" + this.strapiURL + this.user.avatar.url + ")"
+      }
+      if(!this.user.avatar){
+        let imagen = document.getElementById("profile_imagen");
+        imagen.style.backgroundImage = "url(" + "https://ui-avatars.com/api/?name=" + this.user.name.slice(0, 1) + ")"
+      }
     }
   },
   mounted() {

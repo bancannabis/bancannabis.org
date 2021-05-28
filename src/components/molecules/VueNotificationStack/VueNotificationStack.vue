@@ -23,7 +23,7 @@ import { INotification } from './INotification';
 export default defineComponent({
   name: 'VueNotificationStack',
   props: {
-    duration: { type: Number, default: 10000 },
+    duration: { type: Number, default: 2000 },
   },
   setup(props) {
     const notifications = ref<INotification[]>([]);
