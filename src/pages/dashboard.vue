@@ -164,7 +164,7 @@ export default defineComponent({
         };
         if(this.avatar && !this.name){ 
           uploadImagen(this.avatar).then((avatar) => {
-            console.log(avatar)
+            this.user.avatar.url = avatar.url
             let data = {
               avatar: avatar
             };
@@ -197,7 +197,7 @@ export default defineComponent({
         }  
         if(this.avatar && this.name){ 
           uploadImagen(this.avatar).then((avatar) => {
-            console.log(avatar)
+            this.user.avatar.url = avatar.url
             let data = {
               name: this.name,
               avatar: avatar
