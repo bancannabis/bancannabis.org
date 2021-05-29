@@ -4,10 +4,34 @@
 
     <vue-nav-bar>
       <template v-if="user" slot="middle"><!--  Hello, {{ user.name }}! --> </template>
-      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
-        {{ $t('auth.LoginForm.title') }}
-      </vue-button>
-      <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button>
+       <!--  <vue-dropdown-menu slot="right" v-if="!loggedIn" 
+          :items="[{ label: 'Login', value: 'login' }]"
+          v-on:item-click="itemClicked"
+        >
+          <vue-image 
+            :src="'https://ui-avatars.com/api/?name=N'"
+            :native="true"
+            :class="$style.profile_img"
+            id="profile_imagen_nav"
+          />
+        </vue-dropdown-menu> -->
+        <vue-dropdown-menu slot="right" v-if="loggedIn"
+        :items="[{ label: 'Profile', value: 'profile' },
+                 { label: '', value: 'separator' }, 
+                 { label: 'Logout', value: 'logout' }]"
+        v-on:item-click="itemClicked" > 
+          <vue-image v-if="user.avatar"
+                      :src="strapiURL + user.avatar.url"
+                      :native="true"
+                      :class="$style.profile_img"
+                      id="profile_imagen_nav"
+          />
+        </vue-dropdown-menu>
+        <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
+         {{ $t('auth.LoginForm.title') }}
+        </vue-button>
+        <!-- <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button> -->
+      
     </vue-nav-bar>
 
     <nuxt :class="$style.content" />
@@ -137,6 +161,7 @@ import VueTabItem from '@/components/organisms/VueTabGroup/VueTabItem/VueTabItem
 import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
 import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
+import VueDropdownMenu from '@/components/molecules/VueDropdownMenu/VueDropdownMenu.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
 import VueSidebarGroup from '@/components/organisms/VueSidebar/VueSidebarGroup/VueSidebarGroup.vue';
 import VueSidebarGroupItem from '@/components/organisms/VueSidebar/VueSidebarGroupItem/VueSidebarGroupItem.vue';
@@ -153,8 +178,9 @@ import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
 import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue';
 import ResetForm from '@/components/organisms/ResetForm/ResetForm.vue';
+import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
-import { HTTPResponse } from '@nuxtjs/auth-next';
+//import { HTTPResponse } from '@nuxtjs/auth-next';
 
 export default defineComponent({
   name: 'App',
@@ -179,13 +205,16 @@ export default defineComponent({
     VueFooter,
     VueFooterSuscribe,
     VueNotificationStack,
+    VueDropdownMenu,
     VueTabGroup,
     VueTabItem,
+    VueImage,
   },
   data() {
     return {
       registered: false,
       checked: false,
+      strapiURL: process.env.strapiURL,
     };
   },
   setup() {
@@ -195,9 +224,6 @@ export default defineComponent({
     const languages = computed(() => [
       { label: 'English', value: 'en' },
       { label: 'Español', value: 'es' },
-      /* { label: 'Deutsch', value: 'de' },
-      { label: 'Português', value: 'pt' },
-      { label: '中文', value: 'zh-cn' }, */
     ]);
     const themes = computed(() => [
       { label: 'Light Theme', value: 'light' },
@@ -301,11 +327,17 @@ export default defineComponent({
       }
     };
     const onLogoutClick = async () => {
-      await app.$auth.logout();
-      redirect('/');
-      loginRequestStatus.value = RequestStatus.INIT;
-      registerRequestStatus.value = RequestStatus.INIT;
+      await app.$auth.logout().then((res) => {
+        redirect('/');
+        loginRequestStatus.value = RequestStatus.INIT;
+        registerRequestStatus.value = RequestStatus.INIT;
+        let imagen = document.getElementById("profile_imagen_nav");
+        imagen.setAttribute('src','https://ui-avatars.com/api/?name=N')
+      })
     };
+    const redirectToProfile = async () => {
+      redirect('/profile');
+    }
     watch(
       [theme, footer, locale],
       () => {
@@ -335,6 +367,7 @@ export default defineComponent({
       onResetSubmit,
       onRegisterSubmit,
       onLogoutClick,
+      redirectToProfile,
     };
   },
   mounted() {
@@ -345,6 +378,18 @@ export default defineComponent({
   },
   head: {},
   methods: {
+    itemClicked(e:any,){
+      if(e.value == 'logout'){
+        this.onLogoutClick()
+      }
+      if(e.value == 'login'){
+        this.showLoginModal = true
+      }
+      if(e.value == 'profile'){
+        console.log("here")
+        this.redirectToProfile()
+      }
+    },
     redirectToSale() {
       window.open('https://e-groweed.com/grower/', '_blank');
     },
@@ -389,5 +434,15 @@ export default defineComponent({
   width: $space-24;
   height: $space-24;
   color: $nav-bar-color;
+}
+.profile_img {
+  height: auto;
+  width: 60px;
+  border-radius: 50%;
+  background-position: 50% 50%;
+  background-repeat: no-repeat;
+  background-size: 100%;
+  margin: 10px auto;
+  border: 3px solid #ccc !important;
 }
 </style>

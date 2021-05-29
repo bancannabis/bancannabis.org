@@ -3,13 +3,58 @@
     <vue-grid with-vertical-space>
       <vue-grid-row>
         <vue-grid-column>
-          <vue-breadcrumb :items="[{ label: 'Home', href: '/' }, { label: 'Dashboard' }]" />
+          <vue-breadcrumb :items="[{ label: 'Home', href: '/' }, { label: 'Profile' }]" />
         </vue-grid-column>
       </vue-grid-row>
       <vue-grid-row>
         <vue-grid-column> 
           <vue-card :class="$style.card">
-              <h3>Hello!</h3>
+            <vue-grid-column :class="$style.column">
+
+              <vue-grid-row>
+                <label for="image">
+                  <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="onSelectedImagen" />
+                    <vue-image v-if="user.avatar"
+                      :src="strapiURL + user.avatar.url"
+                      :native="false"
+                      :class="$style.profile_img"
+                      id="profile_imagen"
+                    /> 
+                    <vue-image v-if="user.avatar == null"
+                      :src="'https://ui-avatars.com/api/?name=' + user.name.slice(0, 1)"
+                      :native="false"
+                      :class="$style.profile_img"
+                      id="profile_imagen"
+                    />
+                </label>
+              </vue-grid-row>
+
+              <vue-grid-row>    
+                  <vue-input
+                    label="Username"
+                    :placeholder="user.username"
+                    name="username"
+                    id="username"
+                    :disabled="true"
+                  />
+                  <vue-input
+                    id="name"
+                    v-model="name"
+                    name="name"
+                    type="string"
+                    label="Name"
+                    :placeholder="user.name"
+                    :disabled="disabled"
+                  />
+                  <vue-button :class="$style.button" :color="color" :loading="loading"  @click="onUpdate()">
+                    Update
+                  </vue-button> 
+                  <vue-button :class="$style.button" v-if="cancel" color="danger"  @click="onCancel()">
+                    Cancel
+                  </vue-button>
+              </vue-grid-row>
+              <br />
+            </vue-grid-column>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -32,7 +77,7 @@ import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 
 export default defineComponent({
-  name: 'Dashboard',
+  name: 'Profile',
   components: {
     VueBreadcrumb,
     VueGrid,
@@ -58,36 +103,6 @@ export default defineComponent({
       upload: '',
       avatar: ''
     };
-  },
-  mounted() {
-     let imagen_nav = document.getElementById("profile_imagen_nav");
-     imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
-     console.log(imagen_nav)
-  },
-  setup() {
-    const { $axios, app, redirect } = useContext();
-    const pending = ref(false);
-    const user = computed(() => app.$auth.user);
-    const onClick = async () => {
-      const requests: any[] = [];
-
-      for (let i = 0; i < 10; i++) {
-        requests.push($axios.$get('/protected'));
-      }
-      try {
-        pending.value = true;
-        // const data = await Promise.all(requests);
-        // console.info(data); // eslint-disable-line
-      } catch (e) {
-        console.error(e); // eslint-disable-line
-      } finally {
-        pending.value = false;
-      }
-    };
-    return { pending, onClick, user };
-  },
-  head: {
-    title: 'Dashboard',
   },
   methods: {
     onSelectedImagen(e: any): void {
@@ -214,7 +229,37 @@ export default defineComponent({
         let imagen = document.getElementById("profile_imagen");
         imagen.style.backgroundImage = "url(" + "https://ui-avatars.com/api/?name=" + this.user.name.slice(0, 1) + ")"
       }
-    },
+    }
+  },
+  mounted() {
+     let imagen_nav = document.getElementById("profile_imagen_nav");
+     imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
+     console.log(imagen_nav)
+  },
+  setup() {
+    const { $axios, app } = useContext();
+    const pending = ref(false);
+    const user = computed(() => app.$auth.user);
+    const onClick = async () => {
+      const requests: any[] = [];
+
+      for (let i = 0; i < 10; i++) {
+        requests.push($axios.$get('/protected'));
+      }
+      try {
+        pending.value = true;
+        // const data = await Promise.all(requests);
+        // console.info(data); // eslint-disable-line
+      } catch (e) {
+        console.error(e); // eslint-disable-line
+      } finally {
+        pending.value = false;
+      }
+    };
+    return { pending, onClick, user };
+  },
+  head: {
+    title: 'Dashboard',
   },
 });
 </script>
