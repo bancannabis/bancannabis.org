@@ -28,8 +28,8 @@
                 required
                 :label="$t('common.repeatpassword')"
                 :placeholder="$t('common.password.placeholder')"
-                validation="required|min:6"
-                :error-message="$t('auth.LoginForm.password.error')"
+                validation="confirmed:password"
+                :error-message="$t('auth.LoginForm.password.error_confirm')"
               />
             </vue-grid-column>
           </vue-grid-row>

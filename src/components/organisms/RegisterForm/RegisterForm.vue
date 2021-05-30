@@ -44,8 +44,8 @@
                 required
                 :label="$t('common.repeatpassword')"
                 :placeholder="$t('common.password.placeholder')"
-                validation="required|min:6"
-                :error-message="$t('auth.LoginForm.password.error')"
+                validation="confirmed:password"
+                :error-message="$t('auth.LoginForm.password.error_confirm')"
               />
             </vue-grid-column>
           </vue-grid-row>
@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver } from 'vee-validate';
+import { ValidationObserver, defineRule } from 'vee-validate';
 //import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
@@ -74,7 +74,7 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, },
   props: {
     loading: { type: Boolean, default: false },
   },
@@ -85,10 +85,19 @@ export default {
       password_repet: '',
     };
   },
+  setup():any {
+    
+  },
   computed: {},
   methods: {
     onSubmit() {
       this.$emit('submit', this.$data, this.$strapi, this.axios);
+    },
+    defineRule(){
+      if (this.password === this.assword_repet) {
+        return true;
+      }
+      return 'Passwords must match';
     },
   },
 };

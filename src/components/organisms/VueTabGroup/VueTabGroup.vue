@@ -86,6 +86,7 @@ export default {
 .vueTabGroup {
   background: $tab-group-bg;
   box-shadow: $tab-group-shadow;
+
 }
 
 .headerList {

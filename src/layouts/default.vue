@@ -109,7 +109,7 @@
     </vue-sidebar>
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
-      <vue-tab-group v-if="!code">
+      <vue-tab-group v-if="!code" :class="$style.tab">
         <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
           <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
         </vue-tab-item>
@@ -426,7 +426,7 @@ export default defineComponent({
 }
 .profile_img {
   height: auto;
-  width: 35px;
+  width: 45px;
   border-radius: 50%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
@@ -434,6 +434,7 @@ export default defineComponent({
   margin: 10px auto;
   border: 3px solid #ccc !important;
 }
+
 .dropdown {
   > span {
     &:hover {

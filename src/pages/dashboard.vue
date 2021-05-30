@@ -9,7 +9,13 @@
       <vue-grid-row>
         <vue-grid-column> 
           <vue-card :class="$style.card">
-              <h3>Hello!</h3>
+            <vue-grid-row :class="$style.card_row">
+                <vue-headline level="2">Welcome!</vue-headline>
+            </vue-grid-row>
+            <vue-grid-row :class="$style.card_row">
+                <p>Thank you for being pioneer in the cannabis revolution.</p> <br>
+                <p>This is going to be the space to share with the open community in cannabis ecosystem.</p> 
+            </vue-grid-row>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -230,6 +236,15 @@ export default defineComponent({
   border-radius: 10px;
 }
 
+.card_headline {
+  border-radius: 10px;
+}
+
+.card_row {
+  padding: 2rem 2rem 1rem 4rem;
+  display: block  ;
+}
+
 .profile_img {
   height: 150px;
   width: 150px;
@@ -245,6 +260,15 @@ export default defineComponent({
   margin-left: auto;
   margin-right: auto;
   width: 15em;
+}
+.sales_card_wrapper {
+    background-color: #F65365;
+    position: relative;
+    /* background-image: ; */
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-size: 100% 58%;
+    background-position: top left;
 }
 .button {
   width: 15em;
