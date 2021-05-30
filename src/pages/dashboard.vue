@@ -3,7 +3,7 @@
     <vue-grid with-vertical-space>
       <vue-grid-row>
         <vue-grid-column>
-          <vue-breadcrumb :items="[{ label: 'Home', href: '/' }, { label: 'Dashboard' }]" />
+          <vue-breadcrumb :items="[{ label: 'Home', href: '/dashboard' }, { label: 'Dashboard', href: '/dashboard' }]" />
         </vue-grid-column>
       </vue-grid-row>
       <vue-grid-row>

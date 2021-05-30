@@ -3,35 +3,23 @@
     <vue-notification-stack />
 
     <vue-nav-bar>
-      <template v-if="user" slot="middle"><!--  Hello, {{ user.name }}! --> </template>
-       <!--  <vue-dropdown-menu slot="right" v-if="!loggedIn" 
-          :items="[{ label: 'Login', value: 'login' }]"
-          v-on:item-click="itemClicked"
-        >
-          <vue-image 
-            :src="'https://ui-avatars.com/api/?name=N'"
+      <template v-if="user" slot="middle"> </template>
+        <vue-dropdown-menu slot="right" v-if="loggedIn" :class="$style.dropdown"
+          :items="[{ label: 'Profile', value: 'profile' },
+                  { label: '', value: 'separator' }, 
+                  { label: 'Logout', value: 'logout' }]"
+          v-on:item-click="itemClicked" > 
+          <vue-image v-if="user.avatar"
+            :src="strapiURL + user.avatar.url"
             :native="true"
             :class="$style.profile_img"
             id="profile_imagen_nav"
-          />
-        </vue-dropdown-menu> -->
-        <vue-dropdown-menu slot="right" v-if="loggedIn"
-        :items="[{ label: 'Profile', value: 'profile' },
-                 { label: '', value: 'separator' }, 
-                 { label: 'Logout', value: 'logout' }]"
-        v-on:item-click="itemClicked" > 
-          <vue-image v-if="user.avatar"
-                      :src="strapiURL + user.avatar.url"
-                      :native="true"
-                      :class="$style.profile_img"
-                      id="profile_imagen_nav"
           />
         </vue-dropdown-menu>
         <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
          {{ $t('auth.LoginForm.title') }}
         </vue-button>
         <!-- <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button> -->
-      
     </vue-nav-bar>
 
     <nuxt :class="$style.content" />
@@ -416,6 +404,7 @@ export default defineComponent({
 
 .content {
   flex: 1;
+  padding-top: $nav-bar-height;
 }
 
 .button {
@@ -437,12 +426,20 @@ export default defineComponent({
 }
 .profile_img {
   height: auto;
-  width: 60px;
+  width: 35px;
   border-radius: 50%;
   background-position: 50% 50%;
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
   border: 3px solid #ccc !important;
+}
+.dropdown {
+  > span {
+    &:hover {
+      background: transparent  !important;
+      border-radius: 50%;
+    }
+  }  
 }
 </style>

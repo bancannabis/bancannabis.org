@@ -1,16 +1,16 @@
 <template>
-  <div :class="$style.dashboard">
-    <vue-grid with-vertical-space>
+  <div :class="$style.profile">
+    <vue-grid with-vertical-space >
       <vue-grid-row>
         <vue-grid-column>
-          <vue-breadcrumb :items="[{ label: 'Home', href: '/' }, { label: 'Profile' }]" />
+          <vue-breadcrumb :items="[{ label: 'Home', href: '/dashboard' }, { label: 'Profile', href: '/profile' }]" />
         </vue-grid-column>
       </vue-grid-row>
       <vue-grid-row>
         <vue-grid-column> 
           <vue-card :class="$style.card">
             <vue-grid-column :class="$style.column">
-
+              <!-- <vue-breadcrumb :items="[{ label: 'Home', href: '/dashboard' }, { label: 'Profile', href: '/profile' }]" /> -->
               <vue-grid-row>
                 <label for="image">
                   <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="onSelectedImagen" />
@@ -267,7 +267,7 @@ export default defineComponent({
 <style lang="scss" module>
 @import '~@/assets/design-system';
 
-.dashboard {
+.profile {
   padding-top: $nav-bar-height;
 }
 
