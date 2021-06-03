@@ -66,9 +66,10 @@ export default defineComponent({
     };
   },
   mounted() {
+    if(this.user.avatar){
      let imagen_nav = document.getElementById("profile_imagen_nav");
      imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
-     console.log(imagen_nav)
+    }
   },
   setup() {
     const { $axios, app, redirect } = useContext();

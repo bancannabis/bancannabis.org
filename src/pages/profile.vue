@@ -21,7 +21,7 @@
                       id="profile_imagen"
                     /> 
                     <vue-image v-if="user.avatar == null"
-                      :src="'https://ui-avatars.com/api/?name=' + user.name.slice(0, 1)"
+                      :src="'https://ui-avatars.com/api/?name=' + user.username.slice(0, 1)"
                       :native="false"
                       :class="$style.profile_img"
                       id="profile_imagen"
@@ -161,7 +161,7 @@ export default defineComponent({
         };
         if(this.avatar && !this.name){ 
           uploadImagen(this.avatar).then((avatar) => {
-            this.user.avatar.url = avatar.url
+            this.user.avatar = avatar
             let data = {
               avatar: avatar
             };
@@ -232,9 +232,11 @@ export default defineComponent({
     }
   },
   mounted() {
+    if(this.user.avatar){
      let imagen_nav = document.getElementById("profile_imagen_nav");
      imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
      console.log(imagen_nav)
+    }
   },
   setup() {
     const { $axios, app } = useContext();

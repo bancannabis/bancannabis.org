@@ -9,8 +9,8 @@
                   { label: '', value: 'separator' }, 
                   { label: 'Logout', value: 'logout' }]"
           v-on:item-click="itemClicked" > 
-          <vue-image v-if="user.avatar"
-            :src="strapiURL + user.avatar.url"
+          <vue-image 
+            :src="'https://ui-avatars.com/api/?name=N'"
             :native="true"
             :class="$style.profile_img"
             id="profile_imagen_nav"
@@ -168,6 +168,7 @@ import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue';
 import ResetForm from '@/components/organisms/ResetForm/ResetForm.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
+
 //import { HTTPResponse } from '@nuxtjs/auth-next';
 
 export default defineComponent({
@@ -230,7 +231,7 @@ export default defineComponent({
     const user = computed(() => app.$auth.user);
 
     const onLocaleSwitch = (selectedLocale: string) => {
-      switchLocaleTo(selectedLocale);
+      switchLocaleTo(selectedLocale);     
     };
     const onThemeChange = async (selectedTheme: any) => {
       if (selectedTheme === false) {
@@ -253,8 +254,12 @@ export default defineComponent({
           }
           showLoginModal.value = false;
         } catch (e) {
+          if(e.status === 400){
+            addNotification({ title: 'Error during login!', text: e });
+          }else{
+            addNotification({ title: 'Error during login!', text: e });
+          }
           loginRequestStatus.value = RequestStatus.FAILED;
-          addNotification({ title: 'Error during login!', text: e });
         }
       } else {
         // forgot password
@@ -321,6 +326,7 @@ export default defineComponent({
         registerRequestStatus.value = RequestStatus.INIT;
         let imagen = document.getElementById("profile_imagen_nav");
         imagen.setAttribute('src','https://ui-avatars.com/api/?name=N')
+        console.log(imagen)
       })
     };
     const redirectToProfile = async () => {

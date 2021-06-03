@@ -15,6 +15,8 @@
   "auth.LoginForm.password.error": "The password has to have at least 6 characters",
   "auth.LoginForm.password.error_confirm": "The passwords must match",
   "auth.LoginForm.title": "Ingreso",
+  "auth.LoginForm.forgot": "¿Olvidaste la contraseña?",
+  "auth.LoginForm.error": "Contraseña o usuario incorrecto, porfavor intenta de nuevo.",
   "auth.RegisterForm.title": "Registro",
   "auth.RegisterForm.success": "Registro Exitoso!",
   "auth.RegisterForm.p1": "Recuerda confirmar tu correo, para iniciar sesión.",

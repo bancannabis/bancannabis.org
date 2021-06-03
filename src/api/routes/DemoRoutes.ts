@@ -58,7 +58,11 @@ export const DemoRoutes = (app: express.Application) => {
             .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
         }
       } catch (e) {
-        res.status(500).json({});
+        if(e.message == "Request failed with status code 400"){
+          res.status(400).json({e});
+        }else{
+          res.status(500).json({e});
+        }
       }
     };
     login(_.body, $axios);

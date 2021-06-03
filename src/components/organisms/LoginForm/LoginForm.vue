@@ -13,9 +13,9 @@
                 autofocus
                 required
                 :label="$t('common.email' /* Username */)"
-                :placeholder="$t('common.email.placeholder' /* Enter any username */)"
+                :placeholder="$t('common.email.placeholder')"
                 validation="required"
-                :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
+                :error-message="$t('auth.LoginForm.username.error')"
                 :autocomplete="username"
               />
             </vue-grid-column>
@@ -29,11 +29,11 @@
                 name="password"
                 type="password"
                 required
-                :label="$t('common.password' /* Password */)"
-                :placeholder="$t('common.password.placeholder' /* Enter any password */)"
+                :label="$t('common.password')"
+                :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
                 :error-message="
-                  $t('auth.LoginForm.password.error' /* The password has to have at least 6 characters */)
+                  $t('auth.LoginForm.password.error')
                 "
                 :autocomplete="password"
               />
@@ -44,11 +44,11 @@
             <vue-grid-column justify-content="flex-end">
               <!-- <vue-checkbox id="remember" label="Remember?" name="remember" :checked="checked" @click="onCheck()" /> -->
               <a :class="$style.a" href="" target="_blank" rel="noopener noreferrer" @click.prevent="onClick()">
-                forgot pass?
+                {{ $t('auth.LoginForm.forgot') }}
               </a>
               &nbsp;
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
-                {{ $t('auth.LoginForm.cta' /* Login */) }}
+                {{ $t('auth.LoginForm.cta') }}
               </vue-button>
             </vue-grid-column>
           </vue-grid-row>
