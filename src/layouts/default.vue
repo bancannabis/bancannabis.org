@@ -37,7 +37,7 @@
       <vue-sidebar-group :title="$t('App.core.sidebar-t2')">
         <vue-sidebar-group-item to="/">
           <vue-icon-code />
-          Home
+          Bancannabis.org
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/egroweed">
           <vue-icon-code />
@@ -57,14 +57,21 @@
 
       <vue-sidebar-group :title="$t('App.core.sidebar-t4')">
         <vue-sidebar-group-item>
-          <a
-            :href="'docs/white_paper_bancannabis_' + $i18n.locale + '.pdf'"
+          <a v-if="loggedIn"
+            :href="'docs/manifest_bancannabis_' + $i18n.locale + '.pdf'"
             target="_blank"
             rel="noopener noreferrer"
             download
           >
             <vue-icon-puzzle-piece />
-            White Paper
+            {{ $t('App.core.sidebar-p1') }}
+          </a>
+          <a v-if="!loggedIn"
+            rel="noopener noreferrer"
+            @click="showLoginModal = true"
+          >
+            <vue-icon-puzzle-piece />
+            {{ $t('App.core.sidebar-p1') }}
           </a>
         </vue-sidebar-group-item>
       </vue-sidebar-group>
@@ -234,13 +241,15 @@ export default defineComponent({
       switchLocaleTo(selectedLocale);     
     };
     const onThemeChange = async (selectedTheme: any) => {
+      let currentTheme = theme
+      let changeToTheme = ''
       if (selectedTheme === false) {
         selectedTheme = 'dark';
       } else {
         selectedTheme = 'light';
-      }
-      await store.dispatch('app/changeTheme', selectedTheme);
-      document.documentElement.className = selectedTheme;
+      } 
+      await store.dispatch('app/changeTheme', changeToTheme);
+      document.documentElement.className = changeToTheme;
     };
     const onLoginSubmit = async (formData: any, $strapi: any): Promise<any> => {
       loginRequestStatus.value = RequestStatus.PENDING;
@@ -398,11 +407,13 @@ export default defineComponent({
 @import '~@/assets/design-system';
 @import '~@/assets/reset';
 @import '~@/assets/typo';
+
 .app {
   min-height: 100vh;
   display: flex;
   flex-direction: column;
 }
+
 .theme {
   top: 2vh;
   position: relative;
@@ -423,6 +434,7 @@ export default defineComponent({
     border-color: #520978 !important;
   }
 }
+
 .logo {
   position: relative;
   top: $space-4;
@@ -430,6 +442,7 @@ export default defineComponent({
   height: $space-24;
   color: $nav-bar-color;
 }
+
 .profile_img {
   height: auto;
   width: 45px;

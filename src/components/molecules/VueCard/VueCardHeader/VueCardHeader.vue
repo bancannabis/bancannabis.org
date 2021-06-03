@@ -2,7 +2,7 @@
   <vue-grid :class="$style.vueCardHeader" fill with-vertical-space>
     <vue-grid-row align-items="center">
       <vue-grid-column :can-grow="false">
-        <img :src="image" :alt="title" />
+        <img v-if="image" :src="image" :alt="title" />
       </vue-grid-column>
       <vue-grid-column :can-grow="false">
         <div v-if="title" :class="$style.title">{{ title }}</div>

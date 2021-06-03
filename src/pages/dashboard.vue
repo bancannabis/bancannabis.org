@@ -3,19 +3,33 @@
     <vue-grid with-vertical-space>
       <vue-grid-row>
         <vue-grid-column>
-          <vue-breadcrumb :items="[{ label: 'Home', href: '/dashboard' }, { label: 'Dashboard', href: '/dashboard' }]" />
+          <vue-breadcrumb :items="[{ label: $t('App.core.dashboard.home') , href: '/dashboard' }, { label: 'Dashboard', href: '/dashboard' }]" />
         </vue-grid-column>
       </vue-grid-row>
       <vue-grid-row>
         <vue-grid-column> 
-          <vue-card :class="$style.card">
-            <vue-grid-row :class="$style.card_row">
-                <vue-headline level="2">Welcome!</vue-headline>
-            </vue-grid-row>
-            <vue-grid-row :class="$style.card_row">
-                <p>Thank you for being pioneer in the cannabis revolution.</p> <br>
-                <p>This is going to be the space to share with the open community in cannabis ecosystem.</p> 
-            </vue-grid-row>
+          <vue-card :class="$style.card_big">
+            <vue-card-header 
+              image = 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png' 
+              :title="$t('App.core.dashboard.greetings')" 
+              :subtitle="this.user.name" 
+            >
+            </vue-card-header>
+          </vue-card>
+        </vue-grid-column>
+        <vue-grid-column> 
+          <vue-card :class="$style.card_little">
+           <vue-card-header  
+              title= "Updates" 
+              
+            >
+            </vue-card-header>
+          </vue-card> <br>
+          <vue-card :class="$style.card_little">
+            <vue-card-header 
+              title="Featured projects" 
+            >
+            </vue-card-header>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -34,6 +48,7 @@ import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vu
 import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
+import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 
@@ -43,6 +58,7 @@ export default defineComponent({
     VueBreadcrumb,
     VueGrid,
     VueGridColumn,
+    VueCardHeader,
     VueButton,
     VueGridRow,
     VueHeadline,
@@ -234,11 +250,28 @@ export default defineComponent({
 }
 
 .card {
-  border-radius: 10px;
+  border-radius: 10px !important;
+}
+
+.card_big {
+  border-radius: 10px !important;
+  min-width: auto;
+  min-height: 30rem;
+}
+
+.card_little {
+  border-radius: 10px !important;
+  max-width: 70rem;
+  min-height: 14rem;
 }
 
 .card_headline {
   border-radius: 10px;
+}
+
+.card_row {
+  padding: 2rem 2rem 1rem 4rem;
+  display: block  ;
 }
 
 .card_row {
