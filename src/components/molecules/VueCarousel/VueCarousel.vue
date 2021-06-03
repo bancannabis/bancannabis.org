@@ -22,7 +22,14 @@
         :class="$style.image"
       >
         <div v-show="image.getAttribute('title').length > 0" :class="$style.copyright">
-          &copy; {{ image.getAttribute('title') }}
+          &copy;
+          <a style="text-decoration:none; " :class="$style.a"
+            :href="'https://' + image.getAttribute('title')"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            {{ image.getAttribute('title') }}
+          </a> 
         </div>
       </div>
     </fade-animation>
@@ -45,7 +52,7 @@ export default defineComponent({
     images: { type: Array, default: (): any[] => [] },
     interval: { type: Number, default: 5000 },
     selectedSlide: { type: Number, default: 1 },
-    minHeight: { type: Number, default: 500 },
+    minHeight: { type: Number, default: 350 },
     showIndicator: { type: Boolean, default: true },
   },
   setup(props) {
@@ -148,6 +155,14 @@ export default defineComponent({
     &.active {
       background-color: $carousel-indicator-active-bg;
     }
+  }
+}
+
+.a {
+  color: $carousel-copyright-color;
+ 
+  &:hover {
+    color: #291e59;
   }
 }
 </style>

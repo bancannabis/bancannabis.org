@@ -241,15 +241,14 @@ export default defineComponent({
       switchLocaleTo(selectedLocale);     
     };
     const onThemeChange = async (selectedTheme: any) => {
-      let currentTheme = theme
-      let changeToTheme = ''
-      if (selectedTheme === false) {
+      if (selectedTheme === false || theme.value == 'light') {
         selectedTheme = 'dark';
-      } else {
+      }
+      else {
         selectedTheme = 'light';
       } 
-      await store.dispatch('app/changeTheme', changeToTheme);
-      document.documentElement.className = changeToTheme;
+      await store.dispatch('app/changeTheme', selectedTheme);
+      document.documentElement.className = selectedTheme;
     };
     const onLoginSubmit = async (formData: any, $strapi: any): Promise<any> => {
       loginRequestStatus.value = RequestStatus.PENDING;
@@ -451,7 +450,7 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
-  border: 3px solid #ccc !important;
+  border: 3px solid black !important;
 }
 
 .dropdown {

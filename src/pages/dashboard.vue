@@ -13,23 +13,32 @@
               image = 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png' 
               :title="$t('App.core.dashboard.greetings')" 
               :subtitle="this.user.name" 
-            >
-            </vue-card-header>
+            />
+            <vue-card-body :class="$style.card_big_body" >
+              <vue-headline level="2" :class="$style.card_headline" >
+                Thanks! for join. We  are under construction.
+              </vue-headline>
+            </vue-card-body>
           </vue-card>
         </vue-grid-column>
         <vue-grid-column> 
-          <vue-card :class="$style.card_little">
+         <!--  <vue-card :class="$style.card_little">
            <vue-card-header  
               title= "Updates" 
-              
-            >
-            </vue-card-header>
-          </vue-card> <br>
+           />
+          <vue-card-body :class="$style.card_big_body" >
+            Update 1.0.0 -- First launch Bancannabis.org  03/06/2021
+          </vue-card-body>
+          </vue-card> <br> -->
           <vue-card :class="$style.card_little">
             <vue-card-header 
               title="Featured projects" 
             >
             </vue-card-header>
+            <vue-carousel 
+              :images="this.images"
+              :interval="2000"
+            />
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -51,6 +60,11 @@ import VueCard from '@/components/molecules/VueCard/VueCard.vue';
 import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
+import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
+import VueCardFooter from '@/components/molecules/VueCard/VueCardFooter/VueCardFooter.vue';
+import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
+import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
+
 
 export default defineComponent({
   name: 'Dashboard',
@@ -65,6 +79,9 @@ export default defineComponent({
     VueCard,
     VueImage,
     VueInput,
+    VueCardBody,
+    VueCardFooter,
+    VueCarousel,
   },
   props: {
     loading: { type: Boolean, default: false },
@@ -78,7 +95,7 @@ export default defineComponent({
       strapiURL: process.env.strapiURL,
       cancel: false,
       upload: '',
-      avatar: ''
+      avatar: '',
     };
   },
   mounted() {
@@ -89,6 +106,10 @@ export default defineComponent({
   },
   setup() {
     const { $axios, app, redirect } = useContext();
+    let image2:ICarouselImage = {copyright: 'e-groweed.com', alt: 'egroweed', url: '/images/egroweed/egroweed2.png'}
+    let image3:ICarouselImage = {copyright: 'e-groweed.com', alt: 'egroweed', url: '/images/egroweed/egroweed3.png'}
+    let images = [image2,image3]
+
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
     const onClick = async () => {
@@ -107,7 +128,7 @@ export default defineComponent({
         pending.value = false;
       }
     };
-    return { pending, onClick, user };
+    return { pending, onClick, user, images };
   },
   head: {
     title: 'Dashboard',
@@ -256,23 +277,26 @@ export default defineComponent({
 .card_big {
   border-radius: 10px !important;
   min-width: auto;
-  min-height: 30rem;
+  min-height: 40rem;
+  background-image: url('/images/card_bg_purple.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-color: black !important;
+  border: 3px solid black !important;
+}
+.card_big_body {
+  .card_headline {
+    margin-top: 7rem;
+  }
 }
 
 .card_little {
   border-radius: 10px !important;
-  max-width: 70rem;
-  min-height: 14rem;
+  max-width: auto;
+  max-height: 40rem;
+  border: 3px solid black !important;
 }
 
-.card_headline {
-  border-radius: 10px;
-}
-
-.card_row {
-  padding: 2rem 2rem 1rem 4rem;
-  display: block  ;
-}
 
 .card_row {
   padding: 2rem 2rem 1rem 4rem;
@@ -295,15 +319,7 @@ export default defineComponent({
   margin-right: auto;
   width: 15em;
 }
-.sales_card_wrapper {
-    background-color: #F65365;
-    position: relative;
-    /* background-image: ; */
-    background-repeat: no-repeat;
-    background-size: cover;
-    background-size: 100% 58%;
-    background-position: top left;
-}
+
 .button {
   width: 15em;
   margin-top: 10px;
