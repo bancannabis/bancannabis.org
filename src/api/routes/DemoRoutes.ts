@@ -1,6 +1,7 @@
 import * as path from 'path';
 import * as express from 'express';
 import { getIntInRange } from '@vuesion/utils/dist/randomGenerator';
+import $axios from 'axios';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
 const getErrorWithProbability = (probability: number) => getIntInRange(0, 100) <= probability;
@@ -30,14 +31,101 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   /**
-   * Auth-Demo
+   * Auth-Methods
    */
+
+  let user: {
+    // actual active user - bad practice , find how to fix it
+    username: string;
+    lastname: string;
+    name: string;
+    email: string;
+    _id: number;
+    avatar: any;
+  };
+
   app.post('/auth/token', (_: express.Request, res: express.Response) => {
-    if (getErrorWithProbability(10)) {
-      res.status(500).json({});
-    } else {
-      res.status(200).json({ access_token: 'accessToken1', refresh_token: 'refreshToken1' });
-    }
+    const login = async (formData: any, $axios: any) => {
+      try {
+        const response = await $axios.post('http://localhost:1337/auth/local', {
+          identifier: formData.username.split('@')[0],
+          password: formData.password,
+        });
+        //console.log(response.data.user.lastname);
+        if (response.status == '200') {
+          user = response.data.user;
+          res
+            .status(200)
+            .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
+        }
+      } catch (e) {
+        if (e.message == 'Request failed with status code 400') {
+          res.status(400).json({ e });
+        } else {
+          res.status(500).json({ e });
+        }
+      }
+    };
+    login(_.body, $axios);
+  });
+
+  app.post('/auth/local/register', (_: express.Request, res: express.Response) => {
+    const register = async (formData: any, $axios: any) => {
+      try {
+        const response = await $axios.post('http://localhost:1337/auth/local/register', {
+          username: formData.username,
+          email: formData.email,
+          password: formData.password,
+        });
+        //console.log(response);
+        if (response.status == '200') {
+          res.status(200).json({ status: '200', des: 'succeed' });
+        }
+      } catch (e) {
+        res.status(500).json({});
+      }
+    };
+    register(_.body, $axios);
+  });
+
+  app.post('/auth/forgot-password', (_: express.Request, res: express.Response) => {
+    const register = async (formData: any, $axios: any) => {
+      //console.log(formData.email)
+      try {
+        const response = await $axios.post('http://localhost:1337/auth/forgot-password', {
+          email: formData.email,
+        });
+        //console.log(response);
+        if (response.status == '200') {
+          res.status(200).json({ status: '200', des: 'succeed' });
+        }
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({});
+      }
+    };
+    register(_.body, $axios);
+  });
+
+  app.post('/auth/reset-password', (_: express.Request, res: express.Response) => {
+    const register = async (formData: any, $axios: any) => {
+      //console.log(formData.email)
+      try {
+        const response = await $axios.post('http://localhost:1337/auth/reset-password', {
+          code: formData.code,
+          password: formData.password,
+          passwordConfirmation: formData.passwordConfirmation,
+        });
+        //console.log(response);
+        if (response.status == '200') {
+          res.status(200).json({ status: '200', des: 'succeed' });
+        }
+      } catch (e) {
+        console.log(e);
+        res.status(500).json({});
+      }
+    };
+    register(_.body, $axios);
   });
 
   app.post('/auth/refresh', (_: express.Request, res: express.Response) => {
@@ -53,10 +141,15 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
+    //console.log(user.name);
     res.status(200).json({
       user: {
-        name: 'Johannes Werner',
-        email: 'johannes.werner@hey.com',
+        username: user.username,
+        name: user.name,
+        email: user.email,
+        id: user._id,
+        avatar: user.avatar,
+        lastname: user.lastname,
       },
     });
   });

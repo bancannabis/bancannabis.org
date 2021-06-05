@@ -44,7 +44,7 @@ export default {
       isCodeLoaded: true,
     };
   },
-  head() {
+  /* head() {
     return {
       script: [
         {
@@ -57,7 +57,7 @@ export default {
         },
       ],
     };
-  },
+  } */
   computed: {},
   beforeMount() {
     window.addEventListener('resize', this.handleResize);

@@ -1,5 +1,5 @@
-<template >
-   <div :class="$style.vueFooter">
+<template>
+  <div :class="$style.vueFooter">
     <vue-grid with-vertical-space text-align="center">
       <vue-grid-row>
         <vue-grid-column>
@@ -7,12 +7,12 @@
         </vue-grid-column>
 
         <vue-grid-column>
-          <div :class="$style.vueFooterCard" >
+          <div :class="$style.vueFooterCard">
             <div class="text">
               <p>{{ $t('App.core.footer.suscribe') }}</p>
             </div>
-              <input id="useremail" type="email" v-model="email" :placeholder="$t('common.email.placeholder')" required>
-              <input id="submit"  type="submit" v-on:click='handleSubmit()' :value="$t('common.submit')">
+            <input id="useremail" v-model="email" type="email" :placeholder="$t('common.email.placeholder')" required />
+            <input id="submit" type="submit" :value="$t('common.submit')" @click="handleSubmit()" />
           </div>
         </vue-grid-column>
 
@@ -29,10 +29,10 @@
 </template>
 
 <script lang="ts">
+import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueGrid from '../VueGrid/VueGrid.vue';
 import VueGridRow from '../VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '../VueGrid/VueGridColumn/VueGridColumn.vue';
-import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 
 export default {
   name: 'VueFooter',
@@ -44,39 +44,41 @@ export default {
   data() {
     return {
       email: '',
-      notification: false
-    }
+      notification: false,
+    };
   },
   computed: {
     year() {
       return new Date().getFullYear();
     },
   },
-  methods:{
+  methods: {
     async handleSubmit() {
       try {
-        if(this.email != '' && this.email.match(/^[^\s@]+@[^\s@]+$/)){
-          const response = await this.$strapi.createEntry('newsletter-subscribers', { email: this.email.toLowerCase()})
-          if(typeof response  == 'object'){
+        if (this.email != '' && this.email.match(/^[^\s@]+@[^\s@]+$/)) {
+          const response = await this.$strapi.createEntry('newsletter-subscribers', {
+            email: this.email.toLowerCase(),
+          });
+          if (typeof response === 'object') {
             addNotification({
               title: 'Success!',
               text: 'Successfully registered',
             });
           }
-        }else{
-           addNotification({
-              title: 'Error!',
-              text: 'Wrong Mail',
-           });
+        } else {
+          addNotification({
+            title: 'Error!',
+            text: 'Wrong Mail',
+          });
         }
       } catch (err) {
         addNotification({
-              title: 'Warning',
-              text: 'Email already registered',
+          title: 'Warning',
+          text: 'Email already registered',
         });
       }
     },
-  }
+  },
 };
 </script>
 
@@ -84,7 +86,7 @@ export default {
 @import '~@/assets/design-system';
 
 .vueFooterCard {
-/*   border: border-box;
+  /*   border: border-box;
   border-radius: 8px;
   background-color: transparent;
   height: auto;
@@ -96,11 +98,11 @@ export default {
 
   div {
     text-align: center;
-/*     margin-bottom:  1px; */
+    /*     margin-bottom:  1px; */
   }
 
   .fas {
-    color: #D63356;
+    color: #d63356;
     font-size: 2em;
   }
 
@@ -108,24 +110,25 @@ export default {
     margin: 0;
   }
 
-  input[type="email"], input[type="submit"] {
+  input[type='email'],
+  input[type='submit'] {
     border-radius: 45px;
     padding-left: 15px;
     padding-right: 5px;
   }
-  input[type="email"]{
+  input[type='email'] {
     background-color: transparent;
-    border: solid #614CE6;
+    border: solid #614ce6;
   }
 
-  input[type="submit"] {
-    background-color: #614CE6;
-    border: solid #614CE6;
+  input[type='submit'] {
+    background-color: #614ce6;
+    border: solid #614ce6;
     margin-left: -30px;
   }
 
   ::selection {
-    background-color: #614CE6;
+    background-color: #614ce6;
   }
 }
 

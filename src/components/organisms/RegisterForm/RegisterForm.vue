@@ -2,25 +2,23 @@
   <div>
     <validation-observer v-slot="{ invalid }">
       <form :class="$style.loginForm" @submit.stop.prevent="onSubmit">
-        <vue-grid v-if="!forget">
+        <vue-grid>
           <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
                 id="email"
-                v-model="username"
+                v-model="email"
                 name="email"
                 type="email"
                 autofocus
                 required
-                :label="$t('common.email' /* Username */)"
+                :label="$t('common.email')"
                 :placeholder="$t('common.email.placeholder')"
                 validation="required"
                 :error-message="$t('auth.LoginForm.username.error')"
-                :autocomplete="username"
               />
             </vue-grid-column>
           </vue-grid-row>
-
           <vue-grid-row>
             <vue-grid-column>
               <vue-input
@@ -33,46 +31,29 @@
                 :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
                 :error-message="$t('auth.LoginForm.password.error')"
-                :autocomplete="password"
               />
             </vue-grid-column>
           </vue-grid-row>
-
           <vue-grid-row>
-            <vue-grid-column justify-content="flex-end">
-              <!-- <vue-checkbox id="remember" label="Remember?" name="remember" :checked="checked" @click="onCheck()" /> -->
-              <a :class="$style.a" href="" target="_blank" rel="noopener noreferrer" @click.prevent="onClick()">
-                {{ $t('auth.LoginForm.forgot') }}
-              </a>
-              &nbsp;
-              <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
-                {{ $t('auth.LoginForm.cta') }}
-              </vue-button>
-            </vue-grid-column>
-          </vue-grid-row>
-        </vue-grid>
-        <vue-grid v-if="forget">
-          <vue-grid-row vertical-space="lg">
             <vue-grid-column>
               <vue-input
-                id="email"
-                v-model="username"
-                name="email"
-                type="email"
-                autofocus
+                id="password_repet"
+                v-model="password_repet"
+                name="password_repet"
+                type="password"
                 required
-                :label="$t('common.email' /* Username */)"
-                :placeholder="$t('common.email.placeholder' /* Enter any username */)"
-                validation="required"
-                :error-message="$t('auth.LoginForm.username.error' /* The username can not be empty */)"
-                :autocomplete="username"
+                :label="$t('common.repeatpassword')"
+                :placeholder="$t('common.password.placeholder')"
+                validation="confirmed:password"
+                :error-message="$t('auth.LoginForm.password.error_confirm')"
               />
             </vue-grid-column>
           </vue-grid-row>
+          <div></div>
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
-                {{ $t('auth.LoginForm.ctaSend') }}
+                {{ $t('auth.RegisterForm.cta') }}
               </vue-button>
             </vue-grid-column>
           </vue-grid-row>
@@ -83,10 +64,9 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver } from 'vee-validate';
+import { ValidationObserver, defineRule } from 'vee-validate';
 //import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
-import VueCheckbox from '@/components/atoms/VueCheckbox/VueCheckbox.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
@@ -94,33 +74,28 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueCheckbox },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
   props: {
     loading: { type: Boolean, default: false },
   },
   data(): any {
     return {
-      username: '',
+      email: '',
       password: '',
-      checked: false,
-      forget: false,
+      password_repet: '',
     };
   },
+  setup(): any {},
   computed: {},
   methods: {
     onSubmit() {
-      this.$emit('submit', this.$data, this.$strapi);
+      this.$emit('submit', this.$data, this.$strapi, this.axios);
     },
-    onCheck() {
-      this.checked = !this.checked;
-      if (this.checked === false) {
-        this.username = '';
-        this.password = '';
+    defineRule() {
+      if (this.password === this.assword_repet) {
+        return true;
       }
-    },
-    onClick() {
-      this.forget = true;
-      this.password = '';
+      return 'Passwords must match';
     },
   },
 };

@@ -24,6 +24,7 @@ export default {
 .vueNavBar {
   width: $nav-bar-width;
   min-height: $nav-bar-height;
+  height: $nav-bar-height + 2rem;
   color: $nav-bar-color;
   padding: $nav-bar-padding;
   z-index: $nav-bar-index;

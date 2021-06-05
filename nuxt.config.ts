@@ -1,8 +1,8 @@
 import { NuxtConfig } from '@nuxt/types';
 
 const config: NuxtConfig = {
-  axios: {
-    baseURL: process.env.API_URL || 'http://localhost:1337'
+  env: {
+    strapiURL: process.env.strapiURL || 'http://localhost:1337',
   },
   auth: {
     cookie: {
@@ -17,6 +17,8 @@ const config: NuxtConfig = {
       logout: '/',
       callback: '/',
       home: '/',
+      dashboard: '/dashboard',
+      profile: '/profile',
     },
     strategies: {
       local: {
@@ -35,7 +37,7 @@ const config: NuxtConfig = {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/auth/token', method: 'post' },
+          login: { url: '/auth/token', method: 'post' }, // login: { url: '/auth/token', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
           user: { url: '/auth/user', method: 'get' },
           logout: { url: '/auth/logout', method: 'post' },
@@ -118,7 +120,14 @@ const config: NuxtConfig = {
     color: '#cd235b',
     background: 'white',
   },
-  modules: ['@nuxtjs/axios', '@nuxtjs/auth-next', '@nuxtjs/pwa', 'nuxt-i18n','@stun3r/nuxt-strapi-sdk', '@nuxtjs/strapi'],
+  modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/pwa',
+    'nuxt-i18n',
+    '@stun3r/nuxt-strapi-sdk',
+    '@nuxtjs/strapi',
+  ],
   plugins: [
     { src: '@/plugins/vee-validate/vee-validate' },
     { src: '@/plugins/vuex-persist/vuex-persist.client' },
@@ -126,7 +135,7 @@ const config: NuxtConfig = {
   ],
   publicRuntimeConfig: {
     axios: {
-      baseURL: process.env.baseURL || 'http://localhost:1337',
+      baseURL: process.env.baseURL || 'http://localhost:3000',
     },
   },
   privateRuntimeConfig: {},

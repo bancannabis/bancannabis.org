@@ -69,10 +69,10 @@ export default {
   color: $sidebar-color;
   max-width: $sidebar-max-width;
   padding: $sidebar-padding;
-  overflow-y: hidden;
+  overflow-y: scroll;
   transform: translateX(-100%);
   transition: transform var(--brand-transition-duration) ease-in-out;
-  width: $sidebar-width;
+  width: $sidebar-width -10%;
   -webkit-overflow-scrolling: touch;
 
   &.open {

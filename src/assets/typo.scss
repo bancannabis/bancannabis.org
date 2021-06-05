@@ -1,12 +1,16 @@
 @import 'designSystem/variables';
 @import 'designSystem/mixins';
+@font-face {
+  font-family: muli;
+  src: url(/fonts/Muli-Light.ttf);
+}
 
 html {
   font-size: 62.5%;
 }
 
 body {
-  font-family: $font-family;
+  font-family: muli;
   font-size: 1.6em;
   font-weight: $font-weight-light;
   letter-spacing: $letter-spacing;
