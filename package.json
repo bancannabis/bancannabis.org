@@ -61,9 +61,9 @@
     "compression": "1.7.4",
     "cookie-parser": "1.4.5",
     "helmet": "4.3.1",
-    "lodash": "4.17.20",
+    "lodash": "4.17.21",
     "marked": "1.2.7",
-    "nuxt": "2.14.12",
+    "nuxt": "2.15.6",
     "nuxt-i18n": "6.17.0",
     "strapi-sdk-javascript": "0.3.3",
     "vee-validate": "3.4.5"
