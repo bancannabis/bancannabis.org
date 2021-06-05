@@ -10,7 +10,7 @@
                   { label: 'Logout', value: 'logout' }]"
           v-on:item-click="itemClicked" > 
           <vue-image 
-            :src="'https://ui-avatars.com/api/?name=N'"
+            :src="user.avatar.url || 'https://ui-avatars.com/api/?name=N'"
             :native="true"
             :class="$style.profile_img"
             id="profile_imagen_nav"
@@ -37,7 +37,7 @@
       <vue-sidebar-group :title="$t('App.core.sidebar-t2')">
         <vue-sidebar-group-item to="/">
           <vue-icon-code />
-          Bancannabis.org
+          Bancannabis
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/egroweed">
           <vue-icon-code />
@@ -376,6 +376,10 @@ export default defineComponent({
     if (this.$route.query.code) {
       this.code = this.$route.query.code;
       this.showLoginModal = true;
+    }
+    if(this.user.avatar){
+     let imagen_nav = document.getElementById("profile_imagen_nav");
+     imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
     }
   },
   head: {},

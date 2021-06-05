@@ -8,54 +8,69 @@
       </vue-grid-row>
       <vue-grid-row>
         <vue-grid-column> 
-          <vue-card :class="$style.card">
-            <vue-grid-column :class="$style.column">
-              <!-- <vue-breadcrumb :items="[{ label: 'Home', href: '/dashboard' }, { label: 'Profile', href: '/profile' }]" /> -->
-              <vue-grid-row>
-                <label for="image">
-                  <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="onSelectedImagen" />
-                    <vue-image v-if="user.avatar"
-                      :src="strapiURL + user.avatar.url"
-                      :native="false"
-                      :class="$style.profile_img"
-                      id="profile_imagen"
-                    /> 
-                    <vue-image v-if="user.avatar == null"
-                      :src="'https://ui-avatars.com/api/?name=' + user.username.slice(0, 1)"
-                      :native="false"
-                      :class="$style.profile_img"
-                      id="profile_imagen"
-                    />
-                </label>
-              </vue-grid-row>
+            <vue-card :class="$style.card_big">
+              <vue-card-header 
+                image = 'https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png' 
+                :title="$t('App.core.dashboard.greetings')" 
+                :subtitle="this.user.name" 
+              />
+              <vue-card-body :class="$style.card_big_body" >
+                <vue-grid-column :class="$style.column">
+                  <vue-grid-row>
+                    <label for="image">
+                      <input type="file" name="image"  accept="image/*" id="image" style="display:none;" :disabled="disabled" @change="onSelectedImagen" />
+                        <vue-image v-if="user.avatar"
+                          :src="strapiURL + user.avatar.url"
+                          :native="false"
+                          :class="$style.profile_img"
+                          id="profile_imagen"
+                        /> 
+                        <vue-image v-if="user.avatar == null"
+                          :src="'https://ui-avatars.com/api/?name=' + user.username.slice(0, 1)"
+                          :native="false"
+                          :class="$style.profile_img"
+                          id="profile_imagen"
+                        />
+                    </label>
+                  </vue-grid-row>
 
-              <vue-grid-row>    
-                  <vue-input
-                    label="Username"
-                    :placeholder="user.username"
-                    name="username"
-                    id="username"
-                    :disabled="true"
-                  />
-                  <vue-input
-                    id="name"
-                    v-model="name"
-                    name="name"
-                    type="string"
-                    label="Name"
-                    :placeholder="user.name"
-                    :disabled="disabled"
-                  />
-                  <vue-button :class="$style.button" :color="color" :loading="loading"  @click="onUpdate()">
-                    Update
-                  </vue-button> 
-                  <vue-button :class="$style.button" v-if="cancel" color="danger"  @click="onCancel()">
-                    Cancel
-                  </vue-button>
-              </vue-grid-row>
-              <br />
-            </vue-grid-column>
-          </vue-card>
+                  <vue-grid-row>    
+                      <vue-input
+                        :label="$t('common.username.placeholder')"
+                        :placeholder="user.username"
+                        name="username"
+                        id="username"
+                        :disabled="true"
+                      />
+                      <vue-input
+                        id="name"
+                        v-model="name"
+                        name="name"
+                        type="string"
+                        :label="$t('common.name.placeholder')"
+                        :placeholder="user.name"
+                        :disabled="disabled"
+                      />
+                      <vue-input
+                        id="lastname"
+                        v-model="lastname"
+                        name="lastname"
+                        type="string"
+                        :label="$t('common.lastname.placeholder')"
+                        :placeholder="user.lastname"
+                        :disabled="disabled"
+                      />
+                      <vue-button :class="$style.button" :color="color" :loading="loading"  @click="onUpdate()">
+                        Update
+                      </vue-button> 
+                      <vue-button :class="$style.button" v-if="cancel" color="danger"  @click="onCancel()">
+                        Cancel
+                      </vue-button>
+                  </vue-grid-row>
+                  <br />
+                </vue-grid-column>
+              </vue-card-body>
+            </vue-card>
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
@@ -96,6 +111,7 @@ export default defineComponent({
   data(): any {
     return {
       name: '',
+      lastname: '',
       disabled: true,
       color: 'danger',
       strapiURL: process.env.strapiURL,
@@ -119,11 +135,12 @@ export default defineComponent({
         this.cancel = true;
         this.loading = false;
         this.name= '';
+        this.lastname= '';
         let imagen = document.getElementById("profile_imagen");
         imagen.style.backgroundImage = "url(https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.djrHhPrOVynppSdGJ2dtPgHaHa%26pid%3DApi&f=1)"
         addNotification({ title: 'Info!', text: 'Can edit now.', type: 'default' });
       }
-      if (this.color == 'success' && (this.name != '' || this.upload) ) {
+      if (this.color == 'success' && (this.lastname != '' || this.name != '' || this.upload) ) {
         this.loading = true
         const uploadImagen = async (Data: any) => {
             const data = new FormData();
@@ -131,8 +148,7 @@ export default defineComponent({
           try {
             const response = await this.$axios.post(this.strapiURL+ '/upload', data,  {
               headers: { 'Content-Type': 'multipart/form-data' },
-            })
-            //console.log(response.data[0])      
+            })   
             if (response.status === 200) {
               return response.data[0]
             }
@@ -147,7 +163,6 @@ export default defineComponent({
         const updateUser = async (Data: any) => {
           try {
             const response = await this.$axios.put(this.strapiURL + '/users/' + this.user.id, Data)
-            //console.log(response);
             if (response.status === 200) {
               return 'updated'
             }
@@ -159,7 +174,7 @@ export default defineComponent({
             });
           }
         };
-        if(this.avatar && !this.name){ 
+        if(this.avatar && !this.name && !this.lastname ){ 
           uploadImagen(this.avatar).then((avatar) => {
             this.user.avatar = avatar
             let data = {
@@ -177,33 +192,37 @@ export default defineComponent({
             }) 
           });
         }   
-        if(!this.avatar && this.name){ 
+        if(!this.avatar && (this.name || this.lastname) ){ 
           let data = {
             id: this.user.id,
-            name: this.name
+            name: this.name,
+            lastname:  this.lastname
           };
           updateUser(data).then((res) => {
             addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
             this.disabled = true;
             this.color = 'danger';
             this.user.name = this.name
+            this.user.lastname = this.lastname
             this.cancel = false;
             this.loading = false;
             this.updateAvatarPic()
           }) 
         }  
-        if(this.avatar && this.name){ 
+        if(this.avatar && this.name && this.lastname){ 
           uploadImagen(this.avatar).then((avatar) => {
-            this.user.avatar.url = avatar.url
+            this.user.avatar = avatar
             let data = {
               name: this.name,
-              avatar: avatar
+              avatar: avatar,
+              lastname:  this.lastname
             };
             updateUser(data).then((res) => {
               addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
               this.disabled = true;
               this.color = 'danger';
               this.user.name = this.name
+              this.user.lastname = this.lastname
               this.cancel = false;
               this.loading = false;
               this.updateAvatarPic()
@@ -235,7 +254,6 @@ export default defineComponent({
     if(this.user.avatar){
      let imagen_nav = document.getElementById("profile_imagen_nav");
      imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
-     console.log(imagen_nav)
     }
   },
   setup() {
@@ -297,5 +315,21 @@ export default defineComponent({
   width: 15em;
   margin-top: 10px;
   text-align: center;
+}
+
+.card_big {
+  border-radius: 10px !important;
+  min-width: auto;
+  min-height: 40rem;
+  //background-image: url('/images/card_bg_purple.png');
+  background-repeat: no-repeat;
+  background-size: cover;
+  border-color: black !important;
+  border: 3px solid black !important;
+}
+.card_big_body {
+  .card_headline {
+    margin-top: 7rem;
+  }
 }
 </style>

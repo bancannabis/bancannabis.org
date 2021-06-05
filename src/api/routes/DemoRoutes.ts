@@ -34,9 +34,9 @@ export const DemoRoutes = (app: express.Application) => {
    * Auth-Methods
    */
 
-  let user: {
-    // actual active user - bad practice , find how to fix it
+  let user: {  // actual active user - bad practice , find how to fix it
     username: string;
+    lastname: string;
     name: string;
     email: string;
     _id: number;
@@ -50,9 +50,9 @@ export const DemoRoutes = (app: express.Application) => {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
-        console.log(response.data.user);
+        //console.log(response.data.user.lastname);
         if (response.status == '200') {
-          user = response.data.user; //set user to global var
+          user = response.data.user; 
           res
             .status(200)
             .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
@@ -140,7 +140,7 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
-    console.log(user.name);
+    //console.log(user.name);
     res.status(200).json({
       user: {
         username: user.username,
@@ -148,6 +148,7 @@ export const DemoRoutes = (app: express.Application) => {
         email: user.email,
         id: user._id,
         avatar: user.avatar,
+        lastname: user.lastname
       },
     });
   });

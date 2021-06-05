@@ -16,20 +16,15 @@
             />
             <vue-card-body :class="$style.card_big_body" >
               <vue-headline level="2" :class="$style.card_headline" >
-                Thanks! for join. We  are under construction.
+               <!--  <div :class="$style.transparentbox" >
+                  <p>This transparent box contains some text</p>
+                </div> -->
               </vue-headline>
             </vue-card-body>
           </vue-card>
         </vue-grid-column>
         <vue-grid-column> 
-         <!--  <vue-card :class="$style.card_little">
-           <vue-card-header  
-              title= "Updates" 
-           />
-          <vue-card-body :class="$style.card_big_body" >
-            Update 1.0.0 -- First launch Bancannabis.org  03/06/2021
-          </vue-card-body>
-          </vue-card> <br> -->
+
           <vue-card :class="$style.card_little">
             <vue-card-header 
               title="Featured projects" 
@@ -278,7 +273,7 @@ export default defineComponent({
   border-radius: 10px !important;
   min-width: auto;
   min-height: 40rem;
-  background-image: url('/images/card_bg_purple.png');
+  //background-image: url('/images/card_bg_purple.png');
   background-repeat: no-repeat;
   background-size: cover;
   border-color: black !important;
@@ -324,5 +319,31 @@ export default defineComponent({
   width: 15em;
   margin-top: 10px;
   text-align: center;
+}
+
+div.transparentbox {
+   opacity: 0.6;
+   margin: 30px;
+   border: 1px solid black;
+   border-radius: 5px;
+   background-color: #343a3f;
+   filter: alpha(opacity=60); /* This is for IE8 and other earlier browsers */
+   min-height: 15rem;
+}
+
+div.transparentbox p {
+   margin: 5%;
+   font-weight: bold;
+}
+
+
+div.transparentbox_header {
+   opacity: 0.6;
+   border: 1px solid black;
+   border-radius: 5px;
+   background-color: #343a3f;
+   filter: alpha(opacity=60); /* This is for IE8 and other earlier browsers */
+   min-height: 5rem;
+
 }
 </style>
