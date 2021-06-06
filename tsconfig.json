@@ -24,7 +24,6 @@
       "@nuxtjs/pwa",
       "@nuxtjs/color-mode",
       "animejs",
-      "@nuxtjs/strapi",
       "cookie-parser",
       "compression",
       "cypress",

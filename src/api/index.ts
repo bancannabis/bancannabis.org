@@ -1,20 +1,17 @@
-import express from 'express';
-import helmet from 'helmet';
+import bodyParser from 'body-parser';
+import express, { Express, RequestHandler } from 'express';
 import cookieParser from 'cookie-parser';
 import compression from 'compression';
 import { DemoRoutes } from './routes/DemoRoutes';
 import { CounterRoutes } from './routes/CounterRoutes';
 
-const app = express();
 
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+const app: Express = express();
+app.use(bodyParser.json() as RequestHandler);
+app.use(bodyParser.urlencoded({ extended: true }) as RequestHandler);
+
+
 app.use(cookieParser());
-app.use(
-  helmet({
-    contentSecurityPolicy: false,
-  }),
-);
 app.use(compression({ threshold: 0 }));
 
 /**
