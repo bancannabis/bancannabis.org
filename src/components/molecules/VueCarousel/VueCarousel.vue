@@ -54,7 +54,7 @@ export default defineComponent({
     images: { type: Array, default: (): any[] => [] },
     interval: { type: Number, default: 5000 },
     selectedSlide: { type: Number, default: 1 },
-    minHeight: { type: Number, default: 350 },
+    minHeight: { type: Number, default: 325 },
     showIndicator: { type: Boolean, default: true },
   },
   setup(props) {

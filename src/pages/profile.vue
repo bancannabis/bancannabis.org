@@ -39,13 +39,6 @@
                       :native="false"
                       :class="$style.profile_img"
                     />
-                    <vue-image
-                      v-if="user.avatar == null"
-                      id="profile_imagen"
-                      :src="'https://ui-avatars.com/api/?name=' + user.username.slice(0, 1)"
-                      :native="false"
-                      :class="$style.profile_img"
-                    />
                   </label>
                 </vue-grid-row>
 

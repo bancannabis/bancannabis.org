@@ -6,7 +6,7 @@
         <vue-grid with-vertical-space>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">{{ $t('components.home-egroweed.tittle') }}</vue-text>
+              <vue-text appearance="h4" as="h4">{{ $t('components.home-egroweed.tittle') }}</vue-text>
             </vue-grid-column>
           </vue-grid-row>
           <vue-grid-row>
@@ -43,7 +43,6 @@
 /* istanbul ignore file */
 // import { ref } from '@nuxtjs/composition-api';
 import HomeSection from '@/components/organisms/HomeSection/HomeSection.vue';
-import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
@@ -59,7 +58,6 @@ export default {
     VueGridColumn,
     VueGridRow,
     VueGrid,
-    VueHeadline,
     HomeSection,
     VueText,
   },

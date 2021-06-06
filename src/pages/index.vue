@@ -21,7 +21,13 @@
             <vue-text appearance="h3" as="h3">{{ $t('components.home.headline-2') }}</vue-text>
             <p>
               {{ $t('components.home.p-2') }}
-              <a :class="$style.a" href="https://e-groweed.com/" target="_blank" rel="noopener noreferrer">
+              <a
+                :class="$style.a"
+                href="https://e-groweed.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="egroweed.com"
+              >
                 {{ $t('about.bca.p6') }}.
               </a>
             </p>

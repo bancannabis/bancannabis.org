@@ -52,14 +52,14 @@ export const DemoRoutes = (app: express.Application) => {
           password: formData.password,
         });
         // console.log(response.data.user.lastname);
-        if (response.status == '200') {
+        if (response.status === 200) {
           user = response.data.user;
           res
             .status(200)
             .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
         }
       } catch (e) {
-        if (e.message == 'Request failed with status code 400') {
+        if (e.message === 'Request failed with status code 400') {
           res.status(400).json({ e });
         } else {
           res.status(500).json({ e });
@@ -78,7 +78,7 @@ export const DemoRoutes = (app: express.Application) => {
           password: formData.password,
         });
         // console.log(response);
-        if (response.status == '200') {
+        if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
       } catch (e) {
@@ -96,11 +96,10 @@ export const DemoRoutes = (app: express.Application) => {
           email: formData.email,
         });
         // console.log(response);
-        if (response.status == '200') {
+        if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
       } catch (e) {
-        console.log(e);
         res.status(500).json({});
       }
     };
@@ -117,11 +116,10 @@ export const DemoRoutes = (app: express.Application) => {
           passwordConfirmation: formData.passwordConfirmation,
         });
         // console.log(response);
-        if (response.status == '200') {
+        if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
       } catch (e) {
-        console.log(e);
         res.status(500).json({});
       }
     };

@@ -15,12 +15,7 @@
         ]"
         @item-click="itemClicked"
       >
-        <vue-image
-          id="profile_imagen_nav"
-          :src="user.avatar.url || 'https://ui-avatars.com/api/?name=N'"
-          :native="true"
-          :class="$style.profile_img"
-        />
+        <vue-image id="profile_imagen_nav" :src="user.avatar.url" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
@@ -49,7 +44,14 @@
           E-groweed
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="">
-          <a href="https://blog.bancannabis.org" target="_blank" rel="noopener noreferrer"> <vue-icon-code /> Blog </a>
+          <a
+            href="https://blog.bancannabis.org"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis blog"
+          >
+            <vue-icon-code /> Blog
+          </a>
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
@@ -68,11 +70,17 @@
             target="_blank"
             rel="noopener noreferrer"
             download
+            aria-label="bancannabis manifest"
           >
             <vue-icon-puzzle-piece />
             {{ $t('App.core.sidebar-p1') }}
           </a>
-          <a v-if="!loggedIn" rel="noopener noreferrer" @click="showLoginModal = true">
+          <a
+            v-if="!loggedIn"
+            rel="noopener noreferrer"
+            aria-label="bancannabis manifest"
+            @click="showLoginModal = true"
+          >
             <vue-icon-puzzle-piece />
             {{ $t('App.core.sidebar-p1') }}
           </a>
@@ -81,14 +89,24 @@
 
       <vue-sidebar-group :title="$t('App.core.sidebar-t5')">
         <vue-sidebar-group-item>
-          <a href="https://github.com/bancannabis" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://github.com/bancannabis"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis github"
+          >
             <vue-icon-github />
             Github
           </a>
         </vue-sidebar-group-item>
 
         <vue-sidebar-group-item>
-          <a href="https://twitter.com/bancannabis" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://twitter.com/bancannabis"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis twitter"
+          >
             <vue-icon-twitter-square />
             Twitter
           </a>
@@ -97,14 +115,24 @@
 
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t6')">
         <vue-sidebar-group-item>
-          <a href="https://discord.gg/Sm4CmV6C2K" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://discord.gg/Sm4CmV6C2K"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis discord"
+          >
             <vue-icon-discord />
             Discord
           </a>
         </vue-sidebar-group-item>
 
         <vue-sidebar-group-item>
-          <a href="https://t.me/joinchat/ClwLJ0nDi3s4MTkx" target="_blank" rel="noopener noreferrer">
+          <a
+            href="https://t.me/joinchat/ClwLJ0nDi3s4MTkx"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis telegram"
+          >
             <vue-icon-mobile />
             Telegram
           </a>
@@ -120,6 +148,7 @@
 
     <vue-modal :show="showLoginModal" @close="showLoginModal = false">
       <vue-tab-group v-if="!code" :class="$style.tab">
+        <br /><br />
         <vue-tab-item :title="$t('auth.LoginForm.title')" :is-active="true">
           <login-form :loading="loginRequestStatus === 'PENDING'" @submit="onLoginSubmit" />
         </vue-tab-item>
@@ -134,6 +163,7 @@
       </vue-tab-group>
 
       <vue-tab-group v-if="code">
+        <br /><br />
         <vue-tab-item v-if="resetRequestStatus != 'SUCCEED'" title="Reset Password">
           <h2>Please enter your new password</h2>
           <reset-form :loading="resetRequestStatus === 'PENDING'" @submit="onResetSubmit" />
@@ -332,9 +362,6 @@ export default defineComponent({
         redirect('/');
         loginRequestStatus.value = RequestStatus.INIT;
         registerRequestStatus.value = RequestStatus.INIT;
-        const imagen = document.getElementById('profile_imagen_nav');
-        imagen.setAttribute('src', 'https://ui-avatars.com/api/?name=N');
-        console.log(imagen);
       });
     };
     const redirectToProfile = async () => {
