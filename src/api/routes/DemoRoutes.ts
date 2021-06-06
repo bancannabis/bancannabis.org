@@ -4,6 +4,7 @@ import { getIntInRange } from '@vuesion/utils/dist/randomGenerator';
 import $axios from 'axios';
 
 const isProd: boolean = process.env.NODE_ENV === 'production';
+const strapiURL = process.env.strapiURL;
 const getErrorWithProbability = (probability: number) => getIntInRange(0, 100) <= probability;
 const resolve = (file: string): string => path.resolve(__dirname, file);
 const serve = (servePath: string, cache = true): express.Handler =>
@@ -18,13 +19,13 @@ export const DemoRoutes = (app: express.Application) => {
   app.get('*', (req: express.Request, res: express.Response, next: any) => {
     const host: string = req.headers.host || 'localhost:3000';
     const redirect: string = `https://${host}` + req.url;
-
     if (req.headers['x-forwarded-proto'] && req.headers['x-forwarded-proto'] !== 'https') {
       res.redirect(redirect);
     } else {
       next();
     }
   });
+
   app.use('/storybook', serve('../../../storybook-static'));
   app.use('/docs', (_: express.Request, res: express.Response) => {
     res.status(301).redirect('https://vuesion.github.io/docs/en/');
@@ -47,7 +48,7 @@ export const DemoRoutes = (app: express.Application) => {
   app.post('/auth/local', (_: express.Request, res: express.Response) => {
     const login = async (formData: any, $axios: any) => {
       try {
-        const response = await $axios.post('http://localhost:1337/auth/local', {
+        const response = await $axios.post(strapiURL + '/auth/local', {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
@@ -71,7 +72,7 @@ export const DemoRoutes = (app: express.Application) => {
   app.post('/auth/local/register', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
       try {
-        const response = await $axios.post('http://localhost:1337/auth/local/register', {
+        const response = await $axios.post(strapiURL + '/auth/local/register', {
           username: formData.username,
           email: formData.email,
           password: formData.password,
@@ -91,7 +92,7 @@ export const DemoRoutes = (app: express.Application) => {
     const register = async (formData: any, $axios: any) => {
       // console.log(formData.email)
       try {
-        const response = await $axios.post('http://localhost:1337/auth/forgot-password', {
+        const response = await $axios.post(strapiURL + '/auth/forgot-password', {
           email: formData.email,
         });
         // console.log(response);
@@ -109,7 +110,7 @@ export const DemoRoutes = (app: express.Application) => {
     const register = async (formData: any, $axios: any) => {
       // console.log(formData.email)
       try {
-        const response = await $axios.post('http://localhost:1337/auth/reset-password', {
+        const response = await $axios.post(strapiURL + '/auth/reset-password', {
           code: formData.code,
           password: formData.password,
           passwordConfirmation: formData.passwordConfirmation,
