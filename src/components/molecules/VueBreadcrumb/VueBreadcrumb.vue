@@ -2,7 +2,7 @@
   <ul :class="$style.vueBreadcrumb">
     <li v-for="(item, idx) in items" :key="idx" :class="$style.item">
       <nuxt-link v-if="idx < items.length - 1" :to="localePath(item.href)">
-        {{ item.label }} 
+        {{ item.label }}
       </nuxt-link>
       <span v-else>{{ item.label }}</span>
     </li>

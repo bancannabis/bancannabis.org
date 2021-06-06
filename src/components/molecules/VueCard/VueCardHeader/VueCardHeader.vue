@@ -8,8 +8,8 @@
         <div v-if="title" :class="$style.title">{{ title }}</div>
         <div v-if="subtitle" :class="$style.subtitle">{{ subtitle }}</div>
       </vue-grid-column>
-      <vue-grid-column >
-        <slot/>
+      <vue-grid-column>
+        <slot />
       </vue-grid-column>
     </vue-grid-row>
   </vue-grid>
@@ -53,7 +53,7 @@ export default defineComponent({
 
   .subtitle {
     font-size: $card-header-subtitle-font-size;
-    font-weight: $card-header-subtitle-font-weight ;
+    font-weight: $card-header-subtitle-font-weight;
     color: $card-header-subtitle-color;
   }
 }

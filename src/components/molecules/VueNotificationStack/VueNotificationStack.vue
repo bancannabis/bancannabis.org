@@ -138,21 +138,18 @@ export default defineComponent({
 .text {
   max-height: $notification-max-height;
   padding-right: $space-12;
-  overflow-y: scroll;
+  overflow-y: hidden;
 }
-
 .close {
   position: absolute;
   top: 0;
   right: 0;
   bottom: 0;
   width: $notification-close-width;
-  background-color: $notification-close-bg;
+  background-color: transparent;
   cursor: pointer;
-
   &:before,
   &:after {
-    content: '';
     transition: all 0.25s ease-in-out;
     position: absolute;
     background-color: $notification-close-cross-color;
@@ -161,11 +158,9 @@ export default defineComponent({
     right: $space-20;
     top: 50%;
   }
-
   &:before {
     transform: rotate(45deg);
   }
-
   &:after {
     transform: rotate(-45deg);
   }

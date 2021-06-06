@@ -65,7 +65,7 @@
 
 <script lang="ts">
 import { ValidationObserver, defineRule } from 'vee-validate';
-//import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+// import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
@@ -74,10 +74,11 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
   props: {
     loading: { type: Boolean, default: false },
   },
+  setup(): any {},
   data(): any {
     return {
       email: '',
@@ -85,15 +86,12 @@ export default {
       password_repet: '',
     };
   },
-  setup():any {
-    
-  },
   computed: {},
   methods: {
     onSubmit() {
       this.$emit('submit', this.$data, this.$strapi, this.axios);
     },
-    defineRule(){
+    defineRule() {
       if (this.password === this.assword_repet) {
         return true;
       }

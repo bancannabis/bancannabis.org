@@ -4,22 +4,27 @@
 
     <vue-nav-bar>
       <template v-if="user" slot="middle"> </template>
-        <vue-dropdown-menu slot="right" v-if="loggedIn" :class="$style.dropdown"
-          :items="[{ label: 'Profile', value: 'profile' },
-                  { label: '', value: 'separator' },
-                  { label: 'Logout', value: 'logout' }]"
-          v-on:item-click="itemClicked" >
-          <vue-image
-            :src="user.avatar.url || 'https://ui-avatars.com/api/?name=N'"
-            :native="true"
-            :class="$style.profile_img"
-            id="profile_imagen_nav"
-          />
-        </vue-dropdown-menu>
-        <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
-         {{ $t('auth.LoginForm.title') }}
-        </vue-button>
-        <!-- <vue-button v-if="loggedIn" slot="right" color="primary" @click="onLogoutClick"> Logout </vue-button> -->
+      <vue-dropdown-menu
+        v-if="loggedIn"
+        slot="right"
+        :class="$style.dropdown"
+        :items="[
+          { label: 'Profile', value: 'profile' },
+          { label: '', value: 'separator' },
+          { label: 'Logout', value: 'logout' },
+        ]"
+        @item-click="itemClicked"
+      >
+        <vue-image
+          id="profile_imagen_nav"
+          :src="user.avatar.url || 'https://ui-avatars.com/api/?name=N'"
+          :native="true"
+          :class="$style.profile_img"
+        />
+      </vue-dropdown-menu>
+      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
+        {{ $t('auth.LoginForm.title') }}
+      </vue-button>
     </vue-nav-bar>
 
     <nuxt :class="$style.content" />
@@ -30,14 +35,6 @@
     <vue-sidebar>
       <vue-sidebar-group :title="$t('App.core.sidebar-t1')">
         <vue-sidebar-group-item>
-          <vue-select
-            id="theme"
-            label="Theme"
-            name="theme"
-            :items="themes"
-            :value="$colorMode.value"
-            @input="$colorMode.preference = $event"
-          />
           <vue-select id="lang" name="lang" :items="languages" :value="$i18n.locale" @input="onLocaleSwitch" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
@@ -56,7 +53,7 @@
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group :title="$t('App.core.sidebar-t3')" v-if="loggedIn">
+      <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t3')">
         <vue-sidebar-group-item to="/dashboard">
           <vue-icon-code />
           Dashboard
@@ -65,7 +62,8 @@
 
       <vue-sidebar-group :title="$t('App.core.sidebar-t4')">
         <vue-sidebar-group-item>
-          <a v-if="loggedIn"
+          <a
+            v-if="loggedIn"
             :href="'docs/manifest_bancannabis_' + $i18n.locale + '.pdf'"
             target="_blank"
             rel="noopener noreferrer"
@@ -74,10 +72,7 @@
             <vue-icon-puzzle-piece />
             {{ $t('App.core.sidebar-p1') }}
           </a>
-          <a v-if="!loggedIn"
-            rel="noopener noreferrer"
-            @click="showLoginModal = true"
-          >
+          <a v-if="!loggedIn" rel="noopener noreferrer" @click="showLoginModal = true">
             <vue-icon-puzzle-piece />
             {{ $t('App.core.sidebar-p1') }}
           </a>
@@ -100,7 +95,7 @@
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group :title="$t('App.core.sidebar-t6')" v-if="loggedIn">
+      <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t6')">
         <vue-sidebar-group-item>
           <a href="https://discord.gg/Sm4CmV6C2K" target="_blank" rel="noopener noreferrer">
             <vue-icon-discord />
@@ -139,7 +134,7 @@
       </vue-tab-group>
 
       <vue-tab-group v-if="code">
-        <vue-tab-item title="Reset Password" v-if="resetRequestStatus != 'SUCCEED'">
+        <vue-tab-item v-if="resetRequestStatus != 'SUCCEED'" title="Reset Password">
           <h2>Please enter your new password</h2>
           <reset-form :loading="resetRequestStatus === 'PENDING'" @submit="onResetSubmit" />
         </vue-tab-item>
@@ -187,7 +182,7 @@ import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 import VueBackToTop from '@/components/molecules/VueBackToTop/VueBackToTop.vue';
 
-//import { HTTPResponse } from '@nuxtjs/auth-next';
+// import { HTTPResponse } from '@nuxtjs/auth-next';
 
 export default defineComponent({
   name: 'App',
@@ -218,13 +213,6 @@ export default defineComponent({
     VueTabItem,
     VueImage,
   },
-  data() {
-    return {
-      registered: false,
-      checked: false,
-      strapiURL: process.env.strapiURL,
-    };
-  },
   setup() {
     const { redirect, app, store } = useContext();
     const { htmlAttrs } = useMeta();
@@ -254,10 +242,9 @@ export default defineComponent({
       switchLocaleTo(selectedLocale);
     };
     const onThemeChange = async (selectedTheme: any) => {
-      if (selectedTheme === false || theme.value == 'light') {
+      if (selectedTheme === false || theme.value === 'light') {
         selectedTheme = 'dark';
-      }
-      else {
+      } else {
         selectedTheme = 'light';
       }
       await store.dispatch('app/changeTheme', selectedTheme);
@@ -275,9 +262,9 @@ export default defineComponent({
           }
           showLoginModal.value = false;
         } catch (e) {
-          if(e.status === 400){
+          if (e.status === 400) {
             addNotification({ title: 'Error during login!', text: e });
-          }else{
+          } else {
             addNotification({ title: 'Error during login!', text: e });
           }
           loginRequestStatus.value = RequestStatus.FAILED;
@@ -289,7 +276,7 @@ export default defineComponent({
           const response = await $strapi.forgotPassword(formData.username);
           if (response) {
             addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
-            //console.log(response);
+            // console.log(response);
           }
           showLoginModal.value = false;
         } catch (e) {
@@ -303,7 +290,7 @@ export default defineComponent({
       try {
         const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
         resetRequestStatus.value = RequestStatus.IDLE;
-        //console.log(response);
+        // console.log(response);
         if (response.status === '200') {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           resetRequestStatus.value = RequestStatus.SUCCEED;
@@ -319,10 +306,10 @@ export default defineComponent({
     const onResetSubmit = async (formData: any, $strapi: any) => {
       resetRequestStatus.value = RequestStatus.PENDING;
       try {
-        //console.log(formData)
+        // console.log(formData)
         const response = await $strapi.resetPassword(formData.code, formData.password, formData.password_repet);
         registerRequestStatus.value = RequestStatus.IDLE;
-        //console.log(response);
+        // console.log(response);
         if (response.status === '200') {
           addNotification({ title: 'Success!', text: 'Password Reseted.', type: 'success' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
@@ -345,14 +332,14 @@ export default defineComponent({
         redirect('/');
         loginRequestStatus.value = RequestStatus.INIT;
         registerRequestStatus.value = RequestStatus.INIT;
-        let imagen = document.getElementById("profile_imagen_nav");
-        imagen.setAttribute('src','https://ui-avatars.com/api/?name=N')
-        console.log(imagen)
-      })
+        const imagen = document.getElementById('profile_imagen_nav');
+        imagen.setAttribute('src', 'https://ui-avatars.com/api/?name=N');
+        console.log(imagen);
+      });
     };
     const redirectToProfile = async () => {
-      redirect('/profile');
-    }
+      await redirect('/profile');
+    };
     watch(
       [theme, footer, locale],
       () => {
@@ -381,30 +368,38 @@ export default defineComponent({
       onRegisterSubmit,
       onLogoutClick,
       redirectToProfile,
+      onThemeChange,
     };
   },
+  data() {
+    return {
+      registered: false,
+      checked: false,
+      strapiURL: process.env.strapiURL,
+    };
+  },
+  head: {},
   mounted() {
     if (this.$route.query.code) {
       this.code = this.$route.query.code;
       this.showLoginModal = true;
     }
-    if(this.user.avatar){
-     let imagen_nav = document.getElementById("profile_imagen_nav");
-     imagen_nav.setAttribute('src',this.strapiURL + this.user.avatar.url)
+    if (this.user.avatar) {
+      const imagenNav = document.getElementById('profile_imagen_nav');
+      imagenNav.setAttribute('src', this.strapiURL + this.user.avatar.url);
     }
   },
-  head: {},
   methods: {
-    itemClicked(e:any,){
-      if(e.value == 'logout'){
-        this.onLogoutClick()
+    itemClicked(e: any) {
+      if (e.value === 'logout') {
+        this.onLogoutClick();
       }
-      if(e.value == 'login'){
-        this.showLoginModal = true
+      if (e.value === 'login') {
+        this.showLoginModal = true;
       }
-      if(e.value == 'profile'){
-        console.log("here")
-        this.redirectToProfile()
+      if (e.value === 'profile') {
+        console.log('here');
+        this.redirectToProfile();
       }
     },
     redirectToSale() {
@@ -471,7 +466,7 @@ export default defineComponent({
 .dropdown {
   > span {
     &:hover {
-      background: transparent  !important;
+      background: transparent !important;
       border-radius: 50%;
     }
   }

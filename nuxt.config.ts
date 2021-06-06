@@ -24,7 +24,7 @@ const config: NuxtConfig = {
       callback: '/',
       home: '/',
       dashboard: '/dashboard',
-      profile: '/profile'
+      profile: '/profile',
     },
     strategies: {
       local: {

@@ -41,7 +41,6 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 import VueIconGithub from '@/components/atoms/icons/VueIconGithub/VueIconGithub.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 
-
 export default {
   components: { VueText, VueIconGithub, VueGridColumn, VueGridRow, VueGrid },
   data() {

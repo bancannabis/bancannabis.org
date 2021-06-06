@@ -34,7 +34,8 @@ export const DemoRoutes = (app: express.Application) => {
    * Auth-Methods
    */
 
-  let user: {  // actual active user - bad practice , find how to fix it
+  let user: {
+    // actual active user - bad practice , find how to fix it
     username: string;
     lastname: string;
     name: string;
@@ -50,18 +51,18 @@ export const DemoRoutes = (app: express.Application) => {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
-        //console.log(response.data.user.lastname);
+        // console.log(response.data.user.lastname);
         if (response.status == '200') {
-          user = response.data.user; 
+          user = response.data.user;
           res
             .status(200)
             .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
         }
       } catch (e) {
-        if(e.message == "Request failed with status code 400"){
-          res.status(400).json({e});
-        }else{
-          res.status(500).json({e});
+        if (e.message == 'Request failed with status code 400') {
+          res.status(400).json({ e });
+        } else {
+          res.status(500).json({ e });
         }
       }
     };
@@ -76,7 +77,7 @@ export const DemoRoutes = (app: express.Application) => {
           email: formData.email,
           password: formData.password,
         });
-        //console.log(response);
+        // console.log(response);
         if (response.status == '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -89,12 +90,12 @@ export const DemoRoutes = (app: express.Application) => {
 
   app.post('/auth/forgot-password', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
-      //console.log(formData.email)
+      // console.log(formData.email)
       try {
         const response = await $axios.post('http://localhost:1337/auth/forgot-password', {
           email: formData.email,
         });
-        //console.log(response);
+        // console.log(response);
         if (response.status == '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -108,14 +109,14 @@ export const DemoRoutes = (app: express.Application) => {
 
   app.post('/auth/reset-password', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
-      //console.log(formData.email)
+      // console.log(formData.email)
       try {
         const response = await $axios.post('http://localhost:1337/auth/reset-password', {
           code: formData.code,
           password: formData.password,
           passwordConfirmation: formData.passwordConfirmation,
         });
-        //console.log(response);
+        // console.log(response);
         if (response.status == '200') {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -140,7 +141,7 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
-    //console.log(user.name);
+    // console.log(user.name);
     res.status(200).json({
       user: {
         username: user.username,
@@ -148,7 +149,7 @@ export const DemoRoutes = (app: express.Application) => {
         email: user.email,
         id: user._id,
         avatar: user.avatar,
-        lastname: user.lastname
+        lastname: user.lastname,
       },
     });
   });

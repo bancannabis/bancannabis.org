@@ -23,13 +23,15 @@
       >
         <div v-show="image.getAttribute('title').length > 0" :class="$style.copyright">
           &copy;
-          <a style="text-decoration:none; " :class="$style.a"
+          <a
+            style="text-decoration: none"
+            :class="$style.a"
             :href="'https://' + image.getAttribute('title')"
             target="_blank"
             rel="noopener noreferrer"
           >
             {{ image.getAttribute('title') }}
-          </a> 
+          </a>
         </div>
       </div>
     </fade-animation>
@@ -160,7 +162,7 @@ export default defineComponent({
 
 .a {
   color: $carousel-copyright-color;
- 
+
   &:hover {
     color: #291e59;
   }

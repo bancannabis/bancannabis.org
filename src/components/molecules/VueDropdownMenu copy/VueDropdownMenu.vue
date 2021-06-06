@@ -153,7 +153,6 @@ export default defineComponent({
   z-index: 1000;
   border-radius: $dropdown-menu-list-border-radius;
   padding-top: 10px;
-  
 
   ul {
     padding: $dropdown-menu-list-padding;
@@ -166,7 +165,6 @@ export default defineComponent({
     font-weight: $dropdown-menu-list-font-weight;
     line-height: $dropdown-menu-list-line-height;
     border: $dropdown-menu-list-border;
-    
   }
 
   li {

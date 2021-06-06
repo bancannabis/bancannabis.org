@@ -32,9 +32,7 @@
                 :label="$t('common.password')"
                 :placeholder="$t('common.password.placeholder')"
                 validation="required|min:6"
-                :error-message="
-                  $t('auth.LoginForm.password.error')
-                "
+                :error-message="$t('auth.LoginForm.password.error')"
                 :autocomplete="password"
               />
             </vue-grid-column>

@@ -49,7 +49,7 @@
 
 <script lang="ts">
 import { ValidationObserver } from 'vee-validate';
-//import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+// import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
