@@ -44,14 +44,13 @@ export const DemoRoutes = (app: express.Application) => {
     avatar: any;
   };
 
-  app.post('/auth/token', (_: express.Request, res: express.Response) => {
+  app.post('/auth/local', (_: express.Request, res: express.Response) => {
     const login = async (formData: any, $axios: any) => {
       try {
         const response = await $axios.post('http://localhost:1337/auth/local', {
           identifier: formData.username.split('@')[0],
           password: formData.password,
         });
-        // console.log(response.data.user.lastname);
         if (response.status === 200) {
           user = response.data.user;
           res

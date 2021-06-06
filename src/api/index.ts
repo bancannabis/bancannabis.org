@@ -10,7 +10,6 @@ const app: Express = express();
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: true }) as RequestHandler);
 
-
 app.use(cookieParser());
 app.use(compression({ threshold: 0 }));
 
