@@ -10,6 +10,12 @@ const app: Express = express();
 app.use(bodyParser.json() as RequestHandler);
 app.use(bodyParser.urlencoded({ extended: true }) as RequestHandler);
 
+app.use(function (req, res, next) {
+  res.header("Access-Control-Allow-Origin", "*");
+  res.header("Access-Control-Allow-Headers", "Origin, X-Requested-With, Content-Type, Accept");
+  next();
+});
+
 app.use(cookieParser());
 app.use(compression({ threshold: 0 }));
 
