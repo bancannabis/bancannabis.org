@@ -1,0 +1,31 @@
+@import '~@/assets/design-system';
+
+:export {
+  base: 'dark';
+  colorPrimary: palette-color-level('primary', 6);
+  colorSecondary: palette-color-level('primary', 5);
+  // UI
+  appBg: palette-color-level('neutral', 9);
+  appContentBg: palette-color-level('neutral', 1);
+  appBorderColor: palette-color-level('neutral', 7);
+  appBorderRadius: $space-4;
+
+  // Typography
+  fontBase: $font-family;
+  fontCode: 'Courier New';
+
+  // Text colors
+  textColor: palette-color-level('neutral', 1);
+  textInverseColor: palette-color-level('neutral', 10);
+
+  // Toolbar default and active colors
+  barTextColor: palette-color-level('neutral', 1);
+  barSelectedColor: palette-color-level('neutral', 7);
+  barBg: palette-color-level('neutral', 10);
+
+  // Form colors
+  inputBg: palette-color-level('neutral', 9);
+  inputBorder: palette-color-level('neutral', 7);
+  inputTextColor: palette-color-level('neutral', 1);
+  inputBorderRadius: $space-4;
+}

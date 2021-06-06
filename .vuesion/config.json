@@ -1,0 +1,33 @@
+{
+  "currentVersion": "v4.0.0",
+  "generators": {
+    "blueprintDirectory": "./.vuesion/generators",
+    "outputDirectory": "./src",
+    "stateFile": "./src/interfaces/IState.ts"
+  },
+  "clean": [
+    "./dist",
+    "./.nuxt",
+    "./coverage",
+    "./storybook-static",
+    "./nuxt.config.js",
+    "./src/interfaces/graphql",
+    "./src/interfaces/swagger.ts"
+  ],
+  "prettier": {
+    "extensions": "ts,vue,js,json,scss,sass,css,yaml,yml"
+  },
+  "i18n": {
+    "locales": [
+      {
+        "code": "en",
+        "file": "en.json"
+      },
+      {
+        "code": "de",
+        "file": "de.json"
+      }
+    ],
+    "defaultLocale": "en"
+  }
+}
