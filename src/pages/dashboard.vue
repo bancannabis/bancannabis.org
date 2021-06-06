@@ -17,7 +17,7 @@
             <vue-card-header
               image="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png"
               :title="$t('App.core.dashboard.greetings')"
-              :subtitle="this.user.name"
+              :subtitle="user.name"
             />
             <vue-card-body :class="$style.card_big_body"> </vue-card-body>
           </vue-card>
@@ -25,7 +25,7 @@
         <vue-grid-column>
           <vue-card :class="$style.card_little">
             <vue-card-header title="Featured projects"> </vue-card-header>
-            <vue-carousel :images="this.images" :interval="2000" />
+            <vue-carousel :images="images" :interval="2000" />
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>

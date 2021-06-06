@@ -15,7 +15,12 @@
         ]"
         @item-click="itemClicked"
       >
-        <vue-image id="profile_imagen_nav" :src="user.avatar.url" :native="true" :class="$style.profile_img" />
+        <vue-image
+          id="profile_imagen_nav"
+          :src="strapiURL + user.avatar.url"
+          :native="true"
+          :class="$style.profile_img"
+        />
       </vue-dropdown-menu>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
@@ -247,6 +252,7 @@ export default defineComponent({
     const { redirect, app, store } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
+    const strapiURL = process.env.strapiURL;
     const languages = computed(() => [
       { label: 'English', value: 'en' },
       { label: 'Español', value: 'es' },
@@ -396,6 +402,7 @@ export default defineComponent({
       onLogoutClick,
       redirectToProfile,
       onThemeChange,
+      strapiURL,
     };
   },
   data() {

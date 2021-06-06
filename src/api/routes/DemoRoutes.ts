@@ -139,7 +139,7 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
-    // console.log(user.name);
+    // console.log(user);
     res.status(200).json({
       user: {
         username: user.username,

@@ -17,7 +17,7 @@
             <vue-card-header
               image="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png"
               :title="$t('App.core.dashboard.greetings')"
-              :subtitle="this.user.name"
+              :subtitle="user.name"
             />
             <vue-card-body :class="$style.card_big_body">
               <vue-grid-column :class="$style.column">
@@ -118,7 +118,8 @@ export default defineComponent({
     const { app } = useContext();
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
-    return { pending, user };
+    const strapiURL = process.env.strapiURL;
+    return { pending, user, strapiURL };
   },
   data(): any {
     return {
@@ -126,7 +127,6 @@ export default defineComponent({
       lastname: '',
       disabled: true,
       color: 'danger',
-      strapiURL: process.env.strapiURL,
       cancel: false,
       upload: '',
       avatar: '',
@@ -138,7 +138,7 @@ export default defineComponent({
   mounted() {
     if (this.user.avatar) {
       const imagenNav = document.getElementById('profile_imagen_nav');
-      imagenNav.setAttribute('src', this.strapiURL + this.user.avatar.url);
+      imagenNav.setAttribute('src', process.env.strapiURL + this.user.avatar.url);
     }
   },
   methods: {
@@ -166,7 +166,7 @@ export default defineComponent({
           const data = new FormData();
           data.append('files', Data);
           try {
-            const response = await this.$axios.post(this.strapiURL + '/upload', data, {
+            const response = await this.$axios.post(process.env.strapiURL + '/upload', data, {
               headers: { 'Content-Type': 'multipart/form-data' },
             });
             if (response.status === 200) {
@@ -182,7 +182,7 @@ export default defineComponent({
         };
         const updateUser = async (Data: any) => {
           try {
-            const response = await this.$axios.put(this.strapiURL + '/users/' + this.user.id, Data);
+            const response = await this.$axios.put(process.env.strapiURL + '/users/' + this.user.id, Data);
             if (response.status === 200) {
               return 'updated';
             }
@@ -211,7 +211,7 @@ export default defineComponent({
               this.cancel = false;
               this.upload = '';
               const imagen = document.getElementById('profile_imagen');
-              imagen.style.backgroundImage = 'url(' + this.strapiURL + this.avatar + ')';
+              imagen.style.backgroundImage = 'url(' + process.env.strapiURL + this.avatar + ')';
             });
           });
         }
@@ -240,7 +240,7 @@ export default defineComponent({
     updateAvatarPic() {
       if (this.user.avatar) {
         const imagen = document.getElementById('profile_imagen');
-        imagen.style.backgroundImage = 'url(' + this.strapiURL + this.user.avatar.url + ')';
+        imagen.style.backgroundImage = 'url(' + process.env.strapiURL + this.user.avatar.url + ')';
       }
       if (!this.user.avatar) {
         const imagen = document.getElementById('profile_imagen');
