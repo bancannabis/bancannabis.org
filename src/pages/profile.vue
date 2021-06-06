@@ -32,7 +32,7 @@
                       :disabled="disabled"
                       @change="onSelectedImagen"
                     />
-                    <vue-image id="profile_imagen" :src="avatar" :native="false" :class="$style.profile_img" />
+                    <vue-image id="profile_imagen" :src="avatar.url" :native="false" :class="$style.profile_img" />
                   </label>
                 </vue-grid-row>
 
@@ -115,7 +115,7 @@ export default defineComponent({
     const strapiURL = process.env.strapiURL;
     const avatar = computed(
       () =>
-        app.$auth.user.avatar.url ||
+        app.$auth.user.avatar ||
         'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
     );
     return { pending, user, strapiURL, avatar };
@@ -234,10 +234,10 @@ export default defineComponent({
     updateAvatarPic() {
       if (this.user.avatar) {
         const imagen = document.getElementById('profile_imagen');
-        imagen.style.backgroundImage = 'url(' + this.user.avatar + ')';
+        imagen.style.backgroundImage = 'url(' + this.user.avatar.url + ')';
       } else {
         const imagen = document.getElementById('profile_imagen');
-        imagen.style.backgroundImage = 'url(' + this.avatar + ')';
+        imagen.style.backgroundImage = 'url(' + this.avatar.url + ')';
       }
     },
   },

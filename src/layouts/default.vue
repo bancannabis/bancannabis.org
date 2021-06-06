@@ -15,7 +15,7 @@
         ]"
         @item-click="itemClicked"
       >
-        <vue-image id="profile_imagen_nav" :src="avatar" :native="true" :class="$style.profile_img" />
+        <vue-image id="profile_imagen_nav" :src="avatar.url" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
@@ -270,7 +270,7 @@ export default defineComponent({
     const user = computed(() => app.$auth.user);
     const avatar = computed(
       () =>
-        app.$auth.user.avatar.url ||
+        app.$auth.user.avatar ||
         'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
     );
     const onLocaleSwitch = (selectedLocale: string) => {
