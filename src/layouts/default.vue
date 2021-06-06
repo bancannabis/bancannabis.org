@@ -15,12 +15,7 @@
         ]"
         @item-click="itemClicked"
       >
-        <vue-image
-          id="profile_imagen_nav"
-          :src="strapiURL + user.avatar.url"
-          :native="true"
-          :class="$style.profile_img"
-        />
+        <vue-image id="profile_imagen_nav" :src="avatar" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
@@ -273,7 +268,11 @@ export default defineComponent({
     const footer = computed(() => store.getters['app/footer']);
     const loggedIn = computed(() => app.$auth.loggedIn);
     const user = computed(() => app.$auth.user);
-
+    const avatar = computed(
+      () =>
+        app.$auth.user.avatar.url ||
+        'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
+    );
     const onLocaleSwitch = (selectedLocale: string) => {
       switchLocaleTo(selectedLocale);
     };
@@ -312,7 +311,6 @@ export default defineComponent({
           const response = await $strapi.forgotPassword(formData.username);
           if (response) {
             addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
-            // console.log(response);
           }
           showLoginModal.value = false;
         } catch (e) {
@@ -322,17 +320,16 @@ export default defineComponent({
       }
     };
     const onRegisterSubmit = async (formData: any, $strapi: any) => {
-      resetRequestStatus.value = RequestStatus.PENDING;
+      registerRequestStatus.value = RequestStatus.PENDING;
       try {
         const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
-        resetRequestStatus.value = RequestStatus.IDLE;
-        // console.log(response);
+        registerRequestStatus.value = RequestStatus.IDLE;
         if (response.status === '200') {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
-          resetRequestStatus.value = RequestStatus.SUCCEED;
+          registerRequestStatus.value = RequestStatus.SUCCEED;
         }
       } catch (e) {
-        resetRequestStatus.value = RequestStatus.FAILED;
+        registerRequestStatus.value = RequestStatus.FAILED;
         addNotification({
           title: 'Error during register!',
           text: 'Email already registered or something went wrong, Please try again!',
@@ -342,18 +339,16 @@ export default defineComponent({
     const onResetSubmit = async (formData: any, $strapi: any) => {
       resetRequestStatus.value = RequestStatus.PENDING;
       try {
-        // console.log(formData)
         const response = await $strapi.resetPassword(formData.code, formData.password, formData.password_repet);
-        registerRequestStatus.value = RequestStatus.IDLE;
-        // console.log(response);
+        resetRequestStatus.value = RequestStatus.IDLE;
         if (response.status === '200') {
           addNotification({ title: 'Success!', text: 'Password Reseted.', type: 'success' });
-          registerRequestStatus.value = RequestStatus.SUCCEED;
+          resetRequestStatus.value = RequestStatus.SUCCEED;
           redirect('/');
           code.value = false;
         }
       } catch (e) {
-        registerRequestStatus.value = RequestStatus.FAILED;
+        resetRequestStatus.value = RequestStatus.FAILED;
         addNotification({
           title: 'Error!',
           text: 'Email already registered or something went wrong, Please try again!',
@@ -403,13 +398,13 @@ export default defineComponent({
       redirectToProfile,
       onThemeChange,
       strapiURL,
+      avatar,
     };
   },
   data() {
     return {
       registered: false,
       checked: false,
-      strapiURL: process.env.strapiURL,
     };
   },
   head: {},
@@ -417,10 +412,6 @@ export default defineComponent({
     if (this.$route.query.code) {
       this.code = this.$route.query.code;
       this.showLoginModal = true;
-    }
-    if (this.user.avatar) {
-      const imagenNav = document.getElementById('profile_imagen_nav');
-      imagenNav.setAttribute('src', this.strapiURL + this.user.avatar.url);
     }
   },
   methods: {
@@ -432,7 +423,6 @@ export default defineComponent({
         this.showLoginModal = true;
       }
       if (e.value === 'profile') {
-        console.log('here');
         this.redirectToProfile();
       }
     },

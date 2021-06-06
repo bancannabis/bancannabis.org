@@ -64,7 +64,7 @@
 </template>
 
 <script lang="ts">
-import { ValidationObserver, defineRule } from 'vee-validate';
+import { ValidationObserver } from 'vee-validate';
 // import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
@@ -78,7 +78,6 @@ export default {
   props: {
     loading: { type: Boolean, default: false },
   },
-  setup(): any {},
   data(): any {
     return {
       email: '',
@@ -90,12 +89,6 @@ export default {
   methods: {
     onSubmit() {
       this.$emit('submit', this.$data, this.$strapi, this.axios);
-    },
-    defineRule() {
-      if (this.password === this.assword_repet) {
-        return true;
-      }
-      return 'Passwords must match';
     },
   },
 };

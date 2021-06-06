@@ -34,7 +34,6 @@ export const DemoRoutes = (app: express.Application) => {
   /**
    * Auth-Methods
    */
-
   let user: {
     // actual active user - bad practice , find how to fix it
     username: string;
@@ -42,7 +41,7 @@ export const DemoRoutes = (app: express.Application) => {
     name: string;
     email: string;
     _id: number;
-    avatar: any;
+    avatar: object;
   };
 
   app.post('/auth/local', (_: express.Request, res: express.Response) => {
@@ -72,12 +71,12 @@ export const DemoRoutes = (app: express.Application) => {
   app.post('/auth/local/register', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
       try {
-        const response = await $axios.post(strapiURL + '/auth/local/register', {
+        const response = $axios.post(strapiURL + '/auth/local/register', {
           username: formData.username,
           email: formData.email,
           password: formData.password,
         });
-        // console.log(response);
+        console.log(response);
         if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -90,12 +89,10 @@ export const DemoRoutes = (app: express.Application) => {
 
   app.post('/auth/forgot-password', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
-      // console.log(formData.email)
       try {
         const response = await $axios.post(strapiURL + '/auth/forgot-password', {
           email: formData.email,
         });
-        // console.log(response);
         if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -108,14 +105,12 @@ export const DemoRoutes = (app: express.Application) => {
 
   app.post('/auth/reset-password', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
-      // console.log(formData.email)
       try {
         const response = await $axios.post(strapiURL + '/auth/reset-password', {
           code: formData.code,
           password: formData.password,
           passwordConfirmation: formData.passwordConfirmation,
         });
-        // console.log(response);
         if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });
         }
@@ -139,7 +134,6 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
-    // console.log(user);
     res.status(200).json({
       user: {
         username: user.username,

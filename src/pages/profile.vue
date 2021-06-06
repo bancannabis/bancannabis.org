@@ -32,13 +32,7 @@
                       :disabled="disabled"
                       @change="onSelectedImagen"
                     />
-                    <vue-image
-                      v-if="user.avatar"
-                      id="profile_imagen"
-                      :src="strapiURL + user.avatar.url"
-                      :native="false"
-                      :class="$style.profile_img"
-                    />
+                    <vue-image id="profile_imagen" :src="avatar" :native="false" :class="$style.profile_img" />
                   </label>
                 </vue-grid-row>
 
@@ -119,7 +113,12 @@ export default defineComponent({
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
     const strapiURL = process.env.strapiURL;
-    return { pending, user, strapiURL };
+    const avatar = computed(
+      () =>
+        app.$auth.user.avatar.url ||
+        'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
+    );
+    return { pending, user, strapiURL, avatar };
   },
   data(): any {
     return {
@@ -129,22 +128,16 @@ export default defineComponent({
       color: 'danger',
       cancel: false,
       upload: '',
-      avatar: '',
+      newAvatar: '',
     };
   },
   head: {
     title: 'Dashboard',
   },
-  mounted() {
-    if (this.user.avatar) {
-      const imagenNav = document.getElementById('profile_imagen_nav');
-      imagenNav.setAttribute('src', process.env.strapiURL + this.user.avatar.url);
-    }
-  },
   methods: {
     onSelectedImagen(e: any): void {
       const image = e.target.files[0];
-      this.avatar = image;
+      this.newAvatar = image;
       this.upload = URL.createObjectURL(image);
       const imagen = document.getElementById('profile_imagen');
       imagen.style.backgroundImage = 'url(' + this.upload + ')';
@@ -198,10 +191,11 @@ export default defineComponent({
           id: this.user.id,
           name: this?.name || this?.user.name,
           lastname: this?.lastname || this?.user.lastname,
-          avatar: this?.avatar || this?.user.avatar,
+          avatar: this?.newAvatar || this?.user.avatar,
         };
-        if (this.avatar) {
-          uploadImagen(this.avatar).then((avatar) => {
+        console.log(user);
+        if (this.newAvatar) {
+          uploadImagen(this.newAvatar).then((avatar) => {
             this.user.avatar = avatar;
             user.avatar = avatar;
             updateUser(user).then((res) => {
@@ -211,11 +205,11 @@ export default defineComponent({
               this.cancel = false;
               this.upload = '';
               const imagen = document.getElementById('profile_imagen');
-              imagen.style.backgroundImage = 'url(' + process.env.strapiURL + this.avatar + ')';
+              imagen.style.backgroundImage = 'url(' + avatar.url + ')';
             });
           });
         }
-        if (!this.avatar) {
+        if (!this.newAvatar) {
           updateUser(user).then((res) => {
             addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
             this.disabled = true;
@@ -240,11 +234,10 @@ export default defineComponent({
     updateAvatarPic() {
       if (this.user.avatar) {
         const imagen = document.getElementById('profile_imagen');
-        imagen.style.backgroundImage = 'url(' + process.env.strapiURL + this.user.avatar.url + ')';
-      }
-      if (!this.user.avatar) {
+        imagen.style.backgroundImage = 'url(' + this.user.avatar + ')';
+      } else {
         const imagen = document.getElementById('profile_imagen');
-        imagen.style.backgroundImage = 'url(' + 'https://ui-avatars.com/api/?name=' + this.user.name.slice(0, 1) + ')';
+        imagen.style.backgroundImage = 'url(' + this.avatar + ')';
       }
     },
   },
@@ -270,7 +263,7 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
-  border: 10px solid #ccc;
+  border: 10px solid #ccc !important;
 }
 
 .column {
