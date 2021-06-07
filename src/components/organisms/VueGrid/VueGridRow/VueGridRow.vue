@@ -51,7 +51,7 @@ export default defineComponent({
   display: flex;
 
   @each $name, $space in $spacings {
-    &.#{$name} {
+    &#{$name} {
       margin-left: -$space;
     }
   }

@@ -19,7 +19,7 @@
               :title="$t('App.core.dashboard.greetings')"
               :subtitle="user.name"
             />
-            <vue-card-body :class="$style.card_big_body"> </vue-card-body>
+            <vue-card-body :class="$style.card_big_body"> <wallet /> </vue-card-body>
           </vue-card>
         </vue-grid-column>
         <vue-grid-column>
@@ -45,6 +45,7 @@ import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardH
 import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
 import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
 import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
+import wallet from '@/components/organisms/Wallet/Wallet.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -57,6 +58,7 @@ export default defineComponent({
     VueCard,
     VueCardBody,
     VueCarousel,
+    wallet,
   },
   middleware: 'auth',
   props: {
