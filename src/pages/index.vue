@@ -1,11 +1,13 @@
 <template>
   <div>
     <stage />
-    <home-section image="images/welcome.png" video="videos/join.mp4" flip>
+    <home-section image="images/welcome.png" video="videos/join.mp4" flip :class="$style.index">
       <vue-grid with-vertical-space>
         <vue-grid-row>
           <vue-grid-column>
-            <vue-headline level="2">{{ $t('components.home.tittle') }}</vue-headline>
+            <vue-text appearance="h6" as="h6">
+              {{ $t('components.home.tittle') }}
+            </vue-text>
           </vue-grid-column>
         </vue-grid-row>
         <vue-grid-row>
@@ -118,6 +120,14 @@ export default {
 </script>
 <style lang="scss" module>
 @import '~@/assets/design-system';
+
+.index {
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
+
 .a {
   color: #9cbe34;
   font-weight: $footer-link-font-weight;

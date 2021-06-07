@@ -2,16 +2,25 @@
   <div :class="$style.dashboard">
     <stage-egroweed />
     <vue-grid with-vertical-space>
-      <home-section image="images/welcome2.png" :video="'videos/egroweed_' + $i18n.locale + '.mp4'" flip>
+      <home-section
+        image="images/welcome2.png"
+        :video="'videos/egroweed_' + $i18n.locale + '.mp4'"
+        flip
+        :class="$style.index"
+      >
         <vue-grid with-vertical-space>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h4" as="h4">{{ $t('components.home-egroweed.tittle') }}</vue-text>
+              <vue-text appearance="h6" as="h6">
+                {{ $t('components.home-egroweed.tittle') }}
+              </vue-text>
             </vue-grid-column>
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">{{ $t('components.home-egroweed.headline-1') }}</vue-text>
+              <vue-text appearance="h3" as="h3">
+                {{ $t('components.home-egroweed.headline-1') }}
+              </vue-text>
               <p>
                 {{ $t('components.home-egroweed.p-1') }}
               </p>
@@ -19,7 +28,9 @@
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">{{ $t('components.home-egroweed.headline-2') }}</vue-text>
+              <vue-text appearance="h3" as="h3">
+                {{ $t('components.home-egroweed.headline-2') }}
+              </vue-text>
               <p>
                 {{ $t('components.home-egroweed.p-2') }}
               </p>
@@ -27,7 +38,9 @@
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">{{ $t('components.home-egroweed.headline-3') }}</vue-text>
+              <vue-text appearance="h3" as="h3">
+                {{ $t('components.home-egroweed.headline-3') }}
+              </vue-text>
               <p>
                 {{ $t('components.home-egroweed.p-3') }}
               </p>
@@ -69,6 +82,13 @@ export default {
 </script>
 <style lang="scss" module>
 @import '~@/assets/design-system';
+
+.index {
+  p {
+    text-align: justify;
+    text-justify: inter-word;
+  }
+}
 
 .a {
   color: #9cbe34;

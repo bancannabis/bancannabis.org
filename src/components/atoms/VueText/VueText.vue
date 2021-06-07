@@ -65,7 +65,6 @@ export default defineComponent({
   &.serifs {
     font-family: $font-family-serif;
   }
-
   &.underline {
     text-decoration: underline;
   }

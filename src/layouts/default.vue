@@ -44,14 +44,14 @@
           E-groweed
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="">
-          <a
+          <!-- <a
             href="https://blog.bancannabis.org"
             target="_blank"
             rel="noopener noreferrer"
             aria-label="bancannabis blog"
           >
             <vue-icon-code /> Blog
-          </a>
+          </a> -->
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
