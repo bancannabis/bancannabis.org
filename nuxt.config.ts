@@ -1,6 +1,6 @@
 import { VuesionConfig } from '@vuesion/models';
 import { NuxtConfig } from '@nuxt/types';
-import colors from 'vuetify/es5/util/colors'
+import colors from 'vuetify/es5/util/colors';
 
 const config: NuxtConfig = {
   apollo: {
@@ -78,18 +78,22 @@ const config: NuxtConfig = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/html-validator',
     '@nuxtjs/color-mode',
-    ['@nuxtjs/vuetify', {
-      theme: {
-      original: colors.purple.base,
-      theme: '#FFDEEA',
-      background: '#FFF6EA',
-      view: '#ffa07a',
-      select: '#FF7F78',
-      button: '#5FACEF',
-    },
-    options: {
-      themeVariations: ['original', 'secondary'],
-    }, }]
+    [
+      '@nuxtjs/vuetify',
+      {
+        theme: {
+          original: colors.purple.base,
+          theme: '#FFDEEA',
+          background: '#FFF6EA',
+          view: '#ffa07a',
+          select: '#FF7F78',
+          button: '#5FACEF',
+        },
+        options: {
+          themeVariations: ['original', 'secondary'],
+        },
+      },
+    ],
   ],
   colorMode: {
     preference: 'system',

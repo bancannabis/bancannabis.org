@@ -132,7 +132,7 @@ export default defineComponent({
     };
   },
   head: {
-    title: 'Dashboard',
+    title: 'Bancannabis | Profile',
   },
   methods: {
     onSelectedImagen(e: any): void {

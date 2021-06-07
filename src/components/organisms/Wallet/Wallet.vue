@@ -1,59 +1,52 @@
 <template>
-  <div class="wallet">
-    <v-flex xs10 sm12 offset-sm3>
-      <v-card :class="$style.card">
-        <v-container fluid>
-          <h1>
-            Your Wallet
-            <span></span>
-          </h1>
-          <v-card flat>
-            <v-card-actions>
-              <v-card-title>
-                <h3>Balance</h3>
-              </v-card-title>
-              <v-spacer />
-              <v-btn fab small flat :loading="isLoading" @click="getAccount()"><v-icon>mdi-cached</v-icon></v-btn>
-            </v-card-actions>
-            <v-card-text>{{ wallet.balance }} eth</v-card-text>
-            <v-card-title>
-              <h3>Address</h3>
-            </v-card-title>
-            <v-card-text>{{ wallet.address }}</v-card-text>
-            <v-card flat>
-              <qriously v-model="qrJson" :size="qrSize" />
-            </v-card>
-          </v-card>
-          <v-card flat>
-            <div v-for="(item, index) in validation" :key="index" class="errorLabel">
-              <div v-if="item !== true">{{ item }}</div>
-            </div>
-            <v-card-title>
-              <h3>Send</h3>
-            </v-card-title>
-            <v-text-field
-              v-model="toAddr"
-              label="To address"
-              :counter="42"
-              required
-              placeholder="0x26d88305D5f16f5763E4bAcB15e106Dd22014F16"
-            ></v-text-field>
-            <v-text-field v-model="toAmount" label="ETH" type="number" required></v-text-field>
-            <v-flex>
-              <v-btn color="blue" class="white--text" :loading="isLoading" :disabled="isLoading" @click="tapSend()">
-                send
-              </v-btn>
-            </v-flex>
-            <v-flex>
-              <v-card-title>
-                <h3>Result</h3>
-              </v-card-title>
-              {{ resultMessage }}
-            </v-flex>
-          </v-card>
-        </v-container>
-      </v-card>
-    </v-flex>
+  <div :class="$style.card">
+    <v-card-actions :class="$style.card_action">
+      <v-card-title>
+        <h3>Balance</h3>
+        <v-card-text>{{ wallet.balance }} eth</v-card-text>
+      </v-card-title>
+      <v-spacer />
+      <v-btn fab small flat :loading="isLoading" @click="getAccount()"><v-icon>mdi-cached</v-icon></v-btn>
+    </v-card-actions>
+    <v-card-actions :class="$style.card_action">
+      <v-card-title>
+        <h3>Address</h3>
+        <v-card-text>{{ wallet.address }}</v-card-text>
+      </v-card-title>
+    </v-card-actions>
+    <v-card flat>
+      <qriously v-model="qrJson" :size="qrSize" />
+    </v-card>
+    <v-card-actions :class="$style.card_action">
+      <v-card-title>
+        <h3>Send</h3>
+      </v-card-title>
+      <v-text-field
+        v-model="toAddr"
+        label="To address"
+        :counter="42"
+        required
+        placeholder="0x26d88305D5f16f5763E4bAcB15e106Dd22014F16"
+      ></v-text-field>
+    </v-card-actions>
+    <v-card-actions :class="$style.card_action">
+      <v-card-title>
+        <h3>Amount</h3>
+      </v-card-title>
+      <v-text-field v-model="toAmount" label="ETH" type="number" required></v-text-field>
+    </v-card-actions>
+    <v-card-actions :class="$style.card_action">
+      <v-btn color="blue" class="white--text" :loading="isLoading" :disabled="isLoading" @click="tapSend()">
+        send
+      </v-btn>
+      <v-card-title>
+        <h3>Result:</h3>
+      </v-card-title>
+      {{ resultMessage }}
+      <ul v-for="(item, index) in validation" :key="index">
+        <li v-if="item !== true">{{ item }}</li>
+      </ul>
+    </v-card-actions>
   </div>
 </template>
 
@@ -97,6 +90,7 @@ export default class Wallet extends Vue {
   private async getAccount() {
     this.isLoading = true;
     await this.wallet.getAccount();
+    this.validation = [];
     this.isLoading = false;
   }
 
@@ -139,7 +133,12 @@ export default class Wallet extends Vue {
 }
 </script>
 <style lang="scss" module>
+@import '~@/assets/design-system';
 .card {
-  background-color: transparent !important;
+  background-color: var(--brand-secondary-bg-color) !important;
+  border-radius: 8px !important;
+}
+.card_action {
+  padding: 0 !important;
 }
 </style>

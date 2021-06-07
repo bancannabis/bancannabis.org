@@ -28,7 +28,7 @@
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">
-                  <li><nuxt-link :to="localePath('/dashboardWallet')">Billetera</nuxt-link></li>
+                  <li><nuxt-link :to="localePath('/wallet')">Billetera</nuxt-link></li>
                   <li><nuxt-link :to="localePath('/profile')">Chat</nuxt-link></li>
                   <li><nuxt-link :to="localePath('/profile')">Blog</nuxt-link></li>
                 </ul>
@@ -38,8 +38,7 @@
         </vue-grid-column>
         <vue-grid-column>
           <vue-card :class="$style.card_little">
-            <vue-card-header title="Featured projects"> </vue-card-header>
-            <vue-carousel :images="images" :interval="2000" />
+            <wallet :class="$style.wallet" />
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -57,9 +56,8 @@ import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vu
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
 import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
-import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
-import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
 import VueText from '@/components/atoms/VueText/VueText.vue';
+import Wallet from '@/components/organisms/Wallet/Wallet.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -71,8 +69,8 @@ export default defineComponent({
     VueGridRow,
     VueCard,
     VueCardBody,
-    VueCarousel,
     VueText,
+    Wallet,
   },
   middleware: 'auth',
   props: {
@@ -80,21 +78,10 @@ export default defineComponent({
   },
   setup() {
     const { app } = useContext();
-    const image2: ICarouselImage = {
-      copyright: 'e-groweed.com',
-      alt: 'egroweed',
-      url: '/images/egroweed/egroweed2.png',
-    };
-    const image3: ICarouselImage = {
-      copyright: 'e-groweed.com',
-      alt: 'egroweed',
-      url: '/images/egroweed/egroweed3.png',
-    };
-    const images = [image2, image3];
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
 
-    return { pending, user, images };
+    return { pending, user };
   },
   head: {
     title: 'Bancannabis | Dashboard',
@@ -136,6 +123,12 @@ export default defineComponent({
   max-width: auto;
   max-height: 40rem;
   border: 3px solid black !important;
+  object-fit: contain;
+}
+
+.wallet {
+  max-height: 40rem !important;
+  // max-width: 40rem !important;
 }
 
 .card_row {

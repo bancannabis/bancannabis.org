@@ -103,9 +103,9 @@ export default defineComponent({
   }
 
   @each $name, $space in $spacings {
-    &.h#{$name} {
+    /* &.h#{$name} {
       padding-left: $space;
-    }
+    } */
 
     &.v#{$name} {
       padding-top: $space;
