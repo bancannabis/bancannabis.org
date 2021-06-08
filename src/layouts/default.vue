@@ -276,11 +276,10 @@ export default defineComponent({
     const footer = computed(() => store.getters['app/footer']);
     const loggedIn = computed(() => app.$auth.loggedIn);
     const user = computed(() => app.$auth.user);
-    const avatar = computed(
-      () =>
-        app.$auth.user.avatar ||
-        'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
-    );
+    const avatarDefault = {
+      url: 'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
+    };
+    const avatar = computed(() => app.$auth.user.avatar || avatarDefault);
     const onLocaleSwitch = (selectedLocale: string) => {
       switchLocaleTo(selectedLocale);
     };

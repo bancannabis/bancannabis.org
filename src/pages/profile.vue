@@ -113,11 +113,10 @@ export default defineComponent({
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
     const strapiURL = process.env.strapiURL;
-    const avatar = computed(
-      () =>
-        app.$auth.user.avatar ||
-        'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
-    );
+    const avatarDefault = {
+      url: 'https://res.cloudinary.com/bancannabis-dev/image/upload/v1623018818/default_66c7cc06da.png',
+    };
+    const avatar = computed(() => app.$auth.user.avatar || avatarDefault);
     return { pending, user, strapiURL, avatar };
   },
   data(): any {

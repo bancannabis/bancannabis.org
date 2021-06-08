@@ -24,13 +24,15 @@
               <vue-text>
                 Somos la comunidad descentralizada del Cannabis.
                 <br />
-                Aquí encontraras acceso a un ecosistema de soluciones:
+                Aquí encontraras un ecosistema de soluciones.
+                <br />
+                Pronto más funcionalidades.
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">
-                  <li><nuxt-link :to="localePath('/dashboardWallet')">Billetera</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/profile')">Chat</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/profile')">Blog</nuxt-link></li>
+                  <li><nuxt-link :to="localePath('/dashboard')">Billetera</nuxt-link></li>
+                  <li><nuxt-link :to="localePath('/dashboard')">Chat</nuxt-link></li>
+                  <li><nuxt-link :to="localePath('/dashboard')">Blog</nuxt-link></li>
                 </ul>
               </vue-text>
             </vue-card-body>
