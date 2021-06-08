@@ -6,7 +6,7 @@
           <vue-breadcrumb
             :items="[
               { label: $t('App.core.dashboard.home'), href: '/dashboard' },
-              { label: 'Dashboard', href: '/dashboard' },
+              { label: 'Wallet', href: '/wallet' },
             ]"
           />
         </vue-grid-column>
@@ -14,31 +14,14 @@
       <vue-grid-row>
         <vue-grid-column>
           <vue-card :class="$style.card_big">
-            <vue-card-header
-              image="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png"
-              :title="$t('App.core.dashboard.greetings')"
-              :subtitle="user.name"
-            />
             <vue-card-body :class="$style.card_big_body">
-              <vue-text>Bienvenido a bancannabis!</vue-text>
-              <vue-text>
-                Somos la comunidad descentralizada del Cannabis.
-                <br />
-                Aquí encontraras acceso a un ecosistema de soluciones:
-              </vue-text>
-              <vue-text>
-                <ul :class="$style.ul">
-                  <li><nuxt-link :to="localePath('/wallet')">Billetera</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/profile')">Chat</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/profile')">Blog</nuxt-link></li>
-                </ul>
-              </vue-text>
+              <wallet :class="$style.wallet" />
             </vue-card-body>
           </vue-card>
         </vue-grid-column>
         <vue-grid-column>
-          <vue-card :class="$style.card_little">
-            <wallet :class="$style.wallet" />
+          <vue-card :class="$style.card_big">
+            <vue-card-body :class="$style.card_big_body"></vue-card-body>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -54,9 +37,9 @@ import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
 import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vue';
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
-import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
+// import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
-import VueText from '@/components/atoms/VueText/VueText.vue';
+// import VueText from '@/components/atoms/VueText/VueText.vue';
 import Wallet from '@/components/organisms/Wallet/Wallet.vue';
 
 export default defineComponent({
@@ -65,11 +48,11 @@ export default defineComponent({
     VueBreadcrumb,
     VueGrid,
     VueGridColumn,
-    VueCardHeader,
+    // VueCardHeader,
     VueGridRow,
     VueCard,
     VueCardBody,
-    VueText,
+    // VueText,
     Wallet,
   },
   middleware: 'auth',
@@ -84,7 +67,7 @@ export default defineComponent({
     return { pending, user };
   },
   head: {
-    title: 'Bancannabis | Dashboard',
+    title: 'Bancannabis | Wallet',
   },
 });
 </script>
@@ -103,7 +86,6 @@ export default defineComponent({
 .card_big {
   border-radius: 10px !important;
   min-width: auto;
-  max-width: 80rem;
   min-height: 40rem;
   // background-image: url('/images/card_bg_purple.png');
   background-repeat: no-repeat;

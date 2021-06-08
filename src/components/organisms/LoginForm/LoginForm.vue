@@ -84,9 +84,9 @@
 
 <script lang="ts">
 import { ValidationObserver } from 'vee-validate';
-import VueText from '@/components/atoms/VueText/VueText.vue';
+// import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
-import VueCheckbox from '@/components/atoms/VueCheckbox/VueCheckbox.vue';
+// import VueCheckbox from '@/components/atoms/VueCheckbox/VueCheckbox.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
@@ -94,7 +94,7 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueText },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
   props: {
     loading: { type: Boolean, default: false },
   },

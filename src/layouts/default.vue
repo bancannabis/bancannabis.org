@@ -155,7 +155,13 @@
         <vue-tab-item v-if="registerRequestStatus != 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
           <register-form :loading="registerRequestStatus === 'PENDING'" @submit="onRegisterSubmit" />
         </vue-tab-item>
-        <vue-tab-item v-if="registerRequestStatus === 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
+        <vue-tab-item
+          v-if="registerRequestStatus === 'SUCCEED'"
+          :title="$t('auth.RegisterForm.title')"
+          :class="$style.tab_succeed"
+        >
+          <vue-mail-icon style="margin-left:3.2rem;" />
+          <br />
           <h2>{{ $t('auth.RegisterForm.success') }}</h2>
           <br />
           <p>{{ $t('auth.RegisterForm.p1') }}</p>
@@ -211,6 +217,7 @@ import ResetForm from '@/components/organisms/ResetForm/ResetForm.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 import VueBackToTop from '@/components/molecules/VueBackToTop/VueBackToTop.vue';
+import VueMailIcon from '@/components/atoms/icons/VueMailIcon/VueMailIcon.vue';
 
 // import { HTTPResponse } from '@nuxtjs/auth-next';
 
@@ -242,9 +249,10 @@ export default defineComponent({
     VueTabGroup,
     VueTabItem,
     VueImage,
+    VueMailIcon,
   },
   setup() {
-    const { redirect, app, store } = useContext();
+    const { redirect, app, store, $axios } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
     const strapiURL = process.env.strapiURL;
@@ -322,9 +330,14 @@ export default defineComponent({
     const onRegisterSubmit = async (formData: any, $strapi: any) => {
       registerRequestStatus.value = RequestStatus.PENDING;
       try {
-        const response = await $strapi.register(formData.email.split('@')[0], formData.email, formData.password); // username, email, password
+        const response = await $axios.post(strapiURL + '/auth/local/register', {
+          username: formData.email.split('@')[0],
+          email: formData.email,
+          password: formData.password,
+        });
         registerRequestStatus.value = RequestStatus.IDLE;
-        if (response.status === '200') {
+        if (response) {
+          console.log(response);
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           registerRequestStatus.value = RequestStatus.SUCCEED;
         }
@@ -494,5 +507,12 @@ export default defineComponent({
       border-radius: 50%;
     }
   }
+}
+
+.tab_succeed {
+  margin: auto;
+  width: 60%;
+  text-align: center;
+  align-items: center;
 }
 </style>

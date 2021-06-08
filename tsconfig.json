@@ -29,7 +29,6 @@
       "cypress",
       "express",
       "jest",
-      "helmet",
       "lodash",
       "node",
       "nuxt-i18n",
