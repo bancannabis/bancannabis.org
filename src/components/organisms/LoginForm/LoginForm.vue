@@ -20,7 +20,6 @@
               />
             </vue-grid-column>
           </vue-grid-row>
-
           <vue-grid-row>
             <vue-grid-column>
               <vue-input

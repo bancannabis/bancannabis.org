@@ -47,6 +47,7 @@ export default class WalletModel {
 
   public async getAccount() {
     this.balance = await this.eth.getBalance(this.address);
+    return true;
   }
 
   public async sendEth(toAddress: string, amount: number) {

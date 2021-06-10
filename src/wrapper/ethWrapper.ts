@@ -4,8 +4,7 @@ import Tx from 'ethereumjs-tx';
 declare const Buffer: any;
 
 export default class EthWrapper {
-  public host: string =
-    process.env.ETH_PROVIDER_URL || 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039';
+  public host: string = process.env.ethProviderURL || 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039';
 
   public web3: any;
   constructor() {

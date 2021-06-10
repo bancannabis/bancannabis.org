@@ -30,7 +30,7 @@
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">
-                  <li><nuxt-link :to="localePath('/dashboard')">Billetera</nuxt-link></li>
+                  <li><nuxt-link :to="localePath('/dashboardWallet')">Billetera</nuxt-link></li>
                   <li><nuxt-link :to="localePath('/dashboard')">Chat</nuxt-link></li>
                   <li><nuxt-link :to="localePath('/dashboard')">Blog</nuxt-link></li>
                 </ul>

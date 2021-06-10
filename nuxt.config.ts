@@ -10,6 +10,7 @@ const config: NuxtConfig = {
   },
   env: {
     strapiURL: process.env.strapiURL || 'http://localhost:1337',
+    ethProviderURL: process.env.ethProviderURL || 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039',
   },
   auth: {
     cookie: {
