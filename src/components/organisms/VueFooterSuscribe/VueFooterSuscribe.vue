@@ -55,7 +55,7 @@ export default {
   methods: {
     async handleSubmit() {
       try {
-        if (this.email != '' && this.email.match(/^[^\s@]+@[^\s@]+$/)) {
+        if (this.email !== '' && this.email.match(/^[^\s@]+@[^\s@]+$/)) {
           const response = await this.$strapi.createEntry('newsletter-subscribers', {
             email: this.email.toLowerCase(),
           });

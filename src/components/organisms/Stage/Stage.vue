@@ -38,11 +38,10 @@
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
-import VueIconGithub from '@/components/atoms/icons/VueIconGithub/VueIconGithub.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 
 export default {
-  components: { VueText, VueIconGithub, VueGridColumn, VueGridRow, VueGrid },
+  components: { VueText, VueGridColumn, VueGridRow, VueGrid },
   data() {
     return {
       isParticlesJSLoaded: true,

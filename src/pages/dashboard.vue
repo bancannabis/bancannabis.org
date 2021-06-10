@@ -41,7 +41,7 @@
         <vue-grid-column>
           <vue-card :class="$style.card_little">
             <vue-card-header title="Featured projects"> </vue-card-header>
-            <vue-carousel :images="images" :interval="2000" />
+            <vue-carousel :images="images" :interval="6000" />
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -92,7 +92,12 @@ export default defineComponent({
       alt: 'egroweed',
       url: '/images/egroweed/egroweed3.png',
     };
-    const images = [image2, image3];
+    const image4: ICarouselImage = {
+      copyright: 'blog.bancannabis.org',
+      alt: 'blog.bancannabis',
+      url: '/images/egroweed/project1.png',
+    };
+    const images = [image2, image3, image4];
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
 
@@ -125,7 +130,9 @@ export default defineComponent({
   background-size: cover;
   border-color: black !important;
   border: none !important;
-  border: 3px solid black !important;
+  // border: 3px solid black !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 .card_big_body {
   .card_headline {
@@ -137,7 +144,10 @@ export default defineComponent({
   border-radius: 10px !important;
   max-width: auto;
   max-height: 40rem;
-  border: 3px solid black !important;
+  // border: 3px solid black !important;
+  border: none !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .card_row {

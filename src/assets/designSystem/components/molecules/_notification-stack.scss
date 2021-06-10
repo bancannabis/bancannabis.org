@@ -10,4 +10,8 @@ $notification-close-width: $space-40;
 $notification-close-cross-color: var(--brand-secondary);
 
 $notification-default-bg: var(--brand-secondary-bg-color);
-$notification-default-border: 1px solid var(--brand-primary-border-color);
+//$notification-default-border: 1px solid var(--brand-primary-border-color);
+$notification-default-border: none;
+
+$brand-high-emphasis-text-color: var(--brand-high-emphasis-text-color);
+$brand-medium-emphasis-text-color: var(--brand-medium-emphasis-text-color);

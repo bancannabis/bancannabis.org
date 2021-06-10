@@ -262,7 +262,10 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
-  border: 10px solid #ccc !important;
+  border: none !important;
+  // border: 10px solid #ccc !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .column {
@@ -283,8 +286,9 @@ export default defineComponent({
   //background-image: url('/images/card_bg_purple.png');
   background-repeat: no-repeat;
   background-size: cover;
-  border-color: black !important;
-  border: 3px solid black !important;
+  // border-color: black !important;
+  // border: 3px solid black !important;
+  border: none !important;
 }
 .card_big_body {
   .card_headline {

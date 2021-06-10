@@ -277,8 +277,10 @@ export default defineComponent({
   background-size: cover;
   border-color: black !important;
   border: none !important;
-  border: 3px solid black !important;
+  // border: 3px solid black !important;
   word-break: break-all !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 .card_big_body {
   word-break: break-all !important;
@@ -294,9 +296,12 @@ export default defineComponent({
   border-radius: 10px !important;
   max-width: auto;
   max-height: 40rem;
-  border: 3px solid black !important;
+  // border: 3px solid black !important;
   object-fit: contain;
   word-break: break-all !important;
+  border: none !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .wallet {

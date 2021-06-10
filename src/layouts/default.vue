@@ -4,7 +4,7 @@
 
     <vue-nav-bar>
       <template v-if="user" slot="middle"> </template>
-      <vue-dropdown-menu
+      <vue-dropdown-menu-nav
         v-if="loggedIn"
         slot="right"
         :class="$style.dropdown"
@@ -16,7 +16,7 @@
         @item-click="itemClicked"
       >
         <vue-image id="profile_imagen_nav" :src="avatar.url" :native="true" :class="$style.profile_img" />
-      </vue-dropdown-menu>
+      </vue-dropdown-menu-nav>
       <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
       </vue-button>
@@ -197,7 +197,7 @@ import VueTabItem from '@/components/organisms/VueTabGroup/VueTabItem/VueTabItem
 import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
 import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
-import VueDropdownMenu from '@/components/molecules/VueDropdownMenu/VueDropdownMenu.vue';
+import VueDropdownMenuNav from '@/components/molecules/VueDropdownMenuNav/VueDropdownMenuNav.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
 import VueSidebarGroup from '@/components/organisms/VueSidebar/VueSidebarGroup/VueSidebarGroup.vue';
 import VueSidebarGroupItem from '@/components/organisms/VueSidebar/VueSidebarGroupItem/VueSidebarGroupItem.vue';
@@ -245,7 +245,7 @@ export default defineComponent({
     VueFooter,
     VueFooterSuscribe,
     VueNotificationStack,
-    VueDropdownMenu,
+    VueDropdownMenuNav,
     VueTabGroup,
     VueTabItem,
     VueImage,
@@ -299,7 +299,7 @@ export default defineComponent({
           registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await app.$auth.loginWith('local', { data: formData });
           if (response) {
-            addNotification({ title: 'Success!', text: 'Logedin.', type: 'success' });
+            // addNotification({ title: 'Success!', text: 'Logedin.', type: 'success' });
             redirect('/dashboard');
           }
           showLoginModal.value = false;
@@ -496,7 +496,10 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
-  border: 3px solid black !important;
+  //border: 3px solid black !important;
+  border: none !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 
 .dropdown {

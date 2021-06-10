@@ -103,7 +103,11 @@ export default defineComponent({
 .notification {
   padding: $notification-padding;
   position: relative;
-  box-shadow: $notification-shadow;
+  //box-shadow: $notification-shadow;
+  //box-shadow: rgba(0, 0, 0, 0.25) 0px 54px 55px, rgba(0, 0, 0, 0.12) 0px -12px 30px, rgba(0, 0, 0, 0.12) 0px 4px 6px,
+  //rgba(0, 0, 0, 0.17) 0px 12px 13px, rgba(0, 0, 0, 0.09) 0px -3px 5px;
+  box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+    rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
 }
 
 .default {
@@ -131,14 +135,16 @@ export default defineComponent({
 }
 
 .title {
-  font-weight: 500;
+  font-weight: 800;
   padding-right: $space-12;
+  color: $brand-high-emphasis-text-color;
 }
 
 .text {
   max-height: $notification-max-height;
   padding-right: $space-12;
   overflow-y: hidden;
+  color: $brand-high-emphasis-text-color;
 }
 .close {
   position: absolute;

@@ -2,19 +2,16 @@
   <div :class="$style.vueFooter">
     <vue-grid text-align="center">
       <vue-grid-row>
+        <vue-grid-column></vue-grid-column>
         <vue-grid-column>
           <small>&copy; Copyright {{ year }} Bancannabis.org</small>
-        </vue-grid-column>
-
-        <vue-grid-column> </vue-grid-column>
-
-        <vue-grid-column>
           <small>
             <a href="https://www.linkedin.com/company/bancannabis" target="_blank" rel="noopener noreferrer">
-              <img src="images/banca.png" alt="bancannabis.co" /> By bancannabis Team
+              <img src="images/banca.png" alt="bancannabis.co" />
             </a>
           </small>
         </vue-grid-column>
+        <vue-grid-column></vue-grid-column>
       </vue-grid-row>
     </vue-grid>
   </div>
@@ -46,7 +43,6 @@ export default {
 .vueFooter {
   padding: $footer-padding;
   text-align: center;
-  background: $footer-bg;
   background: $footer-bg;
 
   i {

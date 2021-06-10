@@ -1,10 +1,9 @@
 <template>
-  <div ref="dropdownMenu" :class="$style.vueDropdownMenu" @keydown="onKeyPress">
+  <div ref="dropdownMenuNav" :class="$style.vueDropdownMenu" @keydown="onKeyPress">
     <span role="button" tabindex="0" :aria-expanded="show.toString()" @click.stop.prevent="onClick">
       <slot />
       <vue-icon-sort-down />
     </span>
-
     <vue-collapse :show="show" :duration="duration">
       <div :class="$style.list">
         <ul>
@@ -35,7 +34,7 @@ import VueCollapse from '../VueCollapse/VueCollapse.vue';
 import VueIconSortDown from '../../atoms/icons/VueIconSortDown/VueIconSortDown.vue';
 
 export default defineComponent({
-  name: 'VueDropdownMenu',
+  name: 'VueDropdownMenuNav',
   components: { VueCollapse, VueIconSortDown },
   props: {
     items: { type: Array as new () => IItem[], required: true },
@@ -131,7 +130,8 @@ export default defineComponent({
     line-height: $dropdown-menu-button-line-height;
     letter-spacing: $dropdown-menu-button-letter-spacing;
     border: $dropdown-menu-button-border;
-    background: $dropdown-menu-button-bg;
+    //background: $dropdown-menu-button-bg;
+    background: transparent;
     align-items: baseline;
 
     &:hover {
@@ -152,7 +152,7 @@ export default defineComponent({
   top: 100%;
   z-index: 1000;
   border-radius: $dropdown-menu-list-border-radius;
-  padding-top: 10px;
+  padding-top: 12px;
 
   ul {
     padding: $dropdown-menu-list-padding;
@@ -164,7 +164,12 @@ export default defineComponent({
     font-size: $dropdown-menu-list-font-size;
     font-weight: $dropdown-menu-list-font-weight;
     line-height: $dropdown-menu-list-line-height;
-    border: $dropdown-menu-list-border;
+    // border: $dropdown-menu-list-border;
+    border: none;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 50px 100px -20px, rgba(0, 0, 0, 0.3) 0px 30px 60px -30px,
+      rgba(10, 37, 64, 0.35) 0px -2px 6px 0px inset;
+    // box-shadow: rgba(0, 0, 0, 0.09) 0px 2px 1px, rgba(0, 0, 0, 0.09) 0px 4px 2px, rgba(0, 0, 0, 0.09) 0px 8px 4px,
+    // rgba(0, 0, 0, 0.09) 0px 16px 8px, rgba(0, 0, 0, 0.09) 0px 32px 16px;
   }
 
   li {
@@ -174,12 +179,13 @@ export default defineComponent({
 
     &.active {
       background: $dropdown-menu-list-item-hover-bg;
+      border-radius: $dropdown-menu-list-border-radius;
     }
 
     &.separator {
       padding: 0;
       height: 0;
-      border-top: 1px solid var(--brand-primary-border-color);
+      // border-top: 1px solid var(--brand-primary-border-color);
     }
   }
 }

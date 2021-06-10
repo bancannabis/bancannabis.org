@@ -131,8 +131,7 @@ export default defineComponent({
     line-height: $dropdown-menu-button-line-height;
     letter-spacing: $dropdown-menu-button-letter-spacing;
     border: $dropdown-menu-button-border;
-    //background: $dropdown-menu-button-bg;
-    background: transparent;
+    background: $dropdown-menu-button-bg;
     align-items: baseline;
 
     &:hover {
