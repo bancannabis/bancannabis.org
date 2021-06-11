@@ -86,6 +86,7 @@ export default {
 .vueTabGroup {
   background: $tab-group-bg;
   box-shadow: $tab-group-shadow;
+  border-radius: 8px;
 }
 
 .headerList {
@@ -103,8 +104,8 @@ export default {
     cursor: pointer;
     background-color: transparent;
     position: relative;
-    border: 1px solid transparent;
-    border-bottom: $tab-group-border;
+    // border: 1px solid transparent;
+    // border-bottom: $tab-group-border;
 
     .bg {
       position: absolute;
@@ -120,7 +121,7 @@ export default {
     }
 
     &.active {
-      border: $tab-group-border;
+      // border: $tab-group-border;
       border-bottom: none;
 
       .title {
@@ -142,7 +143,7 @@ export default {
 
 .body {
   padding: $tab-group-padding;
-  border: $tab-group-border;
+  //border: $tab-group-border;
   border-top: 0;
 }
 </style>

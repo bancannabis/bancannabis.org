@@ -62,7 +62,7 @@ export default defineComponent({
   z-index: $modal-index;
   box-shadow: $modal-shadow;
   padding: $modal-padding;
-  overflow-y: scroll;
+  overflow-y: hidden;
   -webkit-overflow-scrolling: touch;
   opacity: 0;
   transition: $modal-transition;

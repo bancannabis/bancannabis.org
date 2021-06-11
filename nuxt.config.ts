@@ -178,8 +178,15 @@ const config: NuxtConfig = {
       fileName: 'images/bancannapp.png',
     },
     workboxOptions: {
-      skipWaiting: true
-    }
+      skipWaiting: true,
+    },
+    manifest: {
+      name: 'Bancannabis.org',
+      short_name: 'bancannabis',
+      theme_color: '#440a67',
+      lang: 'us',
+      useWebmanifestExtension: false,
+    },
   },
   robots: {
     UserAgent: '*',
