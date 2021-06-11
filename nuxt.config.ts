@@ -177,6 +177,9 @@ const config: NuxtConfig = {
     icon: {
       fileName: 'images/bancannapp.png',
     },
+    workboxOptions: {
+      skipWaiting: true
+    }
   },
   robots: {
     UserAgent: '*',
