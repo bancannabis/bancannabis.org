@@ -19,13 +19,16 @@
               title="Balance"
               :subtitle="wallet.balance + ' ETH'"
             >
+              &nbsp; &nbsp; &nbsp; &nbsp;
+              <vue-tooltip :tip="`${$t('App.core.wallet.card-conection')}` + conection + ' Ethereum'">
+                <vue-icon-conection />
+              </vue-tooltip>
               &nbsp; &nbsp;
               <vue-tooltip tip="Reaload Balance">
                 <vue-button :loading="isLoading" @click="getAccount()">
                   <vue-icon-reload />
                 </vue-button>
               </vue-tooltip>
-              &nbsp; &nbsp; &nbsp; &nbsp; conected to: {{ conection }}
             </vue-card-header>
             <vue-card-body :class="$style.card_big_body"></vue-card-body>
           </vue-card>
@@ -108,7 +111,7 @@ import VueCard from '@/components/molecules/VueCard/VueCard.vue';
 import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
 import VueIconCopy from '@/components/atoms/icons/VueIconCopy/VueIconCopy.vue';
-// import VueIconPlug from '@/components/atoms/icons/VueIconPlug/VueIconPlug.vue';
+import VueIconConection from '@/components/atoms/icons/VueIconConection/VueIconConection.vue';
 import VueIconReload from '@/components/atoms/icons/VueIconReload/VueIconReload.vue';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueCardFooter from '@/components/molecules/VueCard/VueCardFooter/VueCardFooter.vue';
@@ -132,7 +135,7 @@ export default defineComponent({
     VueInput,
     VueButton,
     VueTooltip,
-    // VueIconPlug,
+    VueIconConection,
   },
   middleware: 'auth',
   props: {

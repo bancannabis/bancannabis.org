@@ -20,19 +20,30 @@
               :subtitle="user.name"
             />
             <vue-card-body :class="$style.card_big_body">
-              <vue-text>Bienvenido a bancannabis!</vue-text>
+              <vue-text>{{ $t('App.core.dashboard.card-t1') }}</vue-text>
               <vue-text>
-                Somos la comunidad descentralizada del Cannabis.
+                {{ $t('App.core.dashboard.card-t2') }}
                 <br />
-                Aquí encontraras un ecosistema de soluciones.
+                {{ $t('App.core.dashboard.card-t3') }}
                 <br />
-                Pronto más funcionalidades.
+                {{ $t('App.core.dashboard.card-t4') }}
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">
-                  <li><nuxt-link :to="localePath('/dashboardWallet')">Billetera</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/dashboard')">Chat</nuxt-link></li>
-                  <li><nuxt-link :to="localePath('/dashboard')">Blog</nuxt-link></li>
+                  <li>
+                    <nuxt-link :to="localePath('/dashboardWallet')">
+                      <vue-icon-wallet /> {{ $t('App.core.dashboard.card-l1') }}
+                    </nuxt-link>
+                  </li>
+                  <br />
+                  <li>
+                    <nuxt-link :to="localePath('/dashboard')"><vue-icon-chat /> Chat</nuxt-link>
+                  </li>
+                  <br />
+                  <li>
+                    <nuxt-link :to="localePath('/dashboard')"><vue-icon-blog /> Blog</nuxt-link>
+                  </li>
+                  <br />
                 </ul>
               </vue-text>
             </vue-card-body>
@@ -62,6 +73,9 @@ import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.
 import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
 import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
 import VueText from '@/components/atoms/VueText/VueText.vue';
+import VueIconWallet from '@/components/atoms/icons/VueIconWallet/VueIconWallet.vue';
+import VueIconChat from '@/components/atoms/icons/VueIconChat/VueIconChat.vue';
+import VueIconBlog from '@/components/atoms/icons/VueIconBlog/VueIconBlog.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -75,6 +89,9 @@ export default defineComponent({
     VueCardBody,
     VueCarousel,
     VueText,
+    VueIconWallet,
+    VueIconChat,
+    VueIconBlog,
   },
   middleware: 'auth',
   props: {
@@ -135,6 +152,7 @@ export default defineComponent({
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
 }
 .card_big_body {
+  padding-left: 4rem;
   .card_headline {
     margin-top: 7rem;
   }
