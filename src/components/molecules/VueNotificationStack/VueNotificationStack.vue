@@ -146,6 +146,7 @@ export default defineComponent({
   overflow-y: hidden;
   color: $brand-high-emphasis-text-color;
 }
+
 .close {
   position: absolute;
   top: 0;
@@ -159,7 +160,7 @@ export default defineComponent({
     transition: all 0.25s ease-in-out;
     position: absolute;
     background-color: $notification-close-cross-color;
-    width: 2px;
+    width: 8rem;
     height: $space-20;
     right: $space-20;
     top: 50%;

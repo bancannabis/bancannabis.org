@@ -158,6 +158,7 @@ export default defineComponent({
       },
     };
     const balance = computed(() => '');
+    const wallet = new WalletModel(user)
     watch(
       [balance],
       () => {
@@ -165,12 +166,11 @@ export default defineComponent({
       },
       { immediate: true },
     );
-    return { pending, user, rules, balance };
+    return { pending, user, rules, balance, wallet };
   },
   data(): any {
     return {
       isLoading: false,
-      wallet: new WalletModel(),
       qrSize: 200,
       toAmount: 0,
       toAddr: '',

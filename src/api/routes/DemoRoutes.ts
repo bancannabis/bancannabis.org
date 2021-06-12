@@ -42,6 +42,7 @@ export const DemoRoutes = (app: express.Application) => {
     email: string;
     _id: number;
     avatar: object;
+    wallet: object;
   };
 
   app.post('/auth/local', (_: express.Request, res: express.Response) => {
@@ -142,6 +143,7 @@ export const DemoRoutes = (app: express.Application) => {
         id: user._id,
         avatar: user.avatar,
         lastname: user.lastname,
+        wallet: user.wallet
       },
     });
   });

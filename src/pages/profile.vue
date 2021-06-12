@@ -21,7 +21,7 @@
             />
             <vue-card-body :class="$style.card_big_body">
               <vue-grid-column :class="$style.column">
-                <vue-grid-row>
+                <vue-grid-row :class="$style.row">
                   <label for="image">
                     <input
                       id="image"
@@ -62,16 +62,17 @@
                     :placeholder="user.lastname"
                     :disabled="disabled"
                   />
-                  <vue-button :class="$style.button" :color="color" :loading="loading" @click="onUpdate()">
-                    Update
-                  </vue-button>
-                  <vue-button v-if="cancel" :class="$style.button" color="danger" @click="onCancel()">
-                    Cancel
-                  </vue-button>
                 </vue-grid-row>
-                <br />
               </vue-grid-column>
             </vue-card-body>
+            <vue-card-footer :class="$style.card_big_footer">
+              <vue-button :class="$style.button" :color="color" :loading="loading" @click="onUpdate()">
+                Update
+              </vue-button>
+              <vue-button v-if="cancel" :class="$style.button" color="danger" @click="onCancel()">
+                Cancel
+              </vue-button>
+            </vue-card-footer>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -89,8 +90,11 @@ import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridC
 import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
+import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
+import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
+import VueCardFooter from '@/components/molecules/VueCard/VueCardFooter/VueCardFooter.vue';
 
 export default defineComponent({
   name: 'Profile',
@@ -101,6 +105,9 @@ export default defineComponent({
     VueButton,
     VueGridRow,
     VueCard,
+    VueCardBody,
+    VueCardHeader,
+    VueCardFooter,
     VueImage,
     VueInput,
   },
@@ -271,12 +278,17 @@ export default defineComponent({
 .column {
   margin-left: auto;
   margin-right: auto;
+  margin-top: -4em;
   width: 15em;
 }
+
+.row {
+  padding-left: 3.5rem;
+}
+
 .button {
-  width: 15em;
+  width: 100%;
   margin-top: 10px;
-  text-align: center;
 }
 
 .card_big {
@@ -290,9 +302,15 @@ export default defineComponent({
   // border: 3px solid black !important;
   border: none !important;
 }
+
 .card_big_body {
-  .card_headline {
-    margin-top: 7rem;
-  }
+  margin-top: 0em;
+  margin-right: 4em;
+}
+
+.card_big_footer {
+  margin-left: auto;
+  margin-right: auto;
+  width: 15em;
 }
 </style>
