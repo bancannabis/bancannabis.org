@@ -13,25 +13,24 @@ export default class EthWrapper {
 
   public createAccount(): any {
     const account = this.web3.eth.accounts.create();
-    console.log(account);
     return account;
   }
 
   public getAccountFromPrivateKey(privateKey: string): any {
     const account = this.web3.eth.accounts.privateKeyToAccount(privateKey);
-    console.log(account);
+    // console.log(account);
     return account;
   }
 
   public async getBalance(address: string) {
     const balance = await this.web3.eth.getBalance(address);
-    console.log(balance);
+    // console.log(balance);
     return this.web3.utils.fromWei(balance, 'ether');
   }
 
   public async sendEthWithSign(fromAddress: string, toAddress: string, privateKey: string, amount: number) {
     const ether = this.web3.utils.toWei(`${amount}`, 'ether');
-    console.log(ether);
+    // console.log(ether);
     const gasParams = {
       from: fromAddress,
       to: toAddress,
@@ -51,7 +50,7 @@ export default class EthWrapper {
     if (privateKey.slice(0, 2) === '0x') {
       privateKey = privateKey.slice(2);
     }
-    console.log('privateKey', privateKey);
+    // console.log('privateKey', privateKey);
     tx.sign(Buffer.from(privateKey, 'hex'));
     const rawTx = '0x' + tx.serialize().toString('hex');
     const result = await this.web3.eth.sendSignedTransaction(rawTx);
@@ -61,14 +60,14 @@ export default class EthWrapper {
 
   public async sendEth(fromAddress: string, toAddress: string, amount: number) {
     const ether = this.web3.utils.toWei(`${amount}`, 'ether');
-    console.log(ether);
+    // console.log(ether);
     const params = {
       from: fromAddress,
       to: toAddress,
       value: ether,
     };
     const result = await this.web3.eth.sendTransaction(params);
-    console.log(result);
+    // console.log(result);
     return result;
   }
 }

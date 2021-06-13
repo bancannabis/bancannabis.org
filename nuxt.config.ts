@@ -163,7 +163,7 @@ const config: NuxtConfig = {
     { src: '@/plugins/vuex-persist/vuex-persist.client' },
     { src: '@/plugins/vuex-persist/vuex-persist.server' },
     { src: '@/plugins/pwa/update.client' },
-    { src: '@/plugins/vue-gtag/vue-gtag',}
+    { src: '@/plugins/vue-gtag/vue-gtag' },
   ],
   publicRuntimeConfig: {
     axios: {

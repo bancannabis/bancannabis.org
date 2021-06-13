@@ -298,6 +298,7 @@ export default defineComponent({
         try {
           registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await app.$auth.loginWith('local', { data: formData });
+          // console.log(response);
           if (response) {
             // addNotification({ title: 'Success!', text: 'Logedin.', type: 'success' });
             redirect('/dashboard');

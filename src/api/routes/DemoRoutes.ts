@@ -143,7 +143,7 @@ export const DemoRoutes = (app: express.Application) => {
         id: user._id,
         avatar: user.avatar,
         lastname: user.lastname,
-        wallet: user.wallet
+        wallet: user.wallet,
       },
     });
   });

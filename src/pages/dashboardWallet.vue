@@ -47,9 +47,7 @@
                 </vue-button>
               </vue-tooltip>
             </vue-card-header>
-            <vue-card-body :class="$style.card_big_body">
-              <qriously v-model="qrJson" :size="qrSize" />
-            </vue-card-body>
+            <vue-card-body :class="$style.card_big_body"></vue-card-body>
           </vue-card>
         </vue-grid-column>
       </vue-grid-row>
@@ -158,7 +156,7 @@ export default defineComponent({
       },
     };
     const balance = computed(() => '');
-    const wallet = new WalletModel(user)
+    // const wallet = new WalletModel(user);
     watch(
       [balance],
       () => {
@@ -166,7 +164,7 @@ export default defineComponent({
       },
       { immediate: true },
     );
-    return { pending, user, rules, balance, wallet };
+    return { pending, user, rules, balance };
   },
   data(): any {
     return {
@@ -179,13 +177,18 @@ export default defineComponent({
       resultMessage: '',
       resultMessageUrl: '',
       conection: '',
+      wallet: '',
+      // wallet: new WalletModel(),
     };
   },
   head: {
     title: 'Bancannabis | Wallet',
   },
   mounted() {
-    console.log(process.env.ethProviderURL);
+    console.log(this.wallet);
+    // console.log(this.user);
+    this.wallet = new WalletModel(this.user);
+    console.log(this.wallet);
     if (process.env.ethProviderURL === 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039') {
       this.conection = 'Testnet';
     } else {
@@ -198,7 +201,7 @@ export default defineComponent({
       try {
         const account: any = await this.wallet.getAccount();
         if (account) {
-          addNotification({ title: 'Success!', text: 'Reloaded', type: 'success' });
+          // addNotification({ title: 'Success!', text: 'Reloaded', type: 'success' });
           this.isLoading = false;
         }
       } catch (e) {
