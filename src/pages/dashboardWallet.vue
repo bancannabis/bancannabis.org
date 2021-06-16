@@ -225,7 +225,7 @@ export default defineComponent({
         this.resultMessage = '';
         this.resultMessageUrl = '';
         this.isLoading = true;
-        if (this.toAmount < this.wallet.balance) {
+        if (this.toAmount <= this.wallet.balance) {
           try {
             const result = await this.wallet.sendEth(this.toAddr, this.toAmount);
             let message;

@@ -6,6 +6,7 @@
 body {
   color: var(--brand-high-emphasis-text-color);
   background-color: var(--brand-primary-bg-color);
+  overscroll-behavior-y: contain
 }
 
 code {
