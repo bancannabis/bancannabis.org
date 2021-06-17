@@ -70,9 +70,20 @@
                 placeholder="0x26d88305D5f16f5763E4bAcB15e106Dd22014F16"
               ></vue-input>
               <vue-input id="amount" v-model="toAmount" label="ETH" type="number" name="amount" required></vue-input>
+              <vue-input
+                id="pincode"
+                v-model="pinCode"
+                name="pincode"
+                label="Pincode"
+                type="text"
+                placeholder=""
+                validation="required|max:4|min:4"
+                :error-message="'4 digit pin'"
+              />
+              <vue-num-keyboard :self-value="pinCode" @pressed="pinCode = $event" />
             </vue-card-body>
             <vue-card-footer :class="$style.card_big_footer">
-              <vue-button class="white--text" :loading="isLoading" :disabled="isLoading" @click="tapSend()">
+              <vue-button color="primary" :loading="isLoading" :disabled="isLoading" @click="tapSend()">
                 send
               </vue-button>
               <a
@@ -94,12 +105,46 @@
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
+    <vue-modal :show="showWalletModal" :out-side-click="false" @close="showWalletModal = false">
+      <validation-observer v-slot="{ invalid }">
+        <vue-card :class="$style.card_modal">
+          <vue-card-header
+            image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.k8dJuoFpyilC_lDKzEoxYwHaHa%26pid%3DApi&f=1"
+            title="Wallet Creation Process"
+          />
+          <vue-card-body :class="$style.card_modal_body">
+            Hello! Before start using your Cripto wallet you need to set your, sign pin code.
+            <br /><br />
+            <form>
+              <vue-input
+                id="pincode"
+                v-model="pinCode"
+                name="pincode"
+                label="Pincode"
+                type="text"
+                placeholder=""
+                validation="required|max:4|min:4"
+                :error-message="'4 digit pin'"
+              />
+            </form>
+            <vue-num-keyboard :self-value="pinCode" @pressed="pinCode = $event" />
+          </vue-card-body>
+          <vue-card-footer :class="$style.card_modal_footer">
+            <vue-button color="primary" :loading="isLoadingSet" :disabled="invalid" @click="setPinCode()">
+              Set pin code
+            </vue-button>
+            {{ resultMessage }}
+          </vue-card-footer>
+        </vue-card>
+      </validation-observer>
+    </vue-modal>
   </div>
 </template>
 
 <script lang="ts">
 /* istanbul ignore file */
 import WalletModel from '@/model/WalletModel';
+import { ValidationObserver } from 'vee-validate';
 import { defineComponent, ref, useContext, computed, watch } from '@nuxtjs/composition-api';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
@@ -116,10 +161,13 @@ import VueCardFooter from '@/components/molecules/VueCard/VueCardFooter/VueCardF
 import VueInput from '@/components/atoms/VueInput/VueInput.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueTooltip from '@/components/molecules/VueTooltip/VueTooltip.vue';
+import VueNumKeyboard from '@/components/organisms/VueNumKeyboard/VueNumKeyboard.vue';
+import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 
 export default defineComponent({
   name: 'DashboardWallet',
   components: {
+    ValidationObserver,
     VueBreadcrumb,
     VueGrid,
     VueGridColumn,
@@ -134,6 +182,8 @@ export default defineComponent({
     VueButton,
     VueTooltip,
     VueIconConection,
+    VueNumKeyboard,
+    VueModal,
   },
   middleware: 'auth',
   props: {
@@ -154,9 +204,9 @@ export default defineComponent({
         const pattern = /^[0-9.]+$/;
         return (pattern.test(value) && !isNaN(Number(value))) || '* must be a number';
       },
+      inputPinCode: (value: string) => value.length === 4 || '* Pin Code must be a 4 digit code',
     };
     const balance = computed(() => '');
-    // const wallet = new WalletModel(user);
     watch(
       [balance],
       () => {
@@ -164,11 +214,13 @@ export default defineComponent({
       },
       { immediate: true },
     );
-    return { pending, user, rules, balance };
+    const showWalletModal = ref(false);
+    return { pending, user, rules, balance, showWalletModal };
   },
   data(): any {
     return {
       isLoading: false,
+      isLoadingSet: false,
       qrSize: 200,
       toAmount: 0,
       toAddr: '',
@@ -178,17 +230,20 @@ export default defineComponent({
       resultMessageUrl: '',
       conection: '',
       wallet: '',
-      // wallet: new WalletModel(),
+      pinCode: '',
+      hide: '',
     };
   },
   head: {
     title: 'Bancannabis | Wallet',
   },
   mounted() {
-    console.log(this.wallet);
-    // console.log(this.user);
-    this.wallet = new WalletModel(this.user);
-    console.log(this.wallet);
+    if (this.user?.wallet?.address) {
+      this.showWalletModal = false;
+      this.wallet = new WalletModel(this.user, '');
+    } else {
+      this.showWalletModal = true;
+    }
     if (process.env.ethProviderURL === 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039') {
       this.conection = 'Testnet';
     } else {
@@ -205,7 +260,25 @@ export default defineComponent({
           this.isLoading = false;
         }
       } catch (e) {
-        console.log(e);
+        // console.log(e);
+        addNotification({ title: 'ERROR!', text: 'Please try again', type: 'error' });
+        throw e;
+      }
+    },
+    setPinCode() {
+      this.isLoadingSet = true;
+      try {
+        this.wallet = new WalletModel(this.user, this.pinCode);
+        if (this.wallet !== '') {
+          addNotification({ title: 'Success!', text: 'Wallet created', type: 'success' });
+          this.isLoadingSet = false;
+          this.showWalletModal = false;
+          this.pinCode = '';
+          // console.log(this.wallet);
+        }
+      } catch (e) {
+        // console.log(e);
+        addNotification({ title: 'ERROR!', text: 'Please try again', type: 'error' });
         throw e;
       }
     },
@@ -216,7 +289,8 @@ export default defineComponent({
           addNotification({ title: 'Success!', text: 'Copyed to clipboard.', type: 'success' });
         },
         function(err) {
-          console.error('Async: Could not copy text: ', err);
+          addNotification({ title: 'ERROR!', text: 'Please try again. ' + err, type: 'error' });
+          // console.error('Async: Could not copy text: ', err);
         },
       );
     },
@@ -227,7 +301,7 @@ export default defineComponent({
         this.isLoading = true;
         if (this.toAmount <= this.wallet.balance) {
           try {
-            const result = await this.wallet.sendEth(this.toAddr, this.toAmount);
+            const result = await this.wallet.sendEth(this.toAddr, this.toAmount, this.pinCode);
             let message;
             if (result.status) {
               message = `SUCCESS\n${result.transactionHash}`;
@@ -256,6 +330,7 @@ export default defineComponent({
       this.validation.push(this.rules.senderAddrInput(this.toAddr));
       this.validation.push(this.rules.amountLimit(this.toAmount));
       this.validation.push(this.rules.amountInput(`${this.toAmount}`));
+      this.validation.push(this.rules.inputPinCode(`${this.pinCode}`));
       const error: any[] = this.validation.filter((obj: any) => obj !== true);
       return error.length === 0;
     },
@@ -270,8 +345,25 @@ export default defineComponent({
   padding-top: $nav-bar-height;
 }
 
-.card {
+.card_modal {
   border-radius: 10px !important;
+  border-color: black !important;
+  border: none !important;
+  // border: 3px solid black !important;
+  word-break: break-all !important;
+  box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
+    rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+}
+.card_modal_body {
+  word-break: break-all !important;
+  &.card_headline {
+    margin-top: 7rem;
+  }
+}
+.card_modal_footer {
+  padding-left: 1.7rem;
+  display: flex;
+  justify-content: center;
 }
 
 .card_big {
@@ -336,5 +428,14 @@ export default defineComponent({
   padding-top: 2rem;
   padding-left: 8rem;
   list-style-type: circle;
+}
+
+.is_blurred {
+  filter: blur(2px);
+  -webkit-filter: blur(2px);
+  opacity: 0.5;
+  position: relative;
+  cursor: not-allowed;
+  pointer-events: all;
 }
 </style>

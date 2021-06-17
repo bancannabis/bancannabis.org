@@ -19,6 +19,7 @@
   "auth.LoginForm.forgot": "¿Olvidaste la contraseña?",
   "auth.LoginForm.error": "Contraseña o usuario incorrecto, porfavor intenta de nuevo.",
   "App.core.dashboard.home": "Inicio",
+  "App.core.dashboard.profile": "Perfil",
   "App.core.dashboard.greetings": "Hola!",
   "App.core.dashboard.card-t1": "Bienvenido a Bancannabis!",
   "App.core.dashboard.card-t2": "Somos la comunidad descentralizada del Cannabis.",

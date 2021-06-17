@@ -23,6 +23,7 @@ export default defineComponent({
     backdrop: { type: Boolean, default: true },
     scrollable: { type: Boolean, default: false },
     closeOnEscape: { type: Boolean, default: true },
+    outSideClick: { type: Boolean, default: true },
     fitContent: Boolean,
   },
   setup(props, { emit }) {
@@ -37,7 +38,9 @@ export default defineComponent({
       }
     });
 
-    useOutsideClick(modal, () => onClose());
+    if (props.outSideClick) {
+      useOutsideClick(modal, () => onClose());
+    }
 
     if (props.backdrop) {
       useBackdrop(show, { scrollable: props.scrollable });

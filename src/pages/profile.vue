@@ -6,7 +6,7 @@
           <vue-breadcrumb
             :items="[
               { label: $t('App.core.dashboard.home'), href: '/dashboard' },
-              { label: 'Profile', href: '/profile' },
+              { label: $t('App.core.dashboard.profile'), href: '/profile' },
             ]"
           />
         </vue-grid-column>
@@ -15,9 +15,9 @@
         <vue-grid-column>
           <vue-card :class="$style.card_big">
             <vue-card-header
-              image="https://emojipedia-us.s3.dualstack.us-west-1.amazonaws.com/thumbs/120/openmoji/272/waving-hand_1f44b.png"
-              :title="$t('App.core.dashboard.greetings')"
-              :subtitle="user.name"
+              image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.uzDXtODF0mm5FDCJgMqlPQHaHa%26pid%3DApi&f=1"
+              :title="user.username"
+              :subtitle="$t('App.core.dashboard.profile')"
             />
             <vue-card-body :class="$style.card_big_body">
               <vue-grid-column :class="$style.column">

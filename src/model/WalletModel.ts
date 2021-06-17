@@ -1,6 +1,7 @@
 import localForage from 'localforage';
 import EthWrapper from '@/wrapper/ethWrapper';
 import $axios from 'axios';
+import { AES, enc } from 'crypto-ts';
 
 export default class WalletModel {
   public balance = 0;
@@ -9,14 +10,13 @@ export default class WalletModel {
   private eth = new EthWrapper();
   private localStorageKey = 'eth-wallet';
 
-  constructor(user: any) {
+  constructor(user: any, pinCode: string) {
     this.load(user)
       .then((result) => {
-        // console.log(result);
-        if (result === null) {
+        if (result === null && pinCode !== '') {
           const account = this.eth.createAccount();
           this.address = account.address;
-          this.privateKey = account.privateKey;
+          this.privateKey = AES.encrypt(account.privateKey, pinCode).toString();
           this.save(user);
         } else {
           this.address = result.address;
@@ -46,28 +46,12 @@ export default class WalletModel {
     const response: any = await $axios.get(process.env.strapiURL + '/users/' + user.id, {
       headers: { Authorization: jwt },
     });
-    // console.log(response.data?.wallet);
-    // const result: any = await localForage.getItem(this.localStorageKey);
     if (response.data.wallet !== null) {
-      console.log(response.data.wallet);
       this.address = response.data.wallet.address;
       this.privateKey = response.data.wallet.privateKey;
     }
     return response.data.wallet;
   }
-
-  /* public async save(user: any) {
-    return await localForage.setItem(this.localStorageKey, this.toJSON());
-  }
-
-  public async load(user: any) {
-    const result: any = await localForage.getItem(this.localStorageKey);
-    if (result !== null) {
-      this.address = result.address;
-      this.privateKey = result.privateKey;
-    }
-    return result;
-  } */
 
   public async remove() {
     return await localForage.removeItem(this.localStorageKey);
@@ -78,8 +62,10 @@ export default class WalletModel {
     return true;
   }
 
-  public async sendEth(toAddress: string, amount: number) {
-    return await this.eth.sendEthWithSign(this.address, toAddress, this.privateKey, amount);
+  public async sendEth(toAddress: string, amount: number, pinCode: string) {
+    const bytes = AES.decrypt(this.privateKey.toString(), pinCode);
+    const textPrivateKey = bytes.toString(enc.Utf8);
+    return await this.eth.sendEthWithSign(this.address, toAddress, textPrivateKey, amount);
   }
 
   public toJSON() {

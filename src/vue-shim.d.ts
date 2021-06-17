@@ -6,3 +6,4 @@ declare module 'web3';
 declare module 'ethereumjs-tx';
 declare module 'localforage';
 declare module 'vue-qriously';
+declare module 'crypto-js';
