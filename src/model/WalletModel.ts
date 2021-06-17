@@ -15,11 +15,17 @@ export default class WalletModel {
     this.load(user)
       .then((result) => {
         if (result === null && pinCode !== '') {
-          const account = this.eth.createAccount();
-          this.address = account.address;
-          this.privateKey = AES.encrypt(account.privateKey, pinCode).toString();
-          this.localPrivateKey = account.privateKey;
-          this.save(user);
+          try {
+            const account = this.eth.createAccount();
+            if (account) {
+              this.address = account.address;
+              this.privateKey = AES.encrypt(account.privateKey, pinCode).toString();
+              this.localPrivateKey = account.privateKey;
+              this.save(user);
+            }
+          } catch (e) {
+            console.log(e);
+          }
         } else {
           this.address = result.address;
           this.privateKey = result.privateKey;

@@ -75,6 +75,7 @@
               </vue-button>
               <br />
               <vue-input
+                id="pinCode"
                 v-model="pinCode"
                 name="pincode"
                 label="Pin Code"
@@ -122,6 +123,7 @@
             <br />
             <form>
               <vue-input
+                id="modalPinCode"
                 v-model="modalPinCode"
                 name="pincode"
                 label="Pin Code:"
@@ -339,7 +341,7 @@ export default defineComponent({
     },
     async max() {
       const gasParams = {
-        from: this.wallet.address,
+        from: this.wallet?.address,
         to: '0xA01AEC2f543AF828252fDcB2310DE2F0d4A57118',
         value: this.wallet.balance * 1000000000,
       };
