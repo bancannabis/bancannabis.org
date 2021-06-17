@@ -28,6 +28,10 @@ export default class EthWrapper {
     return this.web3.utils.fromWei(balance, 'ether');
   }
 
+  public async getGasPrice(gasParams: any) {
+    return await this.web3.eth.estimateGas(gasParams);
+  }
+
   public async sendEthWithSign(fromAddress: string, toAddress: string, privateKey: string, amount: number) {
     const ether = this.web3.utils.toWei(`${amount}`, 'ether');
     // console.log(ether);

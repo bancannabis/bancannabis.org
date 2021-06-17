@@ -9,6 +9,7 @@ export default class WalletModel {
   public privateKey = '';
   private eth = new EthWrapper();
   private localStorageKey = 'eth-wallet';
+  private localPrivateKey = '';
 
   constructor(user: any, pinCode: string) {
     this.load(user)
@@ -17,6 +18,7 @@ export default class WalletModel {
           const account = this.eth.createAccount();
           this.address = account.address;
           this.privateKey = AES.encrypt(account.privateKey, pinCode).toString();
+          this.localPrivateKey = account.privateKey;
           this.save(user);
         } else {
           this.address = result.address;
@@ -60,6 +62,10 @@ export default class WalletModel {
   public async getAccount() {
     this.balance = await this.eth.getBalance(this.address);
     return true;
+  }
+
+  public async getGasPrice(gasParams: any) {
+    return await this.eth.getGasPrice(gasParams);
   }
 
   public async sendEth(toAddress: string, amount: number, pinCode: string) {

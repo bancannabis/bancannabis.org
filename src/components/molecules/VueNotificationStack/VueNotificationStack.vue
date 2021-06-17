@@ -123,7 +123,7 @@ export default defineComponent({
 }
 
 .error {
-  background-color: #a88699;
+  background-color: #d14f55;
   border: $notification-default-border;
   border-radius: 5px;
 }
