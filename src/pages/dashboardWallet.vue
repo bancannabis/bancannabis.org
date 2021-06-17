@@ -308,7 +308,6 @@ export default defineComponent({
       try {
         this.wallet = new WalletModel(this.user, this.modalPinCode);
         if (this.wallet !== '') {
-          // console.log(this.wallet);
           addNotification({ title: 'Success!', text: 'Wallet created', type: 'success' });
           this.isLoadingSet = false;
           // this.showWalletModal = false;

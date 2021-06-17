@@ -43,16 +43,6 @@
           <vue-icon-code />
           E-groweed
         </vue-sidebar-group-item>
-        <vue-sidebar-group-item to="">
-          <!-- <a
-            href="https://blog.bancannabis.org"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="bancannabis blog"
-          >
-            <vue-icon-code /> Blog
-          </a> -->
-        </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t3')">
@@ -164,7 +154,12 @@
           <br />
           <h2>{{ $t('auth.RegisterForm.success') }}</h2>
           <br />
+          {{ mailRegistered }}
           <p>{{ $t('auth.RegisterForm.p1') }}</p>
+          <br />
+          <a rel="noopener noreferrer" aria-label="register again" @click="registerRequestStatus = 'INIT'">
+            register again
+          </a>
         </vue-tab-item>
       </vue-tab-group>
 
@@ -173,11 +168,6 @@
         <vue-tab-item v-if="resetRequestStatus != 'SUCCEED'" title="Reset Password">
           <h2>Please enter your new password</h2>
           <reset-form :loading="resetRequestStatus === 'PENDING'" @submit="onResetSubmit" />
-        </vue-tab-item>
-        <vue-tab-item v-if="resetRequestStatus === 'SUCCEED'" :title="$t('auth.RegisterForm.title')">
-          <h2>{{ $t('auth.RegisterForm.success') }}</h2>
-          <br />
-          <p>{{ $t('auth.RegisterForm.p1') }}</p>
         </vue-tab-item>
       </vue-tab-group>
     </vue-modal>
@@ -218,6 +208,7 @@ import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 import VueBackToTop from '@/components/molecules/VueBackToTop/VueBackToTop.vue';
 import VueMailIcon from '@/components/atoms/icons/VueMailIcon/VueMailIcon.vue';
+import $axios from 'axios';
 
 // import { HTTPResponse } from '@nuxtjs/auth-next';
 
@@ -252,7 +243,7 @@ export default defineComponent({
     VueMailIcon,
   },
   setup() {
-    const { redirect, app, store, $axios } = useContext();
+    const { redirect, app, store } = useContext();
     const { htmlAttrs } = useMeta();
     const { switchLocaleTo } = useLocaleSwitch(app.i18n);
     const strapiURL = process.env.strapiURL;
@@ -327,28 +318,6 @@ export default defineComponent({
         }
       }
     };
-    const onRegisterSubmit = async (formData: any, $strapi: any) => {
-      registerRequestStatus.value = RequestStatus.PENDING;
-      try {
-        const response = await $axios.post(strapiURL + '/auth/local/register', {
-          username: formData.email.split('@')[0],
-          email: formData.email,
-          password: formData.password,
-        });
-        registerRequestStatus.value = RequestStatus.IDLE;
-        if (response) {
-          console.log(response);
-          addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
-          registerRequestStatus.value = RequestStatus.SUCCEED;
-        }
-      } catch (e) {
-        registerRequestStatus.value = RequestStatus.FAILED;
-        addNotification({
-          title: 'Error during register!',
-          text: 'Email already registered or something went wrong, Please try again!',
-        });
-      }
-    };
     const onResetSubmit = async (formData: any, $strapi: any) => {
       resetRequestStatus.value = RequestStatus.PENDING;
       try {
@@ -374,12 +343,13 @@ export default defineComponent({
     const onLogoutClick = async () => {
       await app.$auth.logout().then((res) => {
         redirect('/');
+        window.history.replaceState({}, document.title, '/');
         loginRequestStatus.value = RequestStatus.INIT;
         registerRequestStatus.value = RequestStatus.INIT;
       });
     };
-    const redirectToProfile = async () => {
-      await redirect('/profile');
+    const redirectToProfile = () => {
+      redirect('/profile');
     };
     watch(
       [theme, footer, locale],
@@ -406,7 +376,6 @@ export default defineComponent({
       onLocaleSwitch,
       onLoginSubmit,
       onResetSubmit,
-      onRegisterSubmit,
       onLogoutClick,
       redirectToProfile,
       onThemeChange,
@@ -418,6 +387,7 @@ export default defineComponent({
     return {
       registered: false,
       checked: false,
+      mailRegistered: '',
     };
   },
   head: {},
@@ -444,6 +414,29 @@ export default defineComponent({
     },
     redirectToBlog() {
       window.open('https://blog.bancannabis.org', '_blank');
+    },
+    onRegisterSubmit(formData: any) {
+      this.registerRequestStatus = RequestStatus.PENDING;
+      try {
+        const response = $axios.post(process.env.strapiURL + '/auth/local/register', {
+          username: formData.email.split('@')[0],
+          email: formData.email,
+          password: formData.password,
+        });
+        this.registerRequestStatus = RequestStatus.IDLE;
+        if (response) {
+          // console.log(response);
+          addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
+          this.registerRequestStatus = RequestStatus.SUCCEED;
+          this.mailRegistered = formData.email;
+        }
+      } catch (e) {
+        this.registerRequestStatus = RequestStatus.FAILED;
+        addNotification({
+          title: 'Error during register!',
+          text: 'Email already registered or something went wrong, Please try again!',
+        });
+      }
     },
   },
 });

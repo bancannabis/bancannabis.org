@@ -14,21 +14,22 @@ export default class WalletModel {
   constructor(user: any, pinCode: string) {
     this.load(user)
       .then((result) => {
-        if (result === null && pinCode !== '') {
+        console.log(result);
+        if (result === undefined && pinCode !== '') {
           try {
             const account = this.eth.createAccount();
             if (account) {
               this.address = account.address;
               this.privateKey = AES.encrypt(account.privateKey, pinCode).toString();
-              this.localPrivateKey = account.privateKey;
+              this.localPrivateKey = account?.privateKey;
               this.save(user);
             }
           } catch (e) {
             console.log(e);
           }
         } else {
-          this.address = result.address;
-          this.privateKey = result.privateKey;
+          this.address = result?.address;
+          this.privateKey = result?.privateKey;
           this.getAccount();
         }
       })
@@ -55,7 +56,8 @@ export default class WalletModel {
       const response: any = await $axios.get(process.env.strapiURL + '/users/' + user.id, {
         headers: { Authorization: jwt },
       });
-      if (response.data?.wallet !== null) {
+      console.log(response.data?.wallet);
+      if (response.data?.wallet !== undefined) {
         this.address = response.data.wallet.address;
         this.privateKey = response.data.wallet.privateKey;
       }
