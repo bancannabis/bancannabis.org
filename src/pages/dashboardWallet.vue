@@ -75,7 +75,6 @@
               </vue-button>
               <br />
               <vue-input
-                id="pincode"
                 v-model="pinCode"
                 name="pincode"
                 label="Pin Code"
@@ -123,7 +122,6 @@
             <br />
             <form>
               <vue-input
-                id="pincode"
                 v-model="modalPinCode"
                 name="pincode"
                 label="Pin Code:"
