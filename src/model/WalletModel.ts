@@ -2,6 +2,8 @@ import localForage from 'localforage';
 import EthWrapper from '@/wrapper/ethWrapper';
 import $axios from 'axios';
 import { AES, enc } from 'crypto-ts';
+import { isNullOrUndefined } from '@/components/utils';
+import { isNull } from 'lodash';
 
 export default class WalletModel {
   public balance = 0;
@@ -50,15 +52,19 @@ export default class WalletModel {
   }
 
   public async load(user: any) {
-    const jwt = localStorage.getItem('auth._token.local');
-    const response: any = await $axios.get(process.env.strapiURL + '/users/' + user.id, {
-      headers: { Authorization: jwt },
-    });
-    if (response.data.wallet !== null) {
-      this.address = response.data.wallet.address;
-      this.privateKey = response.data.wallet.privateKey;
+    try {
+      const jwt = localStorage.getItem('auth._token.local');
+      const response: any = await $axios.get(process.env.strapiURL + '/users/' + user.id, {
+        headers: { Authorization: jwt },
+      });
+      if (response.data?.wallet !== null) {
+        this.address = response.data.wallet.address;
+        this.privateKey = response.data.wallet.privateKey;
+      }
+      return response.data?.wallet;
+    } catch (e) {
+      console.log(e);
     }
-    return response.data.wallet;
   }
 
   public async remove() {
