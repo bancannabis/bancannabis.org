@@ -54,9 +54,12 @@ export default class WalletModel {
   public async load(user: any) {
     try {
       const jwt = localStorage.getItem('auth._token.local');
+      console.log(jwt);
+      console.log(process.env.strapiURL);
       const response: any = await $axios.get(process.env.strapiURL + '/users/' + user.id, {
         headers: { Authorization: jwt },
       });
+      console.log(response);
       if (response.data?.wallet !== null) {
         this.address = response.data.wallet.address;
         this.privateKey = response.data.wallet.privateKey;
