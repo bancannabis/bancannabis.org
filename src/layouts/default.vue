@@ -103,6 +103,32 @@
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
+      <vue-sidebar-group v-if="!loggedIn" :title="$t('App.core.sidebar-t6')">
+        <vue-sidebar-group-item>
+          <a
+            @click="showLoginModal = true"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis discord"
+          >
+            <vue-icon-discord />
+            Discord
+          </a>
+        </vue-sidebar-group-item>
+
+        <vue-sidebar-group-item>
+          <a
+            @click="showLoginModal = true"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="bancannabis telegram"
+          >
+            <vue-icon-mobile />
+            Telegram
+          </a>
+        </vue-sidebar-group-item>
+      </vue-sidebar-group>
+
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t6')">
         <vue-sidebar-group-item>
           <a
