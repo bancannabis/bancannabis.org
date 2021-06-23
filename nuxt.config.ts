@@ -154,7 +154,6 @@ const config: NuxtConfig = {
     'nuxt-winston-log',
     '@nuxtjs/robots',
     '@nuxtjs/strapi',
-    // '@nuxtjs/proxy'
   ],
   plugins: [
     { src: '@/plugins/apollo/provide-apollo-client' },
@@ -164,14 +163,6 @@ const config: NuxtConfig = {
     { src: '@/plugins/pwa/update.client' },
     { src: '@/plugins/vue-gtag/vue-gtag' },
   ],
-  /* proxy: {
-    '/api/strapi': {
-      target: 'http://localhost:1337',
-      pathRewrite: {
-        '^/api/strapi': '/'
-      }
-    }
-  }, */
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
   },
