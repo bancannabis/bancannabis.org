@@ -104,13 +104,11 @@ export const DemoRoutes = (app: express.Application) => {
     register(_.body, $axios);
   });
 
-  app.post('/auth/reset-password', (_: express.Request, res: express.Response) => {
+  app.post('/auth/forgot-password', (_: express.Request, res: express.Response) => {
     const register = async (formData: any, $axios: any) => {
       try {
-        const response = await $axios.post(strapiURL + '/auth/reset-password', {
-          code: formData.code,
-          password: formData.password,
-          passwordConfirmation: formData.passwordConfirmation,
+        const response = await $axios.post(strapiURL + '/auth/forgot-password', {
+          email: formData.email,
         });
         if (response.status === 200) {
           res.status(200).json({ status: '200', des: 'succeed' });

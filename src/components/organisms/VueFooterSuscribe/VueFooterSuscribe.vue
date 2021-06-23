@@ -56,7 +56,7 @@ export default {
     async handleSubmit() {
       try {
         if (this.email !== '' && this.email.match(/^[^\s@]+@[^\s@]+$/)) {
-          const response = await this.$strapi.createEntry('newsletter-subscribers', {
+          const response = await this.$strapi.create('newsletter-subscribers', {
             email: this.email.toLowerCase(),
           });
           if (typeof response === 'object') {
@@ -72,6 +72,7 @@ export default {
           });
         }
       } catch (err) {
+        console.log(err);
         addNotification({
           title: 'Warning',
           text: 'Email already registered',

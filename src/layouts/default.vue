@@ -105,24 +105,14 @@
 
       <vue-sidebar-group v-if="!loggedIn" :title="$t('App.core.sidebar-t6')">
         <vue-sidebar-group-item>
-          <a
-            @click="showLoginModal = true"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="bancannabis discord"
-          >
+          <a target="_blank" rel="noopener noreferrer" aria-label="bancannabis discord" @click="showLoginModal = true">
             <vue-icon-discord />
             Discord
           </a>
         </vue-sidebar-group-item>
 
         <vue-sidebar-group-item>
-          <a
-            @click="showLoginModal = true"
-            target="_blank"
-            rel="noopener noreferrer"
-            aria-label="bancannabis telegram"
-          >
+          <a target="_blank" rel="noopener noreferrer" aria-label="bancannabis telegram" @click="showLoginModal = true">
             <vue-icon-mobile />
             Telegram
           </a>
@@ -322,8 +312,8 @@ export default defineComponent({
           }
           showLoginModal.value = false;
         } catch (e) {
-          if (e.status === 400) {
-            addNotification({ title: 'Error during login!', text: e });
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
           } else {
             addNotification({ title: 'Error during login!', text: e });
           }
@@ -333,7 +323,7 @@ export default defineComponent({
         // forgot password
         try {
           registerRequestStatus.value = RequestStatus.IDLE;
-          const response = await $strapi.forgotPassword(formData.username);
+          const response = await $strapi.forgotPassword({ email: formData.username });
           if (response) {
             addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
           }
@@ -344,15 +334,19 @@ export default defineComponent({
         }
       }
     };
-    const onResetSubmit = async (formData: any, $strapi: any) => {
+    const onResetSubmit = async (formData: any, $strapi: any): Promise<any> => {
       resetRequestStatus.value = RequestStatus.PENDING;
       try {
-        const response = await $strapi.resetPassword(formData.code, formData.password, formData.password_repet);
         resetRequestStatus.value = RequestStatus.IDLE;
-        if (response.status === '200') {
+        const response = await $strapi.resetPassword({
+          code: formData.code,
+          password: formData.password,
+          passwordConfirmation: formData.password_repet,
+        });
+        if (response.user) {
           addNotification({ title: 'Success!', text: 'Password Reseted.', type: 'success' });
           resetRequestStatus.value = RequestStatus.SUCCEED;
-          redirect('/');
+          showLoginModal.value = false;
           code.value = false;
         }
       } catch (e) {
@@ -394,6 +388,7 @@ export default defineComponent({
       code,
       loginRequestStatus,
       registerRequestStatus,
+      resetRequestStatus,
       locale,
       theme,
       footer,

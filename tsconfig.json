@@ -33,7 +33,8 @@
       "node",
       "nuxt-i18n",
       "nuxt-winston-log",
-      "testing-library__jest-dom"
+      "testing-library__jest-dom",
+      "@nuxtjs/strapi",
     ]
   },
   "include": ["./src/**/*", "./src/**/*.vue"],

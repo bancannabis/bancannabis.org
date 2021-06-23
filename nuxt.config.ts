@@ -1,6 +1,5 @@
 import { VuesionConfig } from '@vuesion/models';
 import { NuxtConfig } from '@nuxt/types';
-// import colors from 'vuetify/es5/util/colors';
 
 const config: NuxtConfig = {
   apollo: {
@@ -11,6 +10,7 @@ const config: NuxtConfig = {
   env: {
     strapiURL: process.env.strapiURL || 'http://localhost:1337',
     ethProviderURL: process.env.ethProviderURL || 'wss://rinkeby.infura.io/ws/v3/0c90cede2053432cac408091c5d57039',
+    STRAPI_URL: process.env.STRAPI_URL,
   },
   auth: {
     cookie: {
@@ -80,7 +80,6 @@ const config: NuxtConfig = {
     '@nuxtjs/eslint-module',
     '@nuxtjs/html-validator',
     '@nuxtjs/color-mode',
-    /* '@nuxtjs/vuetify', */
   ],
   colorMode: {
     preference: 'system',
@@ -154,8 +153,9 @@ const config: NuxtConfig = {
     '@nuxtjs/pwa',
     'nuxt-winston-log',
     '@nuxtjs/robots',
-    '@stun3r/nuxt-strapi-sdk',
+    // '@stun3r/nuxt-strapi-sdk',
     '@nuxtjs/strapi',
+    // '@nuxtjs/proxy'
   ],
   plugins: [
     { src: '@/plugins/apollo/provide-apollo-client' },
@@ -165,6 +165,17 @@ const config: NuxtConfig = {
     { src: '@/plugins/pwa/update.client' },
     { src: '@/plugins/vue-gtag/vue-gtag' },
   ],
+  /* proxy: {
+    '/api/strapi': {
+      target: 'http://localhost:1337',
+      pathRewrite: {
+        '^/api/strapi': '/'
+      }
+    }
+  }, */
+  strapi: {
+    url: process.env.STRAPI_URL || 'http://localhost:1337',
+  },
   publicRuntimeConfig: {
     axios: {
       baseURL: process.env.baseURL || 'http://localhost:3000',
