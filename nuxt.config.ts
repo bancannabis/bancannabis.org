@@ -153,7 +153,6 @@ const config: NuxtConfig = {
     '@nuxtjs/pwa',
     'nuxt-winston-log',
     '@nuxtjs/robots',
-    // '@stun3r/nuxt-strapi-sdk',
     '@nuxtjs/strapi',
     // '@nuxtjs/proxy'
   ],

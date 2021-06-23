@@ -58,7 +58,6 @@
     "@nuxtjs/pwa": "3.3.5",
     "@nuxtjs/robots": "2.5.0",
     "@nuxtjs/strapi": "0.3.1",
-    "@stun3r/nuxt-strapi-sdk": "0.3.4",
     "@vue/apollo-composable": "4.0.0-alpha.12",
     "@vuesion/models": "4.0.0-beta.3",
     "@vuesion/utils": "4.0.0-beta.3",
