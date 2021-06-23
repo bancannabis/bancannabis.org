@@ -45,7 +45,7 @@ const config: NuxtConfig = {
           autoFetch: true,
         },
         endpoints: {
-          login: { url: '/auth/local', method: 'post' }, // login: { url: '/auth/token', method: 'post' },
+          login: { url: '/auth/local', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
           user: { url: '/auth/user', method: 'get' },
           logout: { url: '/auth/logout', method: 'post' },
