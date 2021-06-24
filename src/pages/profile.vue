@@ -199,7 +199,6 @@ export default defineComponent({
           lastname: this?.lastname || this?.user.lastname,
           avatar: this?.newAvatar || this?.user.avatar,
         };
-        console.log(user);
         if (this.newAvatar) {
           uploadImagen(this.newAvatar).then((avatar) => {
             this.user.avatar = avatar;
@@ -210,13 +209,12 @@ export default defineComponent({
               this.color = 'danger';
               this.cancel = false;
               this.upload = '';
-              const imagen = document.getElementById('profile_imagen');
-              imagen.style.backgroundImage = 'url(' + avatar.url + ')';
+              this.updateAvatarPic();
             });
           });
         }
         if (!this.newAvatar) {
-          updateUser(user).then((res) => {
+          updateUser(user).then(() => {
             addNotification({ title: 'Success!', text: 'Edited.', type: 'success' });
             this.disabled = true;
             this.color = 'danger';
@@ -238,12 +236,14 @@ export default defineComponent({
       addNotification({ title: 'Warning!', text: 'Nothing update.', type: 'warning' });
     },
     updateAvatarPic() {
+      const imagen = document.getElementById('profile_imagen');
+      const imagenNav = document.getElementById('profile_imagen_nav');
       if (this.user.avatar) {
-        const imagen = document.getElementById('profile_imagen');
         imagen.style.backgroundImage = 'url(' + this.user.avatar.url + ')';
+        imagenNav.setAttribute('src', this.user.avatar.url);
       } else {
-        const imagen = document.getElementById('profile_imagen');
         imagen.style.backgroundImage = 'url(' + this.avatar.url + ')';
+        imagenNav.setAttribute('src', this.avatar.url);
       }
     },
   },
