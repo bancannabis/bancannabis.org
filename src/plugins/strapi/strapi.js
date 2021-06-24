@@ -1,5 +1,6 @@
-export default ({ $strapi, app }) => {
-    $strapi.hook('error', (error) => {
-      app.$toast.error(error.message)
+export default ({ $strapi }) => {
+    $strapi.hook('sendNotificationMail', (email) => {
+      console.log("here")
+      console.log(email)
     })
 }

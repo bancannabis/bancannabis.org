@@ -162,6 +162,7 @@ const config: NuxtConfig = {
     { src: '@/plugins/vuex-persist/vuex-persist.server' },
     { src: '@/plugins/pwa/update.client' },
     { src: '@/plugins/vue-gtag/vue-gtag' },
+    { src: '@/plugins/strapi/strapi' },
   ],
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',

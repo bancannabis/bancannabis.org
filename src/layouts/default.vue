@@ -361,7 +361,7 @@ export default defineComponent({
       }
     };
     const onLogoutClick = async () => {
-      await app.$auth.logout().then((res) => {
+      await app.$auth.logout().then(() => {
         redirect('/');
         window.history.replaceState({}, document.title, '/');
         loginRequestStatus.value = RequestStatus.INIT;
@@ -448,6 +448,8 @@ export default defineComponent({
         if (response) {
           // console.log(response);
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
+          $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
+          // send internarnal mail to bancannabis.co 'this will be internal in strapi -fix
           this.registerRequestStatus = RequestStatus.SUCCEED;
           this.mailRegistered = formData.email;
         }
