@@ -146,8 +146,8 @@
       </vue-sidebar-group>
 
       <vue-sidebar-group>
-        <vue-sidebar-group-item :class="$style.theme">
-          &nbsp; <vue-toggle id="toggle" v-model="checked" name="toggle" @click="onThemeChange" />
+        <vue-sidebar-group-item>
+          <vue-toggle-theme id="toggleTheme" v-model="checked" @change="onThemeChange" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
     </vue-sidebar>
@@ -215,7 +215,7 @@ import VueIconMobile from '@/components/atoms/icons/VueIconMobile/VueIconMobile.
 import VueSelect from '@/components/atoms/VueSelect/VueSelect.vue';
 import VueIconPuzzlePiece from '@/components/atoms/icons/VueIconPuzzlePiece/VueIconPuzzlePiece.vue';
 import VueButton from '@/components/atoms/VueButton/VueButton.vue';
-import VueToggle from '@/components/atoms/VueToggle/VueToggle.vue';
+import VueToggleTheme from '@/components/atoms/VueToggleTheme/VueToggleTheme.vue';
 import VueModal from '@/components/molecules/VueModal/VueModal.vue';
 import LoginForm from '@/components/organisms/LoginForm/LoginForm.vue';
 import RegisterForm from '@/components/organisms/RegisterForm/RegisterForm.vue';
@@ -237,7 +237,7 @@ export default defineComponent({
     ResetForm,
     VueModal,
     VueButton,
-    VueToggle,
+    VueToggleTheme,
     VueIconPuzzlePiece,
     VueSelect,
     VueIconGithub,
@@ -291,10 +291,14 @@ export default defineComponent({
       switchLocaleTo(selectedLocale);
     };
     const onThemeChange = async (selectedTheme: any) => {
-      if (selectedTheme === false || theme.value === 'light') {
+      if (theme.value === 'light') {
         selectedTheme = 'dark';
-      } else {
+      }
+      if (theme.value === 'dark') {
         selectedTheme = 'light';
+      }
+      if (document.documentElement.className === 'light no-touch') {
+        selectedTheme = 'dark';
       }
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
@@ -305,9 +309,7 @@ export default defineComponent({
         try {
           registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await app.$auth.loginWith('local', { data: formData });
-          // console.log(response);
           if (response) {
-            // addNotification({ title: 'Success!', text: 'Logedin.', type: 'success' });
             redirect('/dashboard');
           }
           showLoginModal.value = false;
@@ -413,6 +415,21 @@ export default defineComponent({
   },
   head: {},
   mounted() {
+    const check = document.querySelector('#check');
+    const box = document.querySelector('.box');
+    const ball = document.querySelector('.ball');
+
+    check.addEventListener('change', function() {
+      if (this.checked === true) {
+        box.setAttribute('style', 'background-color:black;');
+        ball.setAttribute('style', 'transform:translatex(100%);');
+      }
+      if (this.checked === false) {
+        box.setAttribute('style', 'background-color:black; color:white;');
+        ball.setAttribute('style', 'transform:translatex(0%);');
+      }
+    });
+
     if (this.$route.query.code) {
       this.code = this.$route.query.code;
       this.showLoginModal = true;
@@ -513,7 +530,6 @@ export default defineComponent({
   background-repeat: no-repeat;
   background-size: 100%;
   margin: 10px auto;
-  //border: 3px solid black !important;
   border: none !important;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
