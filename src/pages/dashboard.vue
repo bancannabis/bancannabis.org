@@ -21,6 +21,7 @@
             />
             <vue-card-body :class="$style.card_big_body">
               <vue-text>{{ $t('App.core.dashboard.card-t1') }}</vue-text>
+              <br />
               <vue-text>
                 {{ $t('App.core.dashboard.card-t2') }}
                 <br />

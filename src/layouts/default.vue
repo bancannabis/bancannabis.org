@@ -43,6 +43,16 @@
           <vue-icon-code />
           E-groweed
         </vue-sidebar-group-item>
+        <vue-sidebar-group-item v-if="loggedIn" to="/dashboardBlog">
+          <vue-icon-code />
+          Blog
+        </vue-sidebar-group-item>
+        <vue-sidebar-group-item v-if="!loggedIn">
+          <a target="_blank" rel="noopener noreferrer" aria-label="bancannabis blog" @click="showLoginModal = true">
+            <vue-icon-code />
+            Blog
+          </a>
+        </vue-sidebar-group-item>
       </vue-sidebar-group>
 
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t3')">
