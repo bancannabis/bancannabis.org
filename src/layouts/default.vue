@@ -147,7 +147,7 @@
 
       <vue-sidebar-group>
         <vue-sidebar-group-item>
-          <vue-toggle-theme id="toggleTheme" v-model="checked" @change="onThemeChange" />
+          <vue-toggle-theme id="toggleTheme" v-model="checked" name="toggle" @change="onThemeChange" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
     </vue-sidebar>

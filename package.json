@@ -18,6 +18,7 @@
   },
   "scripts": {
     "dev": "nuxt -o",
+    "develop": "nuxt -o",
     "storybook:dev": "vuesion storybook --dev -s ./src/static",
     "test": "vuesion test --coverage",
     "generate": "vuesion generate",
@@ -44,6 +45,9 @@
     "postinstall": "husky install"
   },
   "dependencies": {
+    "@nuxtjs/markdownit": "^1.2.7",
+    "uikit": "^3.2.3",
+    "moment": "^2.29.0",
     "@apollo/client": "3.3.6",
     "@graphql-codegen/cli": "1.20.1",
     "@graphql-codegen/introspection": "1.18.1",

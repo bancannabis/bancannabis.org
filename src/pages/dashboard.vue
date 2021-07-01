@@ -37,11 +37,7 @@
                   </li>
                   <br />
                   <li>
-                    <nuxt-link :to="localePath('/dashboard')"><vue-icon-chat /> Chat</nuxt-link>
-                  </li>
-                  <br />
-                  <li>
-                    <nuxt-link :to="localePath('/dashboard')"><vue-icon-blog /> Blog</nuxt-link>
+                    <nuxt-link :to="localePath('/dashboardBlog')"><vue-icon-blog /> Blog</nuxt-link>
                   </li>
                   <br />
                 </ul>
@@ -74,7 +70,6 @@ import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
 import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueIconWallet from '@/components/atoms/icons/VueIconWallet/VueIconWallet.vue';
-import VueIconChat from '@/components/atoms/icons/VueIconChat/VueIconChat.vue';
 import VueIconBlog from '@/components/atoms/icons/VueIconBlog/VueIconBlog.vue';
 
 export default defineComponent({
@@ -90,7 +85,6 @@ export default defineComponent({
     VueCarousel,
     VueText,
     VueIconWallet,
-    VueIconChat,
     VueIconBlog,
   },
   middleware: 'auth',

@@ -91,7 +91,7 @@ const config: NuxtConfig = {
     classSuffix: '',
     storageKey: 'nuxt-color-mode',
   },
-  css: [],
+  css: ['uikit/dist/css/uikit.min.css', 'uikit/dist/css/uikit.css', 'assets/cssBlog/main.css'],
   head: {
     title: process.env.npm_package_name || '',
     link: [
@@ -154,6 +154,7 @@ const config: NuxtConfig = {
     'nuxt-winston-log',
     '@nuxtjs/robots',
     '@nuxtjs/strapi',
+    '@nuxtjs/markdownit',
   ],
   plugins: [
     { src: '@/plugins/apollo/provide-apollo-client' },
@@ -163,9 +164,35 @@ const config: NuxtConfig = {
     { src: '@/plugins/pwa/update.client' },
     { src: '@/plugins/vue-gtag/vue-gtag' },
     { src: '@/plugins/strapi/strapi' },
+    { src: '@/plugins/uikit.js', ssr: false },
   ],
   strapi: {
     url: process.env.STRAPI_URL || 'http://localhost:1337',
+    entities: [
+      {
+        name: 'articles',
+        type: 'collection',
+      },
+      {
+        name: 'categories',
+        type: 'collection',
+      },
+      {
+        name: 'homepage',
+        type: 'single',
+      },
+      {
+        name: 'global',
+        type: 'single',
+      },
+    ],
+  },
+  markdownit: {
+    preset: 'default',
+    linkify: true,
+    breaks: true,
+    injected: true,
+    html: true,
   },
   publicRuntimeConfig: {
     axios: {
