@@ -23,6 +23,7 @@
           </div>
           <div class="uk-width-expand">
             <p class="uk-margin-remove-bottom">{{ article.author.name }}</p>
+            <p class="uk-margin-remove-bottom">{{ article.author.email }}</p>
           </div>
         </div>
       </div>

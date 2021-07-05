@@ -1,8 +1,24 @@
 <template>
-  <div class="uk-child-width-1-4@m uk-grid-match" uk-grid>
-    <ArticleCard v-for="article in leftArticles" :key="article.id" :article="article" />
-    <ArticleCard v-for="article in rightArticles" :key="article.id" :article="article" />
+  <div>
+  <div class="uk-child-width-1-2" uk-grid>
+    <div>
+      <ArticleCard
+        v-for="article in leftArticles"
+        :key="article.id"
+        :article="article"
+      />
+    </div>
+    <div>
+      <div class="uk-child-width-1-2@m uk-grid-match" uk-grid>
+        <ArticleCard
+          v-for="article in rightArticles"
+          :key="article.id"
+          :article="article"
+        />
+      </div>
+    </div>
   </div>
+</div>
 </template>
 
 <script>
