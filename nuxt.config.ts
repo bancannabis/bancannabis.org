@@ -54,7 +54,7 @@ const config: NuxtConfig = {
         autoLogout: true,
       },
       google: {
-        clientId: 'google_client_id',
+        clientId: '5423649195-s08ljfcsv163ncat2h5ql1tbo3mdle7a.apps.googleusercontent.com',
         codeChallengeMethod: '',
         endpoints: {
           authorization: 'http://localhost:1337/connect/google',

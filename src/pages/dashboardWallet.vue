@@ -141,9 +141,6 @@
             <vue-button color="primary" :loading="isLoadingSet" :disabled="invalid" @click="setPinCode()">
               Set pin code
             </vue-button>
-            <vue-button color="danger" :loading="isLoadingSet" @click="redirectToDashboard()">
-              Cancel
-            </vue-button>
           </vue-card-footer>
         </vue-card>
       </validation-observer>
@@ -230,7 +227,7 @@ export default defineComponent({
     loading: { type: Boolean, default: false },
   },
   setup() {
-    const { app, redirect } = useContext();
+    const { app } = useContext();
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
     const rules = {
@@ -255,10 +252,7 @@ export default defineComponent({
       { immediate: true },
     );
     const showWalletModal = ref(false);
-    const redirectToDashboard = () => {
-      redirect('/dashboard');
-    };
-    return { pending, user, rules, balance, showWalletModal, redirectToDashboard };
+    return { pending, user, rules, balance, showWalletModal };
   },
   data(): any {
     return {
