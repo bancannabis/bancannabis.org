@@ -37,6 +37,7 @@
           <vue-grid-row>
             <vue-grid-column>
               <vue-input
+                v-if="password != ''"
                 id="password_repet"
                 v-model="password_repet"
                 name="password_repet"

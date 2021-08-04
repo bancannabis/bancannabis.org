@@ -47,6 +47,10 @@
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
                 {{ $t('auth.LoginForm.cta') }}
               </vue-button>
+              &nbsp; or &nbsp;
+              <vue-button color="primary" tabindex="3" @click.prevent="google()">
+                <vue-icon-google />
+              </vue-button>
             </vue-grid-column>
           </vue-grid-row>
         </vue-grid>
@@ -90,10 +94,11 @@ import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
+import VueIconGoogle from '@/components/atoms/icons/VueIconGoogle/VueIconGoogle.vue';
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueIconGoogle },
   props: {
     loading: { type: Boolean, default: false },
   },
@@ -106,6 +111,10 @@ export default {
     };
   },
   computed: {},
+  mounted() {
+    this.username = '';
+    this.password = '';
+  },
   methods: {
     onSubmit() {
       this.$emit('submit', this.$data, this.$strapi);
@@ -120,6 +129,10 @@ export default {
     onClick() {
       this.forget = true;
       this.password = '';
+    },
+    google() {
+      const data = { google: 'true' };
+      this.$emit('submit', data, this.$strapi);
     },
   },
 };

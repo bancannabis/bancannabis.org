@@ -17,7 +17,7 @@
       >
         <vue-image id="profile_imagen_nav" :src="avatar.url" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu-nav>
-      <vue-button v-if="!loggedIn" slot="right" color="primary" @click="showLoginModal = true">
+      <vue-button v-if="!loggedIn && !weAreOffline" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
       </vue-button>
     </vue-nav-bar>
@@ -326,13 +326,16 @@ export default defineComponent({
         } catch (e) {
           if (e.message === 'Request failed with status code 400') {
             addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
           } else {
             addNotification({ title: 'Error during login!', text: e });
           }
           loginRequestStatus.value = RequestStatus.FAILED;
         }
-      } else {
-        // forgot password
+      }
+      if (formData.username && !formData.password) {
         try {
           registerRequestStatus.value = RequestStatus.IDLE;
           const response = await $strapi.forgotPassword({ email: formData.username });
@@ -343,6 +346,42 @@ export default defineComponent({
         } catch (e) {
           loginRequestStatus.value = RequestStatus.FAILED;
           addNotification({ title: 'Error during send mail!', text: e });
+        }
+      }
+      if (formData.google) {
+        try {
+          (function() {
+            const cookies = document.cookie.split('; ');
+            for (let c = 0; c < cookies.length; c++) {
+              const d = window.location.hostname.split('.');
+              while (d.length > 0) {
+                const cookieBase =
+                  encodeURIComponent(cookies[c].split(';')[0].split('=')[0]) +
+                  '=; expires=Thu, 01-Jan-1970 00:00:01 GMT; domain=' +
+                  d.join('.') +
+                  ' ;path=';
+                const p = location.pathname.split('/');
+                document.cookie = cookieBase + '/';
+                while (p.length > 0) {
+                  document.cookie = cookieBase + p.join('/');
+                  p.pop();
+                }
+                d.shift();
+              }
+            }
+          })();
+        } catch (e) {
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+          } else {
+            addNotification({ title: 'Error during login!', text: e });
+          }
+          loginRequestStatus.value = RequestStatus.FAILED;
+        } finally {
+          await app.$auth.loginWith('google');
         }
       }
     };
@@ -421,10 +460,12 @@ export default defineComponent({
       registered: false,
       checked: false,
       mailRegistered: '',
+      weAreOffline: false,
+      access_token: this.$route.query.access_token,
     };
   },
   head: {},
-  mounted() {
+  async mounted() {
     const check = document.querySelector('#check');
     const box = document.querySelector('.box');
     const ball = document.querySelector('.ball');
@@ -439,10 +480,20 @@ export default defineComponent({
         ball.setAttribute('style', 'transform:translatex(0%);');
       }
     });
-
+    // if reset code get in url
     if (this.$route.query.code) {
       this.code = this.$route.query.code;
       this.showLoginModal = true;
+    }
+    // google auth
+    if (this.$route.query.access_token) {
+      const res = await this.$axios.$get(
+        process.env.strapiURL + `/auth/google/callback?access_token=${this.access_token}`,
+      );
+      const { jwt, user } = res;
+      this.$auth.setUserToken(jwt);
+      this.$auth.setUser(user);
+      this.$router.push(`/dashboard`);
     }
   },
   methods: {
@@ -460,9 +511,6 @@ export default defineComponent({
     redirectToSale() {
       window.open('https://e-groweed.com/grower/', '_blank');
     },
-    redirectToBlog() {
-      window.open('https://blog.bancannabis.org', '_blank');
-    },
     onRegisterSubmit(formData: any) {
       this.registerRequestStatus = RequestStatus.PENDING;
       try {
@@ -472,8 +520,10 @@ export default defineComponent({
           password: formData.password,
         });
         this.registerRequestStatus = RequestStatus.IDLE;
+        response.then((res) => {
+          console.log(res);
+        });
         if (response) {
-          // console.log(response);
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
           // send internarnal mail to bancannabis.co 'this will be internal in strapi -fix

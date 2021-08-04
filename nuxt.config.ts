@@ -53,6 +53,32 @@ const config: NuxtConfig = {
         },
         autoLogout: true,
       },
+      google: {
+        clientId: 'google_client_id',
+        codeChallengeMethod: '',
+        endpoints: {
+          authorization: 'http://localhost:1337/connect/google',
+          token: 'http://localhost:1337/token',
+          userInfo: 'http://localhost:1337/users/me',
+        },
+        token: {
+          property: 'access_token',
+          type: 'jwt',
+          maxAge: 1800,
+        },
+        refreshToken: {
+          property: 'refresh_token',
+          data: 'refresh_token',
+          maxAge: 60 * 60 * 24 * 30,
+        },
+        user: {
+          property: 'user',
+          autoFetch: true,
+        },
+        responseType: 'token',
+        grantType: 'authorization_code',
+        autoLogout: true,
+      },
     },
     plugins: ['@/plugins/axios/response-interceptor'],
   },

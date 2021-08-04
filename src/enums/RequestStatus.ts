@@ -6,4 +6,6 @@ export enum RequestStatus {
   FAILED = 'FAILED',
   IDLE = 'IDLE',
   SUCCEED = 'SUCCEED',
+  FAILED400 = 'Request failed with status code 400',
+  ERROR500 = 'Request failed with status code 500',
 }
