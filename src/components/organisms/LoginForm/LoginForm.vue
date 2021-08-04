@@ -47,10 +47,10 @@
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
                 {{ $t('auth.LoginForm.cta') }}
               </vue-button>
-              &nbsp; or &nbsp;
+              <!-- &nbsp; or &nbsp;
               <vue-button color="primary" tabindex="3" @click.prevent="google()">
                 <vue-icon-google />
-              </vue-button>
+              </vue-button> -->
             </vue-grid-column>
           </vue-grid-row>
         </vue-grid>
