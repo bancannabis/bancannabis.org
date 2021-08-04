@@ -57,9 +57,9 @@ const config: NuxtConfig = {
         clientId: '5423649195-s08ljfcsv163ncat2h5ql1tbo3mdle7a.apps.googleusercontent.com',
         codeChallengeMethod: '',
         endpoints: {
-          authorization: 'http://localhost:1337/connect/google',
-          token: 'http://localhost:1337/token',
-          userInfo: 'http://localhost:1337/users/me',
+          authorization: process.env.strapiURL + '/connect/google',
+          token: process.env.strapiURL + '/token',
+          userInfo: process.env.strapiURL + '/users/me',
         },
         token: {
           property: 'access_token',
