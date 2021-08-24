@@ -11,7 +11,7 @@
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-text appearance="h1" as="h1"> BANCANNABIS.ORG </vue-text>
+          <vue-text appearance="h1"> BANCANNABIS.ORG </vue-text>
         </vue-grid-column>
       </vue-grid-row>
 

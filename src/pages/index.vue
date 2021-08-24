@@ -5,14 +5,14 @@
       <vue-grid with-vertical-space>
         <vue-grid-row>
           <vue-grid-column>
-            <vue-text appearance="h6" as="h6">
+            <vue-text appearance="h6">
               {{ $t('components.home.tittle') }}
             </vue-text>
           </vue-grid-column>
         </vue-grid-row>
         <vue-grid-row>
           <vue-grid-column>
-            <vue-text appearance="h3" as="h3">{{ $t('components.home.headline-1') }}</vue-text>
+            <vue-text appearance="h3">{{ $t('components.home.headline-1') }}</vue-text>
             <p>
               {{ $t('components.home.p-1') }}
             </p>
@@ -20,7 +20,7 @@
         </vue-grid-row>
         <vue-grid-row>
           <vue-grid-column>
-            <vue-text appearance="h3" as="h3">{{ $t('components.home.headline-2') }}</vue-text>
+            <vue-text appearance="h3">{{ $t('components.home.headline-2') }}</vue-text>
             <p>
               {{ $t('components.home.p-2') }}
               <a
@@ -37,7 +37,7 @@
         </vue-grid-row>
         <vue-grid-row>
           <vue-grid-column>
-            <vue-text appearance="h3" as="h3">{{ $t('components.home.headline-3') }}</vue-text>
+            <vue-text appearance="h3">{{ $t('components.home.headline-3') }}</vue-text>
             <p>
               {{ $t('components.home.p-3') }}
             </p>

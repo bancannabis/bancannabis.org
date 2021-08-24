@@ -41,9 +41,9 @@
   --brand-tertiary-bg-color-inverse: #{palette-color-level('neutral', 3)};
 
   /* Text Colors */
-  --brand-high-emphasis-text-color: #{palette-color-level('neutral', 1)};
-  --brand-medium-emphasis-text-color: #{palette-color-level('neutral', 3)};
-  --brand-low-emphasis-text-color: #{palette-color-level('neutral', 5)};
+  --brand-high-emphasis-text-color: #{palette-color-level('neutral', 0)};
+  --brand-medium-emphasis-text-color: #{palette-color-level('neutral', 1)};
+  --brand-low-emphasis-text-color: #{palette-color-level('neutral', 3)};
 
   /* Text Colors Inverse */
   --brand-high-emphasis-text-color-inverse: #{palette-color-level('neutral', 10)};
