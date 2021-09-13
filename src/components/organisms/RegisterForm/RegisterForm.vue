@@ -53,6 +53,10 @@
           <div></div>
           <vue-grid-row>
             <vue-grid-column justify-content="flex-end">
+              <a :class="$style.a" href="/serviceterms" target="_blank" rel="noopener noreferrer">
+                {{ $t('App.core.dashboard.terms') }}
+              </a>
+              &nbsp;
               <vue-button color="primary" tabindex="3" type="submit" :disabled="invalid" :loading="loading">
                 {{ $t('auth.RegisterForm.cta') }}
               </vue-button>

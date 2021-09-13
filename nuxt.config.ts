@@ -27,6 +27,7 @@ const config: NuxtConfig = {
       home: '/',
       dashboard: '/dashboard',
       profile: '/profile',
+      serviceterms: '/serviceterms',
     },
     strategies: {
       local: {
