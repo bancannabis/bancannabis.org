@@ -11,7 +11,7 @@
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-headline level="1">BANCANNABIS.ORG</vue-headline>
+          <vue-headline level="2">BANCANNABIS.ORG</vue-headline>
         </vue-grid-column>
       </vue-grid-row>
 

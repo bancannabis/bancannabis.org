@@ -10,7 +10,7 @@
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-headline level="1"> E-GROWEED.COM </vue-headline>
+          <vue-headline level="2"> E-GROWEED.COM </vue-headline>
         </vue-grid-column>
       </vue-grid-row>
 
