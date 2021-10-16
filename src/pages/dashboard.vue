@@ -24,10 +24,10 @@
               <br />
               <vue-text>
                 {{ $t('App.core.dashboard.card-t2') }}
-                <br />
+                <!-- <br />
                 {{ $t('App.core.dashboard.card-t3') }}
                 <br />
-                {{ $t('App.core.dashboard.card-t4') }}
+                {{ $t('App.core.dashboard.card-t4') }} -->
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">
@@ -97,9 +97,9 @@ export default defineComponent({
     const image2: ICarouselImage = {
       copyright: 'e-groweed.com',
       alt: 'egroweed',
-      url: '/images/egroweed/egroweed2.png',
+      url: '/images/egroweed/logo.png',
     };
-    const image3: ICarouselImage = {
+    /* const image3: ICarouselImage = {
       copyright: 'e-groweed.com',
       alt: 'egroweed',
       url: '/images/egroweed/egroweed3.png',
@@ -108,8 +108,8 @@ export default defineComponent({
       copyright: 'blog.bancannabis.org',
       alt: 'blog.bancannabis',
       url: '/images/egroweed/project1.png',
-    };
-    const images = [image2, image3, image4];
+    }; */
+    const images = [image2];
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
 

@@ -26,6 +26,7 @@ const config: NuxtConfig = {
       callback: '/',
       home: '/',
       dashboard: '/dashboard',
+      dashboardBlog: '/dashboardBlog',
       profile: '/profile',
       serviceterms: '/serviceterms',
     },

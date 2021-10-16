@@ -94,11 +94,11 @@ import VueButton from '@/components/atoms/VueButton/VueButton.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
-import VueIconGoogle from '@/components/atoms/icons/VueIconGoogle/VueIconGoogle.vue';
+// import VueIconGoogle from '@/components/atoms/icons/VueIconGoogle/VueIconGoogle.vue';
 
 export default {
   name: 'LoginForm',
-  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput, VueIconGoogle },
+  components: { ValidationObserver, VueGridColumn, VueGridRow, VueGrid, VueButton, VueInput },
   props: {
     loading: { type: Boolean, default: false },
   },

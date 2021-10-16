@@ -30,6 +30,7 @@ import Blog from './blog.vue';
 
 export default defineComponent({
   name: 'DashboardBlog',
+  auth: false,
   components: {
     Blog,
     VueGrid,

@@ -5,13 +5,13 @@
     <vue-grid :class="$style.content" text-align="center">
       <vue-grid-row>
         <vue-grid-column>
-          <img src="images/bancannabis.png" alt="vuesion" />
+          <img src="images/banca.png" alt="vuesion" />
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-text appearance="h1"> BANCANNABIS.ORG </vue-text>
+          <vue-headline level="1">BANCANNABIS.ORG</vue-headline>
         </vue-grid-column>
       </vue-grid-row>
 
@@ -35,13 +35,15 @@
 </template>
 
 <script lang="ts">
+import { useContext } from '@nuxtjs/composition-api';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
-import VueText from '@/components/atoms/VueText/VueText.vue';
+import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+// import VueText from '@/components/atoms/VueText/VueText.vue';
 
 export default {
-  components: { VueText, VueGridColumn, VueGridRow, VueGrid },
+  components: { VueGridColumn, VueGridRow, VueGrid, VueHeadline },
   data() {
     return {
       isParticlesJSLoaded: true,
@@ -70,7 +72,13 @@ export default {
       ],
     };
   },
-  computed: {},
+  computed: {
+    theme() {
+      const { store } = useContext();
+      const theme = store.getters['app/theme'];
+      return theme.value;
+    },
+  },
   beforeMount() {
     window.addEventListener('resize', this.handleResize);
   },
@@ -111,7 +119,7 @@ export default {
   align-content: center;
 
   img {
-    max-width: $space-128;
+    max-width: $space-384;
   }
 
   .canvas {
