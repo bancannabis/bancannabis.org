@@ -11,6 +11,7 @@ export default {
   components: {
     Articles,
   },
+  auth: false,
   data() {
     return {
       articles: [],

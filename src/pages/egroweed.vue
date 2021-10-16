@@ -11,14 +11,14 @@
         <vue-grid with-vertical-space>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h6" as="h6">
+              <vue-text appearance="h6">
                 {{ $t('components.home-egroweed.tittle') }}
               </vue-text>
             </vue-grid-column>
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">
+              <vue-text appearance="h3">
                 {{ $t('components.home-egroweed.headline-1') }}
               </vue-text>
               <p>
@@ -28,7 +28,7 @@
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">
+              <vue-text appearance="h3">
                 {{ $t('components.home-egroweed.headline-2') }}
               </vue-text>
               <p>
@@ -38,7 +38,7 @@
           </vue-grid-row>
           <vue-grid-row>
             <vue-grid-column>
-              <vue-text appearance="h3" as="h3">
+              <vue-text appearance="h3">
                 {{ $t('components.home-egroweed.headline-3') }}
               </vue-text>
               <p>

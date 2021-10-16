@@ -21,7 +21,7 @@
               :alt="article.title"
             />
           </div>
-          <div class="uk-width-expand">
+          <div class="uk-width-expand" :class="$style.autor">
             <p class="uk-margin-remove-bottom">{{ article.author.name }}</p>
             <p class="uk-margin-remove-bottom">{{ article.author.email }}</p>
           </div>
@@ -81,5 +81,10 @@ export default defineComponent({
   padding-left: 4px;
   padding-right: 4px;
   padding-top: 2px;
+}
+.autor {
+  font-size: 0.8rem;
+  inline-size: 150px;
+  overflow-wrap: break-word;
 }
 </style>
