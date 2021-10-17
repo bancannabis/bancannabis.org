@@ -40,6 +40,7 @@ import VueCard from '../../molecules/VueCard/VueCard.vue';
 
 export default defineComponent({
   name: 'ArticleCard',
+  auth: false,
   components: { VueCard },
   props: {
     article: {

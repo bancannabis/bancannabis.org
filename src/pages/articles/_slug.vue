@@ -51,6 +51,7 @@ import { getMetaTags } from '../../utils/seo';
 
 export default defineComponent({
   name: 'SlugArticle',
+  auth: false,
   components: {
     VueGrid,
     BlogNav,
@@ -110,11 +111,11 @@ export default defineComponent({
 }
 .banner {
   margin: 0px !important;
+  max-height: 28rem;
 }
 .h1 {
-  line-height: 1.2 !important;
-  font-weight: 400 !important;
-  font-size: 8em;
+  text-size-adjust: 80% !important;
+  font-size: 4rem !important;
 }
 
 .center_text {

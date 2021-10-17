@@ -20,6 +20,7 @@ export default {
   components: {
     ArticleCard,
   },
+  auth: false,
   props: {
     articles: {
       type: Array,

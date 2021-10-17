@@ -35,6 +35,7 @@ import { getStrapiMedia } from '../../utils/medias';
 
 export default defineComponent({
   name: 'SlugCategories',
+  auth: false,
   components: {
     Articles,
     VueGrid,
