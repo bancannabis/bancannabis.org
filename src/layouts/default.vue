@@ -197,7 +197,6 @@
         </vue-tab-item>
       </vue-tab-group>
     </vue-modal>
-
     <vue-back-to-top />
   </div>
 </template>
