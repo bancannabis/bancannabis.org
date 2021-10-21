@@ -24,10 +24,6 @@
               <br />
               <vue-text>
                 {{ $t('App.core.dashboard.card-t2') }}
-                <!-- <br />
-                {{ $t('App.core.dashboard.card-t3') }}
-                <br />
-                {{ $t('App.core.dashboard.card-t4') }} -->
               </vue-text>
               <vue-text>
                 <ul :class="$style.ul">

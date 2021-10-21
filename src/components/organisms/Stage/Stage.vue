@@ -5,7 +5,7 @@
     <vue-grid :class="$style.content" text-align="center">
       <vue-grid-row>
         <vue-grid-column>
-          <img src="images/banca.png" alt="vuesion" />
+          <img :class="$style.github" src="images/banca.png" alt="vuesion" />
         </vue-grid-column>
       </vue-grid-row>
 

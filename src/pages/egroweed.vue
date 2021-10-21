@@ -44,6 +44,15 @@
               <p>
                 {{ $t('components.home-egroweed.p-3') }}
               </p>
+              <a
+                :class="$style.a"
+                href="https://e-groweed.com/"
+                target="_blank"
+                rel="noopener noreferrer"
+                aria-label="egroweed.com"
+              >
+                {{ $t('about.bca.p8') }}.
+              </a>
             </vue-grid-column>
           </vue-grid-row>
         </vue-grid>
