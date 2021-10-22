@@ -7,34 +7,54 @@
       <vue-grid-row>
         <vue-grid-column>
           <img
+            v-if="theme == 'light'"
             ref="img"
             :class="$style.logo"
             class="animate__animated animate__backInDown animate__slower"
-            src="images/banca.png"
+            src="images/dark.png"
+            alt="bancannabis"
+          />
+          <img
+            v-if="theme == 'dark'"
+            ref="img"
+            :class="$style.logo"
+            class="animate__animated animate__backInDown animate__slower"
+            src="images/light.png"
             alt="bancannabis"
           />
         </vue-grid-column>
       </vue-grid-row>
 
-      <vue-grid-row>
+      <!-- <vue-grid-row>
         <vue-grid-column>
           <vue-headline ref="title" level="2" class="animate__animated animate__slower animate__bounce">
             BANCANNABIS.ORG
           </vue-headline>
-          <!-- <div class="wrap" :class="$style.wrap">
+          <div class="wrap" :class="$style.wrap">
             <div v-for="(particle, i) in Array(300).fill(0)" :key="i" class="c" :class="$style.c"></div>
-          </div> -->
+          </div>
         </vue-grid-column>
-      </vue-grid-row>
+      </vue-grid-row> -->
 
       <vue-grid-row>
         <vue-grid-column>
-          <div :class="$style.subTittle" class="animate__animated animate__slower animate__lightSpeedInLeft">
+          <div
+            v-if="theme == 'light'"
+            :class="$style.subTittle"
+            class="animate__animated animate__slower animate__lightSpeedInLeft"
+          >
             {{ $t('App.core.description') }}
-            <div v-if="isCodeLoaded" class="console-container">
-              <span id="text"></span>|
-              <div id="console" class="console-underscore hidden"></div>
-            </div>
+          </div>
+          <div
+            v-if="theme == 'dark'"
+            :class="$style.subTittle"
+            class="animate__animated animate__slower animate__lightSpeedInRight"
+          >
+            {{ $t('App.core.description') }}
+          </div>
+          <div v-if="isCodeLoaded" :class="$style.subTittle" class="console-container">
+            <span id="text"></span>|
+            <div id="console" class="console-underscore hidden"></div>
           </div>
         </vue-grid-column>
       </vue-grid-row>
@@ -47,15 +67,29 @@
 </template>
 
 <script lang="ts">
-import { useContext } from '@nuxtjs/composition-api';
+import { useContext, computed, watch } from '@nuxtjs/composition-api';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
-import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
+// import VueHeadline from '@/components/atoms/VueHeadline/VueHeadline.vue';
 // import VueText from '@/components/atoms/VueText/VueText.vue';
 
 export default {
-  components: { VueGridColumn, VueGridRow, VueGrid, VueHeadline },
+  components: { VueGridColumn, VueGridRow, VueGrid },
+  setup() {
+    const { store } = useContext();
+    const theme = computed(() => store.getters['app/theme']);
+    watch(
+      [theme],
+      () => {
+        console.log(theme);
+      },
+      { immediate: true },
+    );
+    return {
+      theme,
+    };
+  },
   data() {
     return {
       isParticlesJSLoaded: true,
@@ -83,13 +117,6 @@ export default {
         },
       ],
     };
-  },
-  computed: {
-    theme() {
-      const { store } = useContext();
-      const theme = store.getters['app/theme'];
-      return theme.value;
-    },
   },
   beforeMount() {
     window.addEventListener('resize', this.handleResize);
@@ -141,7 +168,7 @@ export default {
   align-content: center;
 
   img {
-    max-width: $space-384;
+    max-width: $space-384 * 2;
     transition: transform 0.7s ease-in-out;
   }
 
@@ -215,7 +242,6 @@ export default {
   font-size: 4rem;
   display: inline-block;
   color: #64b15e;
-  border-radius: 50%;
 
   &:hover {
     color: #54057b !important;
