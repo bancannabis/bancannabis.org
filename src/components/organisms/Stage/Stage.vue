@@ -5,9 +5,6 @@
 
     <vue-grid text-align="center">
       <vue-grid-row>
-        <div class="wrap" :class="$style.wrap">
-          <div v-for="(particle, i) in Array(1000).fill(0)" :key="i" class="c" :class="$style.c"></div>
-        </div>
         <vue-grid-column>
           <img
             ref="img"
@@ -24,6 +21,9 @@
           <vue-headline ref="title" level="2" class="animate__animated animate__slower animate__bounce">
             BANCANNABIS.ORG
           </vue-headline>
+          <div class="wrap" :class="$style.wrap">
+            <div v-for="(particle, i) in Array(1000).fill(0)" :key="i" class="c" :class="$style.c"></div>
+          </div>
         </vue-grid-column>
       </vue-grid-row>
 
@@ -252,7 +252,7 @@ export default {
 }
 
 $total: 300; // total particles
-$orb-size: 100px;
+$orb-size: 300px;
 $particle-size: 2px;
 $time: 14s;
 $base-hue: 0; // change for diff colors (180 is nice)
@@ -291,7 +291,7 @@ $base-hue: 0; // change for diff colors (180 is nice)
     // grab the nth particle
     animation: orbit#{$i} $time infinite;
     animation-delay: ($i * 0.01s);
-    background-color: #450b69;
+    background-color: var(--brand-high-emphasis-text-color);
   }
 
   @keyframes orbit#{$i} {
