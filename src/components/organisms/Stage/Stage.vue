@@ -6,7 +6,7 @@
     <vue-grid text-align="center">
       <vue-grid-row>
         <div class="wrap" :class="$style.wrap">
-          <div v-for="(particle, i) in Array(5000).fill(0)" :key="i" class="c" :class="$style.c"></div>
+          <div v-for="(particle, i) in Array(1000).fill(0)" :key="i" class="c" :class="$style.c"></div>
         </div>
         <vue-grid-column>
           <img
