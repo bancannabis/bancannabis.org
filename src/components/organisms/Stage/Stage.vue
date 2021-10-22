@@ -1,23 +1,35 @@
 <template>
   <div ref="stage" :class="$style.stage">
-    <div v-if="isParticlesJSLoaded" id="particles-js" ref="canvas" :class="$style.canvas"></div>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
+    <canvas v-if="isParticlesJSLoaded" id="canvas" ref="canvas" class="canvas" :class="$style.canvas"></canvas>
 
-    <vue-grid :class="$style.content" text-align="center">
+    <vue-grid text-align="center">
       <vue-grid-row>
+        <div class="wrap" :class="$style.wrap">
+          <div v-for="(particle, i) in Array(5000).fill(0)" :key="i" class="c" :class="$style.c"></div>
+        </div>
         <vue-grid-column>
-          <img :class="$style.github" src="images/banca.png" alt="vuesion" />
+          <img
+            ref="img"
+            :class="$style.logo"
+            class="animate__animated animate__backInDown animate__slower"
+            src="images/banca.png"
+            alt="bancannabis"
+          />
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <vue-headline level="2">BANCANNABIS.ORG</vue-headline>
+          <vue-headline ref="title" level="2" class="animate__animated animate__slower animate__bounce">
+            BANCANNABIS.ORG
+          </vue-headline>
         </vue-grid-column>
       </vue-grid-row>
 
       <vue-grid-row>
         <vue-grid-column>
-          <div :class="$style.subTittle">
+          <div :class="$style.subTittle" class="animate__animated animate__slower animate__lightSpeedInLeft">
             {{ $t('App.core.description') }}
             <div v-if="isCodeLoaded" class="console-container">
               <span id="text"></span>|
@@ -54,8 +66,8 @@ export default {
     return {
       script: [
         {
-          hid: 'particles',
-          src: 'js/particles.js',
+          hid: 'animation',
+          src: 'js/animation.js',
           defer: true,
           callback: () => {
             this.isParticlesJSLoaded = true;
@@ -103,6 +115,16 @@ export default {
       canvas.width = stageRect.width;
       canvas.height = stageRect.height;
     },
+    animate() {
+      const title: HTMLCanvasElement = this.$refs.title;
+      console.log(title);
+      title.classList.add('elementToFadeInAndOut');
+      // Wait until the animation is over and then remove the class, so that
+      // the next click can re-add it.
+      setTimeout(function() {
+        title.classList.remove('elementToFadeInAndOut');
+      }, 4000);
+    },
   },
 };
 </script>
@@ -120,6 +142,11 @@ export default {
 
   img {
     max-width: $space-384;
+    transition: transform 0.7s ease-in-out;
+  }
+
+  img:hover {
+    transform: rotate(360deg) !important;
   }
 
   .canvas {
@@ -129,28 +156,6 @@ export default {
     top: 0;
     bottom: 0;
     right: 0;
-  }
-
-  .content {
-    position: absolute;
-    left: 50%;
-    top: 50%;
-    transform: translate(-50%, -50%);
-
-    .github {
-      font-size: $text-8;
-      display: inline-block;
-      background: var(--brand-primary-bg-color);
-
-      &:hover {
-        box-shadow: var(--brand-elevation-3);
-      }
-
-      i {
-        height: $text-8;
-        width: $text-8;
-      }
-    }
   }
 }
 
@@ -206,20 +211,103 @@ export default {
   }
 }
 
-.github {
+.logo {
   font-size: 4rem;
   display: inline-block;
   color: #64b15e;
   border-radius: 50%;
 
   &:hover {
-    color: #54057b;
-    box-shadow: black;
+    color: #54057b !important;
+    box-shadow: black !important;
   }
 
   i {
     height: 4rem;
     width: 4rem;
+  }
+}
+
+.fade {
+  width: 200px;
+  height: 200px;
+  background: red;
+  opacity: 0;
+}
+
+.elementToFadeInAndOut {
+  animation: fadeInOut 4s linear forwards;
+}
+
+@keyframes fadeInOut {
+  0% {
+    opacity: 0;
+  }
+  50% {
+    opacity: 1;
+  }
+  100% {
+    opacity: 0;
+  }
+}
+
+$total: 300; // total particles
+$orb-size: 100px;
+$particle-size: 2px;
+$time: 14s;
+$base-hue: 0; // change for diff colors (180 is nice)
+
+.wrap {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  width: 0;
+  height: 0;
+  transform-style: preserve-3d;
+  perspective: 1000px;
+  animation: rotate $time infinite linear; // rotate orb
+}
+
+@keyframes rotate {
+  100% {
+    transform: rotateY(360deg) rotateX(360deg);
+  }
+}
+
+.c {
+  position: absolute;
+  width: $particle-size;
+  height: $particle-size;
+  border-radius: 50%;
+  opacity: 0;
+}
+
+@for $i from 1 through $total {
+  $z: (random(360) * 1deg); // random angle to rotateZ
+  $y: (random(360) * 1deg); // random to rotateX
+  $hue: ((40 / $total * $i) + $base-hue); // set hue
+
+  .c:nth-child(#{$i}) {
+    // grab the nth particle
+    animation: orbit#{$i} $time infinite;
+    animation-delay: ($i * 0.01s);
+    background-color: #a8cf40;
+  }
+
+  @keyframes orbit#{$i} {
+    20% {
+      opacity: 1; // fade in
+    }
+    30% {
+      transform: rotateZ(-$z) rotateY($y) translateX($orb-size) rotateZ($z); // form orb
+    }
+    80% {
+      transform: rotateZ(-$z) rotateY($y) translateX($orb-size) rotateZ($z); // hold orb state 30-80
+      opacity: 1; // hold opacity 20-80
+    }
+    100% {
+      transform: rotateZ(-$z) rotateY($y) translateX(($orb-size * 3)) rotateZ($z); // translateX * 3
+    }
   }
 }
 </style>
