@@ -244,7 +244,7 @@ $time: 1s;
 
 .scenary {
   @include common(flex, row, space-between, null, null, null, null);
-  padding: 5px 10px 0px 10px;
+  padding: 0px 10px 0px 10px;
   svg {
     width: $scale/3;
   }
