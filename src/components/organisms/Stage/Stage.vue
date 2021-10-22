@@ -21,9 +21,9 @@
           <vue-headline ref="title" level="2" class="animate__animated animate__slower animate__bounce">
             BANCANNABIS.ORG
           </vue-headline>
-          <div class="wrap" :class="$style.wrap">
+          <!-- <div class="wrap" :class="$style.wrap">
             <div v-for="(particle, i) in Array(300).fill(0)" :key="i" class="c" :class="$style.c"></div>
-          </div>
+          </div> -->
         </vue-grid-column>
       </vue-grid-row>
 
