@@ -160,19 +160,26 @@ export default {
 @import '~@/assets/design-system';
 
 .stage {
-  min-height: 100vh;
+  min-height: 50vh;
   overflow: hidden;
   position: relative;
   text-shadow: 0 0 5px rgba(15, 15, 15, 0.4);
   padding-top: $space-84;
   align-content: center;
 
-  img {
-    max-width: $space-384 * 2;
+  .img {
+    min-height: 256px;
+    background-size: cover;
+    background-repeat: no-repeat;
+    background-position: 50%;
     transition: transform 0.7s ease-in-out;
+
+    @include mediaMin(tabletPortrait) {
+      min-height: 512px;
+    }
   }
 
-  img:hover {
+  .img:hover {
     transform: rotate(360deg) !important;
   }
 
