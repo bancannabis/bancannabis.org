@@ -22,6 +22,7 @@
           <vue-grid-row>
             <vue-grid-column>
               <vue-input
+                v-if="email != ''"
                 id="password"
                 v-model="password"
                 name="password"

@@ -91,11 +91,13 @@ export default {
 
 .headerList {
   list-style: none;
-  padding: 0;
+  padding: 30px 30px 5px 30px;
   display: flex;
   width: 100%;
-  background: $tab-group-header-bg;
+  background: var(--brand-primary-color);
   position: relative;
+  background-color: var(--brand-primary-color);
+  border-radius: 10px;
 
   li {
     padding: $tab-group-header-item-padding;
@@ -104,7 +106,7 @@ export default {
     cursor: pointer;
     background-color: transparent;
     position: relative;
-    // border: 1px solid transparent;
+    // border: 10px solid transparent;
     // border-bottom: $tab-group-border;
 
     .bg {
@@ -118,6 +120,7 @@ export default {
       transition-duration: 300ms;
       transition-timing-function: linear;
       background: $tab-group-header-item-hover-bg;
+      border-radius: 10px;
     }
 
     &.active {

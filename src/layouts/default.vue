@@ -590,4 +590,8 @@ export default defineComponent({
   text-align: center;
   align-items: center;
 }
+
+.tab {
+  background-color: var(--brand-primary-color);
+}
 </style>
