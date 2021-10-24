@@ -29,6 +29,7 @@
   "App.core.dashboard.card-l1": "Billetera",
   "App.core.dashboard.card-l2": "Chat",
   "App.core.dashboard.card-l3": "Blog",
+  "App.core.dashboard.projects": "Proyectos Activos",
   "App.core.wallet.card-conection": "Conectado a: ",
   "auth.RegisterForm.title": "Registro",
   "auth.RegisterForm.success": "Registro Exitoso!",

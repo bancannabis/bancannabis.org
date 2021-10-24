@@ -27,6 +27,7 @@
   "App.core.dashboard.card-l2": "Chat",
   "App.core.dashboard.card-l3": "Blog",
   "App.core.dashboard.card-l4": "Profile",
+  "App.core.dashboard.projects": "Active projects",
   "App.core.wallet.card-conection": "Conected to: ",
   "auth.LoginForm.title": "Login",
   "auth.LoginForm.forgot": "Forgot password?",

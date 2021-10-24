@@ -43,10 +43,8 @@
           </vue-card>
         </vue-grid-column>
         <vue-grid-column>
-          <vue-card :class="$style.card_little">
-            <vue-card-header title="Featured projects"> </vue-card-header>
-            <vue-carousel :images="images" :interval="6000" />
-          </vue-card>
+          <vue-card-header :title="$t('App.core.dashboard.projects')"> </vue-card-header>
+          <vue-carousel :images="images" :interval="6000" />
         </vue-grid-column>
       </vue-grid-row>
     </vue-grid>
@@ -63,8 +61,8 @@ import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vu
 import VueCard from '@/components/molecules/VueCard/VueCard.vue';
 import VueCardHeader from '@/components/molecules/VueCard/VueCardHeader/VueCardHeader.vue';
 import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.vue';
-import VueCarousel from '@/components/molecules/VueCarousel/VueCarousel.vue';
-import { ICarouselImage } from '@/components/molecules/VueCarousel/ICarouselImage';
+import VueCarousel from '@/components/organisms/VueCarousel/VueCarousel.vue';
+import { ICarouselImage } from '@/components/organisms/VueCarousel/ICarouselImage';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueIconWallet from '@/components/atoms/icons/VueIconWallet/VueIconWallet.vue';
 import VueIconBlog from '@/components/atoms/icons/VueIconBlog/VueIconBlog.vue';
@@ -91,21 +89,23 @@ export default defineComponent({
   setup() {
     const { app } = useContext();
     const image2: ICarouselImage = {
-      copyright: 'e-groweed.com',
+      title: 'e-groweed.com',
+      copyright: 'https://e-groweed.com',
       alt: 'egroweed',
       url: '/images/egroweed/logo.png',
     };
-    /* const image3: ICarouselImage = {
-      copyright: 'e-groweed.com',
+    const image3: ICarouselImage = {
+      title: 'e-groweed.com',
+      copyright: 'https://e-groweed.com',
       alt: 'egroweed',
-      url: '/images/egroweed/egroweed3.png',
+      url: '/images/egroweed/egroweed.com.png',
     };
-    const image4: ICarouselImage = {
+    /* const image4: ICarouselImage = {
       copyright: 'blog.bancannabis.org',
       alt: 'blog.bancannabis',
       url: '/images/egroweed/project1.png',
     }; */
-    const images = [image2];
+    const images = [image2, image3];
     const pending = ref(false);
     const user = computed(() => app.$auth.user);
 
