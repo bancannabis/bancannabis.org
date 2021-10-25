@@ -337,12 +337,14 @@ export default defineComponent({
       loginRequestStatus.value = RequestStatus.PENDING;
       if (formData.username && formData.password) {
         try {
+          localStorage.clear();
           registerRequestStatus.value = RequestStatus.IDLE;
           const response = await $strapi.login({ identifier: formData.username, password: formData.password });
           if (response) {
             app.$auth.setUserToken(response.jwt);
             app.$auth.setUser(response.user);
             redirect('/dashboard');
+            registerRequestStatus.value = RequestStatus.INIT;
           }
           showLoginModal.value = false;
         } catch (e) {
