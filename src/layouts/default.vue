@@ -339,10 +339,14 @@ export default defineComponent({
         try {
           localStorage.clear();
           registerRequestStatus.value = RequestStatus.IDLE;
-          const response = await $strapi.login({ identifier: formData.username, password: formData.password });
+          const response: any = await $axios.post(process.env.strapiURL + '/auth/local', {
+            identifier: formData.username,
+            password: formData.password,
+          });
           if (response) {
-            app.$auth.setUserToken(response.jwt);
-            app.$auth.setUser(response.user);
+            console.log(response.data);
+            app.$auth.setUserToken(response.data.jwt);
+            app.$auth.setUser(response.data.user);
             redirect('/dashboard');
             registerRequestStatus.value = RequestStatus.INIT;
           }
