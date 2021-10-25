@@ -1,6 +1,6 @@
 import { ActionContext } from 'vuex';
-import { IState } from '@/interfaces/IState';
 import { ICounterState } from './state';
+import { IState } from '@/interfaces/IState';
 
 export interface ICounterActions {
   increment(context: ActionContext<ICounterState, IState>): Promise<any>;

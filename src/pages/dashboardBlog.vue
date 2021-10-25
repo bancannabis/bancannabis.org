@@ -21,12 +21,12 @@
 
 <script>
 import { defineComponent } from '@nuxtjs/composition-api';
+import Blog from './blog.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
 import VueBreadcrumb from '@/components/molecules/VueBreadcrumb/VueBreadcrumb.vue';
 import BlogNav from '@/components/organisms/Blog/BlogNav/BlogNav.vue';
-import Blog from './blog.vue';
 
 export default defineComponent({
   name: 'DashboardBlog',

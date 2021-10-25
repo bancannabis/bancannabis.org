@@ -1,9 +1,9 @@
 import Vue from 'vue';
 import { Ref } from '@vue/composition-api';
 import { render } from '@testing-library/vue';
-import { TestComponent } from '@/test/test-utils';
 import { getDomRef } from './get-dom-ref';
 import { useIntersectionObserver } from './use-intersection-observer';
+import { TestComponent } from '@/test/test-utils';
 
 describe('use-intersection-observer.ts', () => {
   test('should create an observer and call the call back function', async () => {

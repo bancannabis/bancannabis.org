@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
-import VueBox from '@/components/layout/VueBox/VueBox.vue';
 import VueHidden from './VueHidden.vue';
+import VueBox from '@/components/layout/VueBox/VueBox.vue';
 
 const story = storiesOf('Design System|Utils/Hidden', module) as any;
 

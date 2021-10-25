@@ -29,10 +29,10 @@
 </template>
 
 <script lang="ts">
-import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueGrid from '../VueGrid/VueGrid.vue';
 import VueGridRow from '../VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '../VueGrid/VueGridColumn/VueGridColumn.vue';
+import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 
 export default {
   name: 'VueFooter',

@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
+import VueStack from './VueStack.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
-import VueStack from './VueStack.vue';
 
 const story = storiesOf('Foundation|Layout/Stack', module) as any;
 

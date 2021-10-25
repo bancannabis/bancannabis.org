@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import { render } from '@testing-library/vue';
 import { ref } from '@vue/composition-api';
-import { triggerDocument, TestComponent } from '@/test/test-utils';
 import { useOutsideClick } from './use-outside-click';
+import { triggerDocument, TestComponent } from '@/test/test-utils';
 
 describe('use-outside-click-behaviour', () => {
   test('should not trigger outside click', async () => {

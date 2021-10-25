@@ -1,6 +1,6 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import { i18n } from '@/test/i18n';
 import VueCalendar from './VueCalendar.vue';
+import { i18n } from '@/test/i18n';
 
 const localVue = createLocalVue();
 const today: Date = new Date();

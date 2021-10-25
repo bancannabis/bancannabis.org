@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
-import { i18n } from '@/test/i18n';
 import VueTruncate from './VueTruncate.vue';
+import { i18n } from '@/test/i18n';
 
 const story = storiesOf('Molecules|Truncate', module) as any;
 

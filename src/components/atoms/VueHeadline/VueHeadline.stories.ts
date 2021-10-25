@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
-import { textColorVariations } from '@/components/prop-validators';
 import VueHeadline from './VueHeadline.vue';
+import { textColorVariations } from '@/components/prop-validators';
 
 const story = storiesOf('Atoms|Headline', module) as any;
 

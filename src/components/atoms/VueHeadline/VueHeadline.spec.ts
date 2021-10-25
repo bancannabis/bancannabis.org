@@ -1,7 +1,7 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import { textColorVariations } from '@/components/prop-validators';
 import { render } from '@testing-library/vue';
 import VueHeadline from './VueHeadline.vue';
+import { textColorVariations } from '@/components/prop-validators';
 
 const localVue = createLocalVue();
 

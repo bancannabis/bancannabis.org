@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { render } from '@testing-library/vue';
-import { triggerDocument } from '@/test/test-utils';
 import VueModal from './VueModal.vue';
+import { triggerDocument } from '@/test/test-utils';
 
 describe('VueModal.vue', () => {
   test('opens modal', async () => {

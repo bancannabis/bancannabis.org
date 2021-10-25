@@ -1,6 +1,6 @@
 import { render, RenderResult } from '@testing-library/vue';
-import { i18n } from '@/test/i18n';
 import VuePagination from './VuePagination.vue';
+import { i18n } from '@/test/i18n';
 
 describe('VuePagination.vue', () => {
   let harness: RenderResult;

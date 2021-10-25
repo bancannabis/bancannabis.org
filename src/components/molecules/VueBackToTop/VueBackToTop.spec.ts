@@ -1,7 +1,7 @@
 import Vue from 'vue';
 import { fireEvent, render, RenderResult } from '@testing-library/vue';
-import { triggerWindow } from '@/test/test-utils';
 import VueBackToTop from './VueBackToTop.vue';
+import { triggerWindow } from '@/test/test-utils';
 
 describe('VueBackToTop.vue', () => {
   let harness: RenderResult;

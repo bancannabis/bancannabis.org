@@ -14,11 +14,7 @@
       <vue-grid-row>
         <vue-grid-column>
           <vue-card :class="$style.card_big">
-            <vue-card-header
-              image="https://external-content.duckduckgo.com/iu/?u=https%3A%2F%2Ftse1.mm.bing.net%2Fth%3Fid%3DOIP.uzDXtODF0mm5FDCJgMqlPQHaHa%26pid%3DApi&f=1"
-              :title="user.username"
-              :subtitle="$t('App.core.dashboard.profile')"
-            />
+            <vue-card-header :title="user.username" :subtitle="$t('App.core.dashboard.profile')" />
             <vue-card-body :class="$style.card_big_body">
               <vue-grid-column :class="$style.column">
                 <vue-grid-row :class="$style.row">
@@ -306,11 +302,12 @@ export default defineComponent({
 .card_big_body {
   margin-top: 0em;
   margin-right: 4em;
+  margin-left: 4em;
 }
 
 .card_big_footer {
-  margin-left: auto;
+  margin: auto;
   margin-right: auto;
-  width: 15em;
+  width: 8em;
 }
 </style>

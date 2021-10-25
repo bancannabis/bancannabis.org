@@ -1,4 +1,5 @@
 import { storiesOf } from '@storybook/vue';
+import VueCarousel from './VueCarousel.vue';
 import ComponentDocs from '@/assets/design-system/docs/components/ComponentDocs.vue';
 import VueStack from '@/components/layout/VueStack/VueStack.vue';
 import VueColumns from '@/components/layout/VueColumns/VueColumns.vue';
@@ -7,7 +8,6 @@ import VueSlider from '@/components/input-and-actions/VueSlider/VueSlider.vue';
 import VueToggle from '@/components/input-and-actions/VueToggle/VueToggle.vue';
 import VueInline from '@/components/layout/VueInline/VueInline.vue';
 import { i18n } from '@/test/i18n';
-import VueCarousel from './VueCarousel.vue';
 
 const story = storiesOf('Data Display|Carousel', module) as any;
 const images: any[] = [

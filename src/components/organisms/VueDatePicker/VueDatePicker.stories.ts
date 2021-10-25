@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
-import { i18n } from '@/test/i18n';
 import VueDatePicker from './VueDatePicker.vue';
+import { i18n } from '@/test/i18n';
 
 const story = storiesOf('Organisms|DatePicker', module) as any;
 

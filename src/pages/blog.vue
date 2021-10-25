@@ -3,9 +3,9 @@
 </template>
 
 <script>
-import Articles from '@/components/organisms/Blog/Articles.vue';
 import { getMetaTags } from '../utils/seo';
 import { getStrapiMedia } from '../utils/medias';
+import Articles from '@/components/organisms/Blog/Articles.vue';
 
 export default {
   components: {

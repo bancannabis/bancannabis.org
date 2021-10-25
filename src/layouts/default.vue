@@ -48,12 +48,6 @@
           <vue-icon-code />
           Blog
         </vue-sidebar-group-item>
-        <!-- <vue-sidebar-group-item v-if="!loggedIn">
-          <a target="_blank" rel="noopener noreferrer" aria-label="bancannabis blog" @click="showLoginModal = true">
-            <vue-icon-code />
-            Blog
-          </a>
-        </vue-sidebar-group-item> -->
       </vue-sidebar-group>
 
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t3')">
@@ -205,6 +199,7 @@
 <script lang="ts">
 import '@/assets/global.scss';
 import { defineComponent, computed, ref, useContext, useMeta, watch } from '@nuxtjs/composition-api';
+import $axios from 'axios';
 import { RequestStatus } from '@/enums/RequestStatus';
 import { addNotification } from '@/components/molecules/VueNotificationStack/utils';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
@@ -234,7 +229,6 @@ import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 import VueBackToTop from '@/components/molecules/VueBackToTop/VueBackToTop.vue';
 import VueMailIcon from '@/components/atoms/icons/VueMailIcon/VueMailIcon.vue';
-import $axios from 'axios';
 
 // import { HTTPResponse } from '@nuxtjs/auth-next';
 
@@ -313,59 +307,6 @@ export default defineComponent({
       await store.dispatch('app/changeTheme', selectedTheme);
       document.documentElement.className = selectedTheme;
     };
-    const onLoginSubmit = async (formData: any, $strapi: any): Promise<any> => {
-      loginRequestStatus.value = RequestStatus.PENDING;
-      if (formData.username && formData.password) {
-        try {
-          registerRequestStatus.value = RequestStatus.IDLE;
-          const response: any = await app.$auth.loginWith('local', { data: formData });
-          if (response) {
-            redirect('/dashboard');
-          }
-          showLoginModal.value = false;
-        } catch (e) {
-          if (e.message === 'Request failed with status code 400') {
-            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
-          }
-          if (e.message === RequestStatus.ERROR500) {
-            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
-          } else {
-            addNotification({ title: 'Error during login!', text: e });
-          }
-          loginRequestStatus.value = RequestStatus.FAILED;
-        }
-      }
-      if (formData.username && !formData.password) {
-        try {
-          registerRequestStatus.value = RequestStatus.IDLE;
-          const response = await $strapi.forgotPassword({ email: formData.username });
-          if (response) {
-            addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
-          }
-          showLoginModal.value = false;
-        } catch (e) {
-          loginRequestStatus.value = RequestStatus.FAILED;
-          addNotification({ title: 'Error during send mail!', text: e });
-        }
-      }
-      if (formData.google) {
-        try {
-          localStorage.clear();
-        } catch (e) {
-          if (e.message === 'Request failed with status code 400') {
-            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
-          }
-          if (e.message === RequestStatus.ERROR500) {
-            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
-          } else {
-            addNotification({ title: 'Error during login!', text: e });
-          }
-          loginRequestStatus.value = RequestStatus.FAILED;
-        } finally {
-          await app.$auth.loginWith('google');
-        }
-      }
-    };
     const onResetSubmit = async (formData: any, $strapi: any): Promise<any> => {
       resetRequestStatus.value = RequestStatus.PENDING;
       try {
@@ -427,13 +368,13 @@ export default defineComponent({
       loggedIn,
       user,
       onLocaleSwitch,
-      onLoginSubmit,
       onResetSubmit,
       onLogoutClick,
       redirectToProfile,
       onThemeChange,
       strapiURL,
       avatar,
+      redirect,
     };
   },
   data() {
@@ -502,7 +443,7 @@ export default defineComponent({
         });
         this.registerRequestStatus = RequestStatus.IDLE;
         response.then((res) => {
-          console.log(res);
+          // console.log(res);
         });
         if (response) {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
@@ -517,6 +458,66 @@ export default defineComponent({
           title: 'Error during register!',
           text: 'Email already registered or something went wrong, Please try again!',
         });
+      }
+    },
+    async onLoginSubmit(formData: any, $strapi: any) {
+      this.loginRequestStatus = RequestStatus.PENDING;
+      if (formData.username && formData.password) {
+        try {
+          localStorage.clear();
+          this.registerRequestStatus = RequestStatus.IDLE;
+          // const response: any = await this.$auth.loginWith('local', { data: formData });
+          const response = await $strapi.login({ identifier: formData.username, password: formData.password });
+          // console.log(formData);
+          if (response) {
+            const { jwt, user } = response;
+            this.$auth.setUserToken(jwt);
+            this.$auth.setUser(user);
+            this.$router.push('/dashboard');
+            this.showLoginModal = false;
+            this.registerRequestStatus = RequestStatus.INIT;
+          }
+        } catch (e) {
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+          } else {
+            addNotification({ title: 'Error during login!', text: e });
+          }
+          this.loginRequestStatus = RequestStatus.FAILED;
+        }
+      }
+      if (formData.username && !formData.password) {
+        try {
+          this.registerRequestStatus = RequestStatus.IDLE;
+          const response = await $strapi.forgotPassword({ email: formData.username });
+          if (response) {
+            addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
+          }
+          this.showLoginModal = false;
+        } catch (e) {
+          this.loginRequestStatus = RequestStatus.FAILED;
+          addNotification({ title: 'Error during send mail!', text: e });
+        }
+      }
+      if (formData.google) {
+        try {
+          localStorage.clear();
+        } catch (e) {
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+          } else {
+            addNotification({ title: 'Error during login!', text: e });
+          }
+          this.loginRequestStatus = RequestStatus.FAILED;
+        } finally {
+          await this.$auth.loginWith('google');
+        }
       }
     },
   },

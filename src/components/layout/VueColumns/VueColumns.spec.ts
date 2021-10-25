@@ -1,6 +1,6 @@
 import { render, RenderResult } from '@testing-library/vue';
-import VueColumn from '@/components/layout/VueColumns/VueColumn/VueColumn.vue';
 import VueColumns from './VueColumns.vue';
+import VueColumn from '@/components/layout/VueColumns/VueColumn/VueColumn.vue';
 
 describe('VueColumns.vue', () => {
   let harness: RenderResult;

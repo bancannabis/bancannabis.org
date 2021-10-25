@@ -1,5 +1,6 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
+import VuePagination from './VuePagination.vue';
 import { i18n } from '@/test/i18n';
 import ComponentDocs from '@/assets/design-system/docs/components/ComponentDocs.vue';
 import VueToggle from '@/components/input-and-actions/VueToggle/VueToggle.vue';
@@ -7,7 +8,6 @@ import VueInput from '@/components/input-and-actions/VueInput/VueInput.vue';
 import VueStack from '@/components/layout/VueStack/VueStack.vue';
 import VueInline from '@/components/layout/VueInline/VueInline.vue';
 import VueTiles from '@/components/layout/VueTiles/VueTiles.vue';
-import VuePagination from './VuePagination.vue';
 
 const story = storiesOf('Navigation|Pagination', module) as any;
 

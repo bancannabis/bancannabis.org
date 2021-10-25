@@ -2,8 +2,8 @@ import { render, RenderResult } from '@testing-library/vue';
 import { createMockClient, MockApolloClient } from 'mock-apollo-client';
 import { provide } from '@vue/composition-api';
 import { DefaultApolloClient } from '@vue/apollo-composable/dist';
-import { GetExamplePageData } from '@/graphql/ExamplePage';
 import Apollo from './apollo.vue';
+import { GetExamplePageData } from '@/graphql/ExamplePage';
 
 describe('Apollo.vue', () => {
   let harness: RenderResult;

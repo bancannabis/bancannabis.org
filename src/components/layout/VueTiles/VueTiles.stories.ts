@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
+import VueTiles from './VueTiles.vue';
 import VueBadge from '@/components/atoms/VueBadge/VueBadge.vue';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
-import VueTiles from './VueTiles.vue';
 
 const story = storiesOf('Foundation|Layout/Tiles', module) as any;
 

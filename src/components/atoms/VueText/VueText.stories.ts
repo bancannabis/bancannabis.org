@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/vue';
+import VueText from './VueText.vue';
 import { textColorVariations } from '@/components/prop-validators';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
-import VueText from './VueText.vue';
 
 const story = storiesOf('Foundation|Typography', module) as any;
 

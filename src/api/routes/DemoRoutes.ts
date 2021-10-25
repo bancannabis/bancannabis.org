@@ -47,6 +47,7 @@ export const DemoRoutes = (app: express.Application) => {
 
   app.post('/auth/local', (_: express.Request, res: express.Response) => {
     const login = async (formData: any, $axios: any) => {
+      console.log(formData);
       try {
         const response = await $axios.post(strapiURL + '/auth/local', {
           identifier: formData.username.split('@')[0],
@@ -54,9 +55,13 @@ export const DemoRoutes = (app: express.Application) => {
         });
         if (response.status === 200) {
           user = response.data.user;
-          res
-            .status(200)
-            .json({ access_token: response.data.jwt, refresh_token: 'refreshToken2', status: '200', des: 'succeed' });
+          res.status(200).json({
+            access_token: response.data.jwt,
+            refresh_token: response.data.jwt + 'refresh',
+            status: '200',
+            des: 'succeed',
+            user: response.data.user,
+          });
         }
       } catch (e) {
         if (e.message === 'Request failed with status code 400') {
@@ -121,11 +126,7 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.post('/auth/refresh', (_: express.Request, res: express.Response) => {
-    if (getErrorWithProbability(10)) {
-      res.status(500).json({});
-    } else {
-      res.status(200).json({ access_token: 'accessToken2', refresh_token: 'refreshToken2' });
-    }
+    res.status(200).json({ access_token: 'accessToken2', refresh_token: 'refreshToken2' });
   });
 
   app.post('/auth/logout', (_: express.Request, res: express.Response) => {
@@ -133,6 +134,7 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
+    console.log('here');
     res.status(200).json({
       user: {
         username: user.username,

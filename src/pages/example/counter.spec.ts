@@ -1,10 +1,10 @@
 import { render, fireEvent, RenderResult } from '@testing-library/vue';
 import Vuex, { Store } from 'vuex';
+import Counter from './counter.vue';
 import { CounterDefaultState, ICounterState } from '@/store/counter/state';
 import { CounterActions } from '@/store/counter/actions';
 import { CounterGetters } from '@/store/counter/getters';
 import { CounterMutations } from '@/store/counter/mutations';
-import Counter from './counter.vue';
 
 describe('Counter.vue', () => {
   let store: Store<ICounterState>;

@@ -1,11 +1,11 @@
 import { storiesOf } from '@storybook/vue';
+import VueColumn from './VueColumn/VueColumn.vue';
+import VueColumns from './VueColumns.vue';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
 import VueStack from '@/components/layout/VueStack/VueStack.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
-import VueColumn from './VueColumn/VueColumn.vue';
-import VueColumns from './VueColumns.vue';
 
 const story = storiesOf('Foundation|Layout/Columns', module) as any;
 

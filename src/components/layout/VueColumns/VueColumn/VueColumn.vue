@@ -18,6 +18,7 @@
 
 <script lang="ts">
 import { computed, defineComponent } from '@vue/composition-api';
+import isArray from 'lodash/isArray';
 import { applyResponsiveClasses, parseResponsivePropValue } from '@/components/utils';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
 import {
@@ -26,7 +27,6 @@ import {
   spacingValidator,
   verticalAlignmentValidator,
 } from '@/components/prop-validators';
-import isArray from 'lodash/isArray';
 
 export default defineComponent({
   name: 'VueColumn',

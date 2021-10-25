@@ -1,8 +1,8 @@
 import Vue from 'vue';
 import { ref } from '@vue/composition-api';
 import { render } from '@testing-library/vue';
-import { TestComponent } from '@/test/test-utils';
 import { useEvent } from './use-event';
+import { TestComponent } from '@/test/test-utils';
 
 describe('use-event.ts', () => {
   test('should add and remove eventListener', async () => {

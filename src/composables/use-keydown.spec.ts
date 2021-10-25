@@ -1,6 +1,6 @@
 import { render } from '@testing-library/vue';
-import { TestComponent, triggerDocument } from '@/test/test-utils';
 import { useKeydown } from './use-keydown';
+import { TestComponent, triggerDocument } from '@/test/test-utils';
 
 describe('use-keydown-behaviour.ts', () => {
   beforeEach(() => (document.body.style.overflow = ''));

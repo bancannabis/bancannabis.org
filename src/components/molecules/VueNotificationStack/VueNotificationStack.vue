@@ -17,8 +17,8 @@
 <script lang="ts">
 import { computed, defineComponent, onMounted, ref } from '@vue/composition-api';
 import { getGUID } from '@vuesion/utils/dist/randomGenerator';
-import { EventBus } from '@/services/EventBus';
 import { INotification } from './INotification';
+import { EventBus } from '@/services/EventBus';
 
 export default defineComponent({
   name: 'VueNotificationStack',

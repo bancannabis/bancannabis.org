@@ -1,6 +1,6 @@
 import { storiesOf } from '@storybook/vue';
-import VueText from '@/components/atoms/VueText/VueText.vue';
 import HomeSection from './HomeSection.vue';
+import VueText from '@/components/atoms/VueText/VueText.vue';
 
 const story = storiesOf('Organisms|HomeSection', module) as any;
 

@@ -1,7 +1,7 @@
 import localForage from 'localforage';
-import EthWrapper from '@/wrapper/ethWrapper';
 import $axios from 'axios';
 import { AES, enc } from 'crypto-ts';
+import EthWrapper from '@/wrapper/ethWrapper';
 
 export default class WalletModel {
   public balance = 0;

@@ -1,11 +1,11 @@
 import { createLocalVue, mount } from '@vue/test-utils';
-import { i18n } from '@/test/i18n';
 import VuePagination from '../../molecules/VuePagination/VuePagination.vue';
 import { IComputedDataRowCell, IDataTableHeader } from './IDataTable';
 import VueDataTable from './VueDataTable.vue';
 import VueDataTableSearch from './VueDataTableSearch/VueDataTableSearch.vue';
 import VueDataTableHeader from './VueDataTableHeader/VueDataTableHeader.vue';
 import { dataTableDataFixture, dataTableHeaderFixture } from './DataTableFixtures';
+import { i18n } from '@/test/i18n';
 
 const localVue = createLocalVue();
 

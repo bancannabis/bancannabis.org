@@ -1,6 +1,6 @@
 import { render } from '@testing-library/vue';
-import { textColorVariations } from '@/components/prop-validators';
 import VueText from './VueText.vue';
+import { textColorVariations } from '@/components/prop-validators';
 
 describe('VueText.vue', () => {
   test('renders component', () => {

@@ -3,9 +3,9 @@ import Vue from 'vue';
 import { VNode } from 'vue/types/vnode';
 import isArray from 'lodash/isArray';
 import { defineComponent } from '@vue/composition-api';
+import { CreateElement } from 'vue/types/vue';
 import { horizontalAlignmentValidator, responsivePropValidator, spacingValidator } from '@/components/prop-validators';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
-import { CreateElement } from 'vue/types/vue';
 import {
   applyResponsiveClasses,
   decorateChildComponents,

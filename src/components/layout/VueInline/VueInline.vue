@@ -1,13 +1,9 @@
 <script lang="ts">
 import { defineComponent } from '@vue/composition-api';
-import {
-  horizontalAlignmentValidator,
-  responsivePropValidator,
-  spacingValidator,
-  verticalAlignmentValidator,
-} from '@/components/prop-validators';
 import { CreateElement } from 'vue/types/vue';
 import Vue from 'vue';
+import { VNode } from 'vue/types/vnode';
+import isArray from 'lodash/isArray';
 import VueBox from '@/components/layout/VueBox/VueBox.vue';
 import {
   applyResponsiveClasses,
@@ -15,8 +11,12 @@ import {
   getComponentElementType,
   parseResponsivePropValue,
 } from '@/components/utils';
-import { VNode } from 'vue/types/vnode';
-import isArray from 'lodash/isArray';
+import {
+  horizontalAlignmentValidator,
+  responsivePropValidator,
+  spacingValidator,
+  verticalAlignmentValidator,
+} from '@/components/prop-validators';
 
 Vue.component('VueBox', VueBox);
 
