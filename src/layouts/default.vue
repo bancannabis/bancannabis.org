@@ -344,11 +344,10 @@ export default defineComponent({
             password: formData.password,
           });
           if (response) {
-            console.log(response.data);
             app.$auth.setUserToken(response.data.jwt);
             app.$auth.setUser(response.data.user);
             redirect('/dashboard');
-            registerRequestStatus.value = RequestStatus.INIT;
+            loginRequestStatus.value = RequestStatus.INIT;
           }
           showLoginModal.value = false;
         } catch (e) {
