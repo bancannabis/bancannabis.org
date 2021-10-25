@@ -59,15 +59,14 @@ export default {
       this.showVideoModal = false;
       const modal = document.getElementById('myModal');
       modal.style.display = 'block';
-      const video: HTMLVideoElement = document.getElementById('myVideo');
+      const video = <HTMLVideoElement>document.getElementById('myVideo');
       video.play();
     },
     onClickSpan() {
       const modal = document.getElementById('myModal');
-      const video: HTMLMediaElement = document.getElementById('myVideo');
+      const video = <HTMLVideoElement>document.getElementById('myVideo');
       video.pause();
       video.currentTime = 0;
-      video.load();
       modal.style.display = 'none';
     },
   },

@@ -112,12 +112,6 @@ export default {
           content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
         },
       ],
-      script: [
-        {
-          hid: 'animation-scroll',
-          src: 'js/animate-on-scroll.js',
-        },
-      ],
     };
   },
 };
