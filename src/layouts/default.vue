@@ -333,6 +333,61 @@ export default defineComponent({
         code.value = false;
       }
     };
+    const onLoginSubmit = async (formData: any, $strapi: any): Promise<any> => {
+      loginRequestStatus.value = RequestStatus.PENDING;
+      if (formData.username && formData.password) {
+        try {
+          registerRequestStatus.value = RequestStatus.IDLE;
+          const response = await $strapi.login({ identifier: formData.username, password: formData.password });
+          if (response) {
+            app.$auth.setUserToken(response.jwt);
+            app.$auth.setUser(response.user);
+            redirect('/dashboard');
+          }
+          showLoginModal.value = false;
+        } catch (e) {
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+          } else {
+            addNotification({ title: 'Error during login!', text: e });
+          }
+          loginRequestStatus.value = RequestStatus.FAILED;
+        }
+      }
+      if (formData.username && !formData.password) {
+        try {
+          registerRequestStatus.value = RequestStatus.IDLE;
+          const response = await $strapi.forgotPassword({ email: formData.username });
+          if (response) {
+            addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
+          }
+          showLoginModal.value = false;
+        } catch (e) {
+          loginRequestStatus.value = RequestStatus.FAILED;
+          addNotification({ title: 'Error during send mail!', text: e });
+        }
+      }
+      if (formData.google) {
+        try {
+          localStorage.clear();
+        } catch (e) {
+          if (e.message === 'Request failed with status code 400') {
+            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
+          }
+          if (e.message === RequestStatus.ERROR500) {
+            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+          } else {
+            addNotification({ title: 'Error during login!', text: e });
+          }
+          loginRequestStatus.value = RequestStatus.FAILED;
+        } finally {
+          await app.$auth.loginWith('google');
+        }
+      }
+    };
     const onLogoutClick = async () => {
       await app.$auth.logout().then(() => {
         localStorage.clear();
@@ -373,6 +428,7 @@ export default defineComponent({
       onLogoutClick,
       redirectToProfile,
       onThemeChange,
+      onLoginSubmit,
       strapiURL,
       avatar,
       redirect,
@@ -461,7 +517,7 @@ export default defineComponent({
         });
       }
     },
-    async onLoginSubmit(formData: any, $strapi: any) {
+    /* async onLoginSubmit(formData: any, $strapi: any) {
       this.registerRequestStatus = RequestStatus.INIT;
       this.loginRequestStatus = RequestStatus.PENDING;
       if (formData.username && formData.password) {
@@ -521,7 +577,7 @@ export default defineComponent({
           await this.$auth.loginWith('google');
         }
       }
-    },
+    }, */
   },
 });
 </script>
