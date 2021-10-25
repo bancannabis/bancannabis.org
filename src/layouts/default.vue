@@ -335,6 +335,7 @@ export default defineComponent({
     };
     const onLogoutClick = async () => {
       await app.$auth.logout().then(() => {
+        localStorage.clear();
         redirect('/');
         window.history.replaceState({}, document.title, '/');
         loginRequestStatus.value = RequestStatus.INIT;
