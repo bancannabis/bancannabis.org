@@ -1,5 +1,6 @@
 <template>
   <div id="app" :class="$style.app">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <vue-notification-stack />
 
     <vue-nav-bar>

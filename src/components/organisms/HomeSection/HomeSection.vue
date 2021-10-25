@@ -54,15 +54,20 @@ export default {
       showVideoModal,
     };
   },
-
   methods: {
     onClickImage() {
       this.showVideoModal = false;
       const modal = document.getElementById('myModal');
       modal.style.display = 'block';
+      const video = document.getElementById('myVideo');
+      video.play();
     },
     onClickSpan() {
       const modal = document.getElementById('myModal');
+      const video = document.getElementById('myVideo');
+      video.pause();
+      video.currentTime = 0;
+      video.load();
       modal.style.display = 'none';
     },
   },
@@ -111,7 +116,21 @@ export default {
   color: #663aab;
   text-decoration: none;
   cursor: pointer;
+  animation-name: rotate;
+  animation-duration: 2s;
+  animation-iteration-count: infinite;
+  animation-timing-function: linear;
 }
+
+@keyframes rotate {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
 .container {
   position: relative;
   text-align: center;
@@ -221,7 +240,7 @@ export default {
 }
 
 .image {
-  min-height: 256px;
+  min-height: 200px;
   background-size: cover;
   background-repeat: no-repeat;
   background-position: 50%;

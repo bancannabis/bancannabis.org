@@ -1,6 +1,5 @@
 <template>
   <div ref="stage" :class="$style.stage">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css" />
     <canvas v-if="isParticlesJSLoaded" id="canvas" ref="canvas" class="canvas" :class="$style.canvas"></canvas>
 
     <vue-grid text-align="center">
@@ -82,7 +81,7 @@ export default {
     watch(
       [theme],
       () => {
-        console.log(theme);
+        // console.log(theme);
       },
       { immediate: true },
     );
@@ -99,14 +98,6 @@ export default {
   head() {
     return {
       script: [
-        {
-          hid: 'animation',
-          src: 'js/animation.js',
-          defer: true,
-          callback: () => {
-            this.isParticlesJSLoaded = true;
-          },
-        },
         {
           hid: 'code',
           src: 'js/code.js',

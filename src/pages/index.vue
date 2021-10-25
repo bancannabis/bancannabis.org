@@ -1,7 +1,14 @@
 <template>
   <div>
     <stage />
-    <home-section image="images/welcome.png" video="videos/join.mp4" flip :class="$style.index">
+    <home-section
+      image="images/welcome.png"
+      video="videos/welcome.mp4"
+      flip
+      :class="$style.index"
+      class="aos-item"
+      data-animation="fadeInLeft"
+    >
       <vue-grid with-vertical-space>
         <vue-grid-row>
           <vue-grid-column>
@@ -103,6 +110,12 @@ export default {
         {
           name: 'twitter:description',
           content: 'Bancannabis.org | The Open Community in Cannabis Ecosystem',
+        },
+      ],
+      script: [
+        {
+          hid: 'animation-scroll',
+          src: 'js/animate-on-scroll.js',
         },
       ],
     };
