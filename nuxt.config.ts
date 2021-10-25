@@ -232,7 +232,7 @@ const config: NuxtConfig = {
   privateRuntimeConfig: {},
   pwa: {
     icon: {
-      fileName: 'images/bancannapp.png',
+      fileName: 'images/bancannapp_round.png',
     },
     workboxOptions: {
       skipWaiting: true,

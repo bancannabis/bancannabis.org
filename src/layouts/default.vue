@@ -462,6 +462,7 @@ export default defineComponent({
       }
     },
     async onLoginSubmit(formData: any, $strapi: any) {
+      this.registerRequestStatus = RequestStatus.INIT;
       this.loginRequestStatus = RequestStatus.PENDING;
       if (formData.username && formData.password) {
         try {
