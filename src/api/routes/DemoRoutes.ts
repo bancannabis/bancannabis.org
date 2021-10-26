@@ -109,22 +109,6 @@ export const DemoRoutes = (app: express.Application) => {
     register(_.body, $axios);
   });
 
-  app.post('/auth/forgot-password', (_: express.Request, res: express.Response) => {
-    const register = async (formData: any, $axios: any) => {
-      try {
-        const response = await $axios.post(strapiURL + '/auth/forgot-password', {
-          email: formData.email,
-        });
-        if (response.status === 200) {
-          res.status(200).json({ status: '200', des: 'succeed' });
-        }
-      } catch (e) {
-        res.status(500).json({});
-      }
-    };
-    register(_.body, $axios);
-  });
-
   app.post('/auth/refresh', (_: express.Request, res: express.Response) => {
     res.status(200).json({ access_token: 'accessToken2', refresh_token: 'refreshToken2' });
   });
@@ -134,7 +118,6 @@ export const DemoRoutes = (app: express.Application) => {
   });
 
   app.get('/auth/user', (_: express.Request, res: express.Response) => {
-    console.log('here');
     res.status(200).json({
       user: {
         username: user.username,

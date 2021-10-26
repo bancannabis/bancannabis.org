@@ -340,13 +340,13 @@ export default defineComponent({
           localStorage.clear();
           registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await $axios.post(process.env.strapiURL + '/auth/local', {
-            identifier: formData.username,
+            identifier: formData.username.split('@')[0],
             password: formData.password,
           });
           if (response) {
             app.$auth.setUserToken(response.data.jwt);
             app.$auth.setUser(response.data.user);
-            redirect('/dashboard');
+            app.router.push('/dashboard');
             loginRequestStatus.value = RequestStatus.INIT;
           }
           showLoginModal.value = false;
@@ -504,9 +504,6 @@ export default defineComponent({
           password: formData.password,
         });
         this.registerRequestStatus = RequestStatus.IDLE;
-        response.then((res) => {
-          // console.log(res);
-        });
         if (response) {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
@@ -522,67 +519,6 @@ export default defineComponent({
         });
       }
     },
-    /* async onLoginSubmit(formData: any, $strapi: any) {
-      this.registerRequestStatus = RequestStatus.INIT;
-      this.loginRequestStatus = RequestStatus.PENDING;
-      if (formData.username && formData.password) {
-        try {
-          localStorage.clear();
-          this.registerRequestStatus = RequestStatus.IDLE;
-          // const response: any = await this.$auth.loginWith('local', { data: formData });
-          const response = await $strapi.login({ identifier: formData.username, password: formData.password });
-          // console.log(formData);
-          if (response) {
-            const { jwt, user } = response;
-            this.$auth.setUserToken(jwt);
-            this.$auth.setUser(user);
-            this.$router.push('/dashboard');
-            this.showLoginModal = false;
-            this.registerRequestStatus = RequestStatus.INIT;
-          }
-        } catch (e) {
-          if (e.message === 'Request failed with status code 400') {
-            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
-          }
-          if (e.message === RequestStatus.ERROR500) {
-            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
-          } else {
-            addNotification({ title: 'Error during login!', text: e });
-          }
-          this.loginRequestStatus = RequestStatus.FAILED;
-        }
-      }
-      if (formData.username && !formData.password) {
-        try {
-          this.registerRequestStatus = RequestStatus.IDLE;
-          const response = await $strapi.forgotPassword({ email: formData.username });
-          if (response) {
-            addNotification({ title: 'Success!', text: 'Mail sended.', type: 'success' });
-          }
-          this.showLoginModal = false;
-        } catch (e) {
-          this.loginRequestStatus = RequestStatus.FAILED;
-          addNotification({ title: 'Error during send mail!', text: e });
-        }
-      }
-      if (formData.google) {
-        try {
-          localStorage.clear();
-        } catch (e) {
-          if (e.message === 'Request failed with status code 400') {
-            addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
-          }
-          if (e.message === RequestStatus.ERROR500) {
-            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
-          } else {
-            addNotification({ title: 'Error during login!', text: e });
-          }
-          this.loginRequestStatus = RequestStatus.FAILED;
-        } finally {
-          await this.$auth.loginWith('google');
-        }
-      }
-    }, */
   },
 });
 </script>
