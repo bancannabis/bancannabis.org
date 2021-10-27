@@ -4,7 +4,19 @@
     <vue-notification-stack />
 
     <vue-nav-bar>
-      <template v-if="user" slot="middle"> </template>
+      <!-- <template v-if="user" slot="middle"> </template> -->
+      <!-- <vue-menu
+        v-if="loggedIn"
+        slot="right"
+        :items="[
+          { label: 'Profile', value: 'profile' },
+          { label: '', value: 'separator' },
+          { label: 'Logout', value: 'logout' },
+        ]"
+        @item-click="itemClicked"
+      >
+        <vue-avatar slot="right" :src="avatar.url" :name="user.name" />
+      </vue-menu> -->
       <vue-dropdown-menu-nav
         v-if="loggedIn"
         slot="right"
@@ -229,8 +241,8 @@ import VueImage from '@/components/atoms/VueImage/VueImage.vue';
 import { useLocaleSwitch } from '@/composables/use-locale-switch';
 import VueBackToTop from '@/components/molecules/VueBackToTop/VueBackToTop.vue';
 import VueMailIcon from '@/components/atoms/icons/VueMailIcon/VueMailIcon.vue';
-
-// import { HTTPResponse } from '@nuxtjs/auth-next';
+// import VueMenu from '@/components/molecules/VueMenu/VueMenu.vue';
+// import VueAvatar from '@/components/molecules/VueAvatar/VueAvatar.vue';
 
 export default defineComponent({
   name: 'App',
@@ -256,11 +268,11 @@ export default defineComponent({
     VueFooter,
     VueFooterSuscribe,
     VueNotificationStack,
-    VueDropdownMenuNav,
     VueTabGroup,
     VueTabItem,
-    VueImage,
     VueMailIcon,
+    VueDropdownMenuNav,
+    VueImage,
   },
   setup() {
     const { redirect, app, store } = useContext();
@@ -344,17 +356,6 @@ export default defineComponent({
             redirect('/dashboard');
             loginRequestStatus.value = RequestStatus.INIT;
           }
-          /* registerRequestStatus.value = RequestStatus.IDLE;
-          const response: any = await $axios.post(process.env.strapiURL + '/auth/local', {
-            identifier: formData.username.split('@')[0],
-            password: formData.password,
-          });
-          if (response) {
-            app.$auth.setUserToken(response.data.jwt);
-            app.$auth.setUser(response.data.user);
-            app.router.push('/dashboard');
-            loginRequestStatus.value = RequestStatus.INIT;
-          } */
           showLoginModal.value = false;
         } catch (e) {
           if (e.message === 'Request failed with status code 400') {

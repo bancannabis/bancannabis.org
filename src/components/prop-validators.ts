@@ -32,6 +32,7 @@ export const textStyles = [
   'support',
 ];
 export const fontWeights = ['regular', 'semi-bold'];
+export const shirtSizes = ['sm', 'md', 'lg'];
 export const brandSpacings = [
   '0',
   '2',
@@ -86,6 +87,10 @@ export const verticalAlignmentValidator = (value: string) => {
 
 export const breakpointValidator = (value: string) => {
   return brandBreakpoints.includes(value);
+};
+
+export const shirtSizeValidator = (value: string) => {
+  return shirtSizes.includes(value.toLowerCase());
 };
 
 export const spacingValidator = (spacingProp: string | number) => {
