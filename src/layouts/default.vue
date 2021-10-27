@@ -4,19 +4,6 @@
     <vue-notification-stack />
 
     <vue-nav-bar>
-      <!-- <template v-if="user" slot="middle"> </template> -->
-      <!-- <vue-menu
-        v-if="loggedIn"
-        slot="right"
-        :items="[
-          { label: 'Profile', value: 'profile' },
-          { label: '', value: 'separator' },
-          { label: 'Logout', value: 'logout' },
-        ]"
-        @item-click="itemClicked"
-      >
-        <vue-avatar slot="right" :src="avatar.url" :name="user.name" />
-      </vue-menu> -->
       <vue-dropdown-menu-nav
         v-if="loggedIn"
         slot="right"
@@ -581,6 +568,12 @@ export default defineComponent({
   border: none !important;
   box-shadow: rgba(6, 24, 44, 0.4) 0px 0px 0px 2px, rgba(6, 24, 44, 0.65) 0px 4px 6px -1px,
     rgba(255, 255, 255, 0.08) 0px 1px 0px inset;
+  &:hover {
+    opacity: 100 !important;
+    background: none !important;
+    color: none !important;
+    border-color: none !important;
+  }
 }
 
 .dropdown {
