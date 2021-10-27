@@ -31,33 +31,36 @@
                     <vue-image id="profile_imagen" :src="avatar.url" :native="false" :class="$style.profile_img" />
                   </label>
                 </vue-grid-row>
-
+                <br />
+                <br />
                 <vue-grid-row>
-                  <vue-input
-                    id="username"
-                    :label="$t('common.username.placeholder')"
-                    :placeholder="user.username"
-                    name="username"
-                    :disabled="true"
-                  />
-                  <vue-input
-                    id="name"
-                    v-model="name"
-                    name="name"
-                    type="string"
-                    :label="$t('common.name.placeholder')"
-                    :placeholder="user.name"
-                    :disabled="disabled"
-                  />
-                  <vue-input
-                    id="lastname"
-                    v-model="lastname"
-                    name="lastname"
-                    type="string"
-                    :label="$t('common.lastname.placeholder')"
-                    :placeholder="user.lastname"
-                    :disabled="disabled"
-                  />
+                  <vue-grid-column :class="$style.column">
+                    <vue-input
+                      id="username"
+                      :label="$t('common.username.placeholder')"
+                      :placeholder="user.username"
+                      name="username"
+                      :disabled="true"
+                    />
+                    <vue-input
+                      id="name"
+                      v-model="name"
+                      name="name"
+                      type="string"
+                      :label="$t('common.name.placeholder')"
+                      :placeholder="user.name"
+                      :disabled="disabled"
+                    />
+                    <vue-input
+                      id="lastname"
+                      v-model="lastname"
+                      name="lastname"
+                      type="string"
+                      :label="$t('common.lastname.placeholder')"
+                      :placeholder="user.lastname"
+                      :disabled="disabled"
+                    />
+                  </vue-grid-column>
                 </vue-grid-row>
               </vue-grid-column>
             </vue-card-body>
@@ -275,7 +278,7 @@ export default defineComponent({
   margin-left: auto;
   margin-right: auto;
   margin-top: -4em;
-  width: 15em;
+  max-width: 25rem;
 }
 
 .row {
@@ -289,7 +292,7 @@ export default defineComponent({
 
 .card_big {
   border-radius: 10px !important;
-  min-width: auto;
+  width: auto !important;
   min-height: 40rem;
   //background-image: url('/images/card_bg_purple.png');
   background-repeat: no-repeat;
@@ -301,8 +304,6 @@ export default defineComponent({
 
 .card_big_body {
   margin-top: 0em;
-  margin-right: 4em;
-  margin-left: 4em;
 }
 
 .card_big_footer {
