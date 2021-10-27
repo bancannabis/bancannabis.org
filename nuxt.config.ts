@@ -48,7 +48,7 @@ const config: NuxtConfig = {
         endpoints: {
           login: { url: '/auth/local', method: 'post' },
           refresh: { url: '/auth/refresh', method: 'post' },
-          user: { url: '/auth/user', method: 'get' },
+          user: { url: '/users/me', method: 'get' },
           logout: { url: '/auth/logout', method: 'post' },
           register: { url: '/auth/local/register', method: 'post' },
         },

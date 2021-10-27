@@ -22,22 +22,14 @@
             <vue-card-body :class="$style.card_big_body">
               <vue-text>{{ $t('App.core.dashboard.card-t1') }}</vue-text>
               <br />
+              <br />
               <vue-text>
                 {{ $t('App.core.dashboard.card-t2') }}
               </vue-text>
+              <br />
+              <br />
               <vue-text>
-                <ul :class="$style.ul">
-                  <li>
-                    <nuxt-link :to="localePath('/dashboardWallet')">
-                      <vue-icon-wallet /> {{ $t('App.core.dashboard.card-l1') }}
-                    </nuxt-link>
-                  </li>
-                  <br />
-                  <li>
-                    <nuxt-link :to="localePath('/dashboardBlog')"><vue-icon-blog /> Blog</nuxt-link>
-                  </li>
-                  <br />
-                </ul>
+                {{ $t('App.core.dashboard.card-t3') }}
               </vue-text>
             </vue-card-body>
           </vue-card>
@@ -64,8 +56,8 @@ import VueCardBody from '@/components/molecules/VueCard/VueCardBody/VueCardBody.
 import VueCarousel from '@/components/organisms/VueCarousel/VueCarousel.vue';
 import { ICarouselImage } from '@/components/organisms/VueCarousel/ICarouselImage';
 import VueText from '@/components/atoms/VueText/VueText.vue';
-import VueIconWallet from '@/components/atoms/icons/VueIconWallet/VueIconWallet.vue';
-import VueIconBlog from '@/components/atoms/icons/VueIconBlog/VueIconBlog.vue';
+// import VueIconWallet from '@/components/atoms/icons/VueIconWallet/VueIconWallet.vue';
+// import VueIconBlog from '@/components/atoms/icons/VueIconBlog/VueIconBlog.vue';
 
 export default defineComponent({
   name: 'Dashboard',
@@ -79,8 +71,6 @@ export default defineComponent({
     VueCardBody,
     VueCarousel,
     VueText,
-    VueIconWallet,
-    VueIconBlog,
   },
   middleware: 'auth',
   props: {

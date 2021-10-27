@@ -338,7 +338,13 @@ export default defineComponent({
       if (formData.username && formData.password) {
         try {
           localStorage.clear();
-          registerRequestStatus.value = RequestStatus.IDLE;
+          formData.identifier = formData.username.split('@')[0];
+          const response: any = await app.$auth.loginWith('local', { data: formData });
+          if (response) {
+            redirect('/dashboard');
+            loginRequestStatus.value = RequestStatus.INIT;
+          }
+          /* registerRequestStatus.value = RequestStatus.IDLE;
           const response: any = await $axios.post(process.env.strapiURL + '/auth/local', {
             identifier: formData.username.split('@')[0],
             password: formData.password,
@@ -348,14 +354,14 @@ export default defineComponent({
             app.$auth.setUser(response.data.user);
             app.router.push('/dashboard');
             loginRequestStatus.value = RequestStatus.INIT;
-          }
+          } */
           showLoginModal.value = false;
         } catch (e) {
           if (e.message === 'Request failed with status code 400') {
             addNotification({ title: 'Error during login!', text: 'Verify Email or Password.' });
           }
           if (e.message === RequestStatus.ERROR500) {
-            addNotification({ title: 'We are Down !', text: 'Please try again later.' });
+            addNotification({ title: 'We are Down !', text: e });
           } else {
             addNotification({ title: 'Error during login!', text: e });
           }
