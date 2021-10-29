@@ -396,8 +396,8 @@ export default defineComponent({
         registerRequestStatus.value = RequestStatus.INIT;
       });
     };
-    const redirectToProfile = () => {
-      redirect('/profile');
+    const redirectTo = (to: string) => {
+      redirect(to);
     };
     watch(
       [theme, footer, locale],
@@ -425,7 +425,7 @@ export default defineComponent({
       onLocaleSwitch,
       onResetSubmit,
       onLogoutClick,
-      redirectToProfile,
+      redirectTo,
       onThemeChange,
       onLoginSubmit,
       strapiURL,
@@ -483,24 +483,29 @@ export default defineComponent({
         this.showLoginModal = true;
       }
       if (e.value === 'profile') {
-        this.redirectToProfile();
+        this.redirectTo('/profile');
       }
     },
-    redirectToSale() {
-      window.open('https://e-groweed.com/grower/', '_blank');
-    },
-    onRegisterSubmit(formData: any) {
+    async onRegisterSubmit(formData: any) {
       this.registerRequestStatus = RequestStatus.PENDING;
       try {
-        const response = $axios.post(process.env.strapiURL + '/auth/local/register', {
+        const response = await $axios.post(process.env.strapiURL + '/auth/local/register', {
           username: formData.email.split('@')[0],
           email: formData.email,
           password: formData.password,
         });
         this.registerRequestStatus = RequestStatus.IDLE;
+        const userDetails = {
+          email: formData.email,
+          password: formData.password,
+          referral: '',
+          metamask: false,
+        };
+        // registrar usuario en egroweed
+        await $axios.post('https://e-groweed.com:3800/api/v1' + '/user', userDetails);
         if (response) {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
-          $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
+          // $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
           // send internarnal mail to bancannabis.co 'this will be internal in strapi -fix
           this.registerRequestStatus = RequestStatus.SUCCEED;
           this.mailRegistered = formData.email;
