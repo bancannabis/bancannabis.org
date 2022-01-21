@@ -1,13 +1,14 @@
 consoleText(['Blockchain', 'Cannabis', 'Re-Evolution.'], 'text',['purple','darkgreen']);
 
 function consoleText(words, id, colors) {
+  console.log(id)
   if (colors === undefined) colors = ['#fff'];
   var visible = true;
   var con = document.getElementById('console');
   var letterCount = 1;
   var x = 1;
   var waiting = false;
-  var target = document.getElementById(id)
+  var target = document.getElementById(`.${id}`)
   target.setAttribute('style', 'color:' + colors[0])
   window.setInterval(function() {
 

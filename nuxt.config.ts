@@ -121,6 +121,9 @@ const config: NuxtConfig = {
   css: ['uikit/dist/css/uikit.min.css', 'uikit/dist/css/uikit.css', 'assets/cssBlog/main.css'],
   head: {
     title: process.env.npm_package_name || '',
+    script: [
+      { src: "https://d335luupugsy2.cloudfront.net/js/loader-scripts/c309b26c-6650-40dc-8414-e49dec0aded6-loader.js", },
+    ],
     link: [
       {
         rel: 'stylesheet',
