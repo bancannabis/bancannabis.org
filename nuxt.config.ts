@@ -128,10 +128,11 @@ const config: NuxtConfig = {
           'https://fonts.googleapis.com/css?family=Inter:300,400,500,600,700,800|Lora:300,400,500,600,700,800&display=swap',
       },
     ],
-  },
-  body: {
     script: [
-      { src: "https://d335luupugsy2.cloudfront.net/js/loader-scripts/c309b26c-6650-40dc-8414-e49dec0aded6-loader.js", },
+      {
+        src: "https://d335luupugsy2.cloudfront.net/js/loader-scripts/c309b26c-6650-40dc-8414-e49dec0aded6-loader.js",
+        body: true,
+      },
     ],
   },
   htmlValidator: {
