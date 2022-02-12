@@ -24,8 +24,8 @@
 
     <nuxt :class="$style.content" />
 
-    <vue-footer-Suscribe v-if="!loggedIn" />
-    <vue-footer v-if="loggedIn" />
+    <!--<vue-footer-Suscribe v-if="!loggedIn" />
+    <vue-footer v-if="loggedIn" />-->
 
     <vue-sidebar>
       <vue-sidebar-group :title="$t('App.core.sidebar-t1')">
@@ -204,8 +204,8 @@ import { addNotification } from '@/components/molecules/VueNotificationStack/uti
 import VueNavBar from '@/components/organisms/VueNavBar/VueNavBar.vue';
 import VueTabGroup from '@/components/organisms/VueTabGroup/VueTabGroup.vue';
 import VueTabItem from '@/components/organisms/VueTabGroup/VueTabItem/VueTabItem.vue';
-import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
-import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
+// import VueFooter from '@/components/organisms/VueFooter/VueFooter.vue';
+// import VueFooterSuscribe from '@/components/organisms/VueFooterSuscribe/VueFooterSuscribe.vue';
 import VueNotificationStack from '@/components/molecules/VueNotificationStack/VueNotificationStack.vue';
 import VueDropdownMenuNav from '@/components/molecules/VueDropdownMenuNav/VueDropdownMenuNav.vue';
 import VueSidebar from '@/components/organisms/VueSidebar/VueSidebar.vue';
@@ -252,8 +252,8 @@ export default defineComponent({
     VueSidebarGroup,
     VueSidebar,
     VueNavBar,
-    VueFooter,
-    VueFooterSuscribe,
+    // VueFooter,
+    // VueFooterSuscribe,
     VueNotificationStack,
     VueTabGroup,
     VueTabItem,

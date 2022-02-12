@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue';
+import VueBreadcrumb from './VueBreadcrumb.vue';
 import ComponentDocs from '@/assets/design-system/docs/components/ComponentDocs.vue';
 import { IItem } from '@/interfaces/IItem';
 import VueStack from '@/components/layout/VueStack/VueStack.vue';
-import VueBreadcrumb from './VueBreadcrumb.vue';
 
 const story = storiesOf('Navigation|Breadcrumb', module);
 

@@ -1,5 +1,7 @@
 <template>
-  <div>
+  <div id="divContent">
+    <iframe src="https://bcatoken.com/index-org.html" style="position:absolute; top:0px" width="100%" height="100%" />
+    <!--
     <stage />
     <home-section image="images/welcome.png" video="videos/welcome.mp4" flip :class="$style.index">
       <vue-grid with-vertical-space>
@@ -36,29 +38,34 @@
         </vue-grid-row>
       </vue-grid>
     </home-section>
+    -->
   </div>
 </template>
 
 <script lang="ts">
 /* istanbul ignore file */
 // import { ref } from '@nuxtjs/composition-api';
+/*
 import Stage from '../components/organisms/Stage/Stage.vue';
 import HomeSection from '@/components/organisms/HomeSection/HomeSection.vue';
 import VueText from '@/components/atoms/VueText/VueText.vue';
 import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
 import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
 import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
+*/
 
 export default {
   name: 'HomePage',
   auth: false,
   components: {
+    /*
     VueGridColumn,
     VueGridRow,
     VueGrid,
     VueText,
     HomeSection,
     Stage,
+    */
   },
   head() {
     return {

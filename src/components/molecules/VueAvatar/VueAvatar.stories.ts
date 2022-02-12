@@ -1,11 +1,11 @@
 import { storiesOf } from '@storybook/vue';
+import VueAvatar from './VueAvatar.vue';
 import ComponentDocs from '@/assets/design-system/docs/components/ComponentDocs.vue';
 import { IItem } from '@/interfaces/IItem';
 import VueStack from '@/components/layout/VueStack/VueStack.vue';
 import VueTiles from '@/components/layout/VueTiles/VueTiles.vue';
 import VueInput from '@/components/input-and-actions/VueInput/VueInput.vue';
 import VueSelect from '@/components/input-and-actions/VueSelect/VueSelect.vue';
-import VueAvatar from './VueAvatar.vue';
 
 const story = storiesOf('Data Display|Avatar', module) as any;
 

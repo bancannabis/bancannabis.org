@@ -62,13 +62,14 @@ export const DemoRoutes = (app: express.Application) => {
   app.get('/users/me', (_: express.Request, res: express.Response) => {
     const user = async (formData: any, $axios: any) => {
       try {
-        const response = await $axios.get(strapiURL + '/users/me', { headers: {
-          "Authorization": _.headers.authorization
-          }
+        const response = await $axios.get(strapiURL + '/users/me', {
+          headers: {
+            Authorization: _.headers.authorization,
+          },
         });
         if (response.status === 200) {
           res.status(200).json({
-            user: response.data
+            user: response.data,
           });
         }
       } catch (e) {
@@ -81,5 +82,4 @@ export const DemoRoutes = (app: express.Application) => {
     };
     user(_.body, $axios);
   });
-
 };

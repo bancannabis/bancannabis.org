@@ -1,8 +1,8 @@
 import { storiesOf } from '@storybook/vue';
 import { action } from '@storybook/addon-actions';
+import VueMenu from './VueMenu.vue';
 import ComponentDocs from '@/assets/design-system/docs/components/ComponentDocs.vue';
 import { IItem } from '@/interfaces/IItem';
-import VueMenu from './VueMenu.vue';
 
 const story = storiesOf('Data Display|Menu', module) as any;
 
