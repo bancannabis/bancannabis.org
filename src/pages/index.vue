@@ -8,7 +8,7 @@
         <vue-grid-row>
           <vue-grid-column>
             <vue-text appearance="h6">
-              {{ $t('components.home.tittle') }}
+              {{ $t('components.home.tittle') }} 
             </vue-text>
           </vue-grid-column>
         </vue-grid-row>
