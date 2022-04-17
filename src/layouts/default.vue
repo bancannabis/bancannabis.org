@@ -45,7 +45,7 @@
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/Cannaverse">
           <vue-icon-code />
-          Cannaverse
+          Cannaverse (Metaverse of Cannabis)
         </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/bcatoken">
           <vue-icon-code />
