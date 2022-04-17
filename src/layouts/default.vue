@@ -43,6 +43,14 @@
           <vue-icon-code />
           E-groweed
         </vue-sidebar-group-item>
+        <vue-sidebar-group-item to="/Cannaverse">
+          <vue-icon-code />
+          Cannaverse
+        </vue-sidebar-group-item>
+        <vue-sidebar-group-item to="/bcatoken">
+          <vue-icon-code />
+          Get BCA token
+        </vue-sidebar-group-item>
         <vue-sidebar-group-item to="/dashboardBlog">
           <vue-icon-code />
           Blog
