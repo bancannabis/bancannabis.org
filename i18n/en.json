@@ -29,7 +29,7 @@
   "App.core.dashboard.card-l4": "Profile",
   "App.core.dashboard.projects": "Active projects",
   "App.core.wallet.card-conection": "Conected to: ",
-  "auth.LoginForm.title": "Login",
+  "auth.LoginForm.title": "Login to Bancannabis.org",
   "auth.LoginForm.forgot": "Forgot password?",
   "auth.LoginForm.error": "Incorrect password or username, please try again.",
   "auth.RegisterForm.title": "Sign Up",

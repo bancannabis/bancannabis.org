@@ -2,7 +2,7 @@
   "App.core.description": "Ein professionelles Boilerplate für universelle, progressive-web-apps mit Vue.JS",
   "auth.LoginForm.cta": "Anmelden",
   "auth.LoginForm.password.error": "The password has to have at least 6 characters",
-  "auth.LoginForm.title": "Login",
+  "auth.LoginForm.title": "Login to Bancannabis.org",
   "auth.LoginForm.username.error": "The username can not be empty",
   "common.Apollo": "Apollo Example",
   "common.cancel": "Cancel",

@@ -1,6 +1,6 @@
 <template>
   <div id="divContent">
-    <iframe src="http://cannaverso.space" style="position:absolute; top:0px" width="100%" height="100%" />
+    <iframe src="https://cannaverso.space" style="position:absolute; top:0px" width="100%" height="100%" />
   </div>
   <!--<div :class="$style.dashboard">
     <stage-egroweed />

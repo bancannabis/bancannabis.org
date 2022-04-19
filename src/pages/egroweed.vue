@@ -1,5 +1,8 @@
 <template>
-  <div :class="$style.dashboard">
+  <div id="divContent">
+    <iframe src="https://e-groweed.com/dapp" style="position:absolute; top:0px" width="100%" height="100%" />
+  </div>
+  <!--<div :class="$style.dashboard">
     <stage-egroweed />
     <vue-grid with-vertical-space>
       <home-section
@@ -58,30 +61,34 @@
         </vue-grid>
       </home-section>
     </vue-grid>
-  </div>
+  </div>-->
 </template>
 
 <script lang="ts">
 /* istanbul ignore file */
 // import { ref } from '@nuxtjs/composition-api';
 import { useContext } from '@nuxtjs/composition-api';
-import StageEgroweed from '../components/organisms/StageEgroweed/StageEgroweed.vue';
-import HomeSection from '@/components/organisms/HomeSection/HomeSection.vue';
-import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
-import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
-import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
-import VueText from '@/components/atoms/VueText/VueText.vue';
+/*
+  import StageEgroweed from '../components/organisms/StageEgroweed/StageEgroweed.vue';
+  import HomeSection from '@/components/organisms/HomeSection/HomeSection.vue';
+  import VueGrid from '@/components/organisms/VueGrid/VueGrid.vue';
+  import VueGridRow from '@/components/organisms/VueGrid/VueGridRow/VueGridRow.vue';
+  import VueGridColumn from '@/components/organisms/VueGrid/VueGridColumn/VueGridColumn.vue';
+  import VueText from '@/components/atoms/VueText/VueText.vue';
+*/
 
 export default {
   name: 'Egroweed',
   auth: false,
   components: {
-    StageEgroweed,
-    VueGridColumn,
-    VueGridRow,
-    VueGrid,
-    HomeSection,
-    VueText,
+    /*
+      StageEgroweed,
+      VueGridColumn,
+      VueGridRow,
+      VueGrid,
+      HomeSection,
+      VueText,
+    */
   },
   setup() {
     const { store } = useContext();
