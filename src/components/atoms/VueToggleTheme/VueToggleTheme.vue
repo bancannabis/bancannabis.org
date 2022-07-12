@@ -60,7 +60,7 @@ C499.712,162.12,461.392,89.64,401.92,42.776z"
           <div class="sun">
             <!-- Generator: Adobe Illustrator 19.0.0, SVG Export Plug-In . SVG Version: 6.00 Build 0)  -->
             <svg
-              id="Capa_1"
+              id="Capa_2"
               version="1.1"
               xmlns="http://www.w3.org/2000/svg"
               xmlns:xlink="http://www.w3.org/1999/xlink"

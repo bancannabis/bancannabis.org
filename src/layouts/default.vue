@@ -17,6 +17,23 @@
       >
         <vue-image id="profile_imagen_nav" :src="avatar.url" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu-nav>
+
+      <vue-button @click="toHome()" slot="left" color="primary">
+        Home
+      </vue-button>
+
+      <vue-button @click="toCannaverse()" slot="left" color="neutral" style="margin-left: 1%;">
+        Cannaverse
+      </vue-button>
+
+      <vue-button @click="toBCAToken()" slot="left" color="neutral" style="margin-left: 1%;">
+        BCA Token
+      </vue-button>
+
+      <vue-button @click="toBuyMiniGod()" slot="left" color="neutral" style="margin-left: 1%;">
+        Get a Membership
+      </vue-button>
+
       <vue-button v-if="!loggedIn && !weAreOffline" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
       </vue-button>
@@ -27,14 +44,14 @@
     <!--<vue-footer-Suscribe v-if="!loggedIn" />
     <vue-footer v-if="loggedIn" />-->
 
-    <vue-sidebar>
+    <vue-sidebar v-show="1 == 0">
       <vue-sidebar-group :title="$t('App.core.sidebar-t1')">
         <vue-sidebar-group-item>
           <vue-select id="lang" name="lang" :items="languages" :value="$i18n.locale" @input="onLocaleSwitch" />
         </vue-sidebar-group-item>
       </vue-sidebar-group>
 
-      <vue-sidebar-group :title="$t('App.core.sidebar-t2')">
+      <!-- <vue-sidebar-group :title="$t('App.core.sidebar-t2')">
         <vue-sidebar-group-item to="/">
           <vue-icon-code />
           Bancannabis
@@ -55,7 +72,7 @@
           <vue-icon-code />
           Blog
         </vue-sidebar-group-item>
-      </vue-sidebar-group>
+      </vue-sidebar-group> -->
 
       <vue-sidebar-group v-if="loggedIn" :title="$t('App.core.sidebar-t3')">
         <vue-sidebar-group-item to="/dashboard">
@@ -448,6 +465,7 @@ export default defineComponent({
       mailRegistered: '',
       weAreOffline: false,
       access_token: this.$route.query.access_token,
+      screenView: 0,
     };
   },
   head: {},
@@ -494,6 +512,30 @@ export default defineComponent({
         this.redirectTo('/profile');
       }
     },
+    toCannaverse() {
+      if (this.screenView !== 1) {
+        this.screenView = 1;
+        this.redirectTo('/Cannaverse');
+      }
+    },
+    toBCAToken() {
+      if (this.screenView !== 2) {
+        this.screenView = 2;
+        this.redirectTo('/bcatoken');
+      }
+    },
+    toBuyMiniGod() {
+      if (this.screenView !== 3) {
+        this.screenView = 3;
+        this.redirectTo('/buyminigod');
+      }
+    },
+    toHome() {
+      if (this.screenView !== 0) {
+        this.screenView = 0;
+        this.redirectTo('/');
+      }
+    },
     async onRegisterSubmit(formData: any) {
       this.registerRequestStatus = RequestStatus.PENDING;
       try {
@@ -509,15 +551,15 @@ export default defineComponent({
           referral: '',
           metamask: false,
         };
-        // registrar usuario en egroweed
-        await $axios.post('https://e-groweed.com:3800/api/v1' + '/user', userDetails);
         if (response) {
           addNotification({ title: 'Success!', text: 'Registered.', type: 'success' });
           // $axios.get(process.env.strapiURL + '/send-mail?email=' + formData.email);
           // send internarnal mail to bancannabis.co 'this will be internal in strapi -fix
+          // registrar usuario en egroweed
           this.registerRequestStatus = RequestStatus.SUCCEED;
           this.mailRegistered = formData.email;
         }
+        await $axios.post('https://e-groweed.com:3800/api/v1' + '/user', userDetails);
       } catch (e) {
         this.registerRequestStatus = RequestStatus.FAILED;
         addNotification({
