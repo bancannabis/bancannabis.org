@@ -18,7 +18,7 @@
         <vue-image id="profile_imagen_nav" :src="avatar.url" :native="true" :class="$style.profile_img" />
       </vue-dropdown-menu-nav>
 
-      <vue-button @click="toHome()" slot="left" color="primary">
+      <!-- <vue-button @click="toHome()" slot="left" color="primary">
         Home
       </vue-button>
 
@@ -36,7 +36,7 @@
 
       <vue-button v-if="!loggedIn && !weAreOffline" slot="right" color="primary" @click="showLoginModal = true">
         {{ $t('auth.LoginForm.title') }}
-      </vue-button>
+      </vue-button>-->
     </vue-nav-bar>
 
     <nuxt :class="$style.content" />
