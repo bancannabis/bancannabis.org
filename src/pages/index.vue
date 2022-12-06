@@ -1,6 +1,6 @@
 <template>
   <div id="divContent">
-    <iframe src="https://bcatoken.com/index-org.html" style="position:absolute; top:0px" width="100%" height="100%" />
+    <iframe src="https://e-groweed.com" style="position:absolute; top:0px" width="100%" height="100%" />
     <!--
     <stage />
     <home-section image="images/welcome.png" video="videos/welcome.mp4" flip :class="$style.index">
